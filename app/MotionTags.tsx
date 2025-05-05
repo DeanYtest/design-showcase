@@ -1,15 +1,12 @@
-// app/MotionTags.tsx
 'use client';
 
 import { motion } from 'framer-motion';
-import { HTMLAttributes } from 'react';
+import { HTMLMotionProps, motion as fmMotion } from 'framer-motion';
 
-type Props = HTMLAttributes<HTMLElement>;
+export const MotionH1 = (props: HTMLMotionProps<'h1'>) => {
+  return <fmMotion.h1 {...props} />;
+};
 
-export const MotionH1 = ({ children, ...rest }: Props) => (
-  <motion.h1 {...rest}>{children}</motion.h1>
-);
-
-export const MotionP = ({ children, ...rest }: Props) => (
-  <motion.p {...rest}>{children}</motion.p>
-);
+export const MotionP = (props: HTMLMotionProps<'p'>) => {
+  return <fmMotion.p {...props} />;
+};
