@@ -24,10 +24,10 @@ export default function Portfolio() {
           嗨，我是小設，一位平面設計師
         </motion.h1>
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2 }}
-          className="text-lg md:text-xl text-gray-600"
+           initial={{ opacity: 0, y: 20 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ duration: 1.2 }}
+           {...{ className: "text-lg md:text-xl text-gray-600" }}
         >
           我專注於品牌識別、社群視覺與包裝設計
         </motion.p>
