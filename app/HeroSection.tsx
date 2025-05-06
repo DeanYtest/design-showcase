@@ -21,13 +21,15 @@ export default function HeroSection() {
     return () => clearInterval(iv)
   }, [])
 
-  const prev = () => setIdx((i) => (i - 1 + backgrounds.length) % backgrounds.length)
+  const prev = () =>
+    setIdx((i) => (i - 1 + backgrounds.length) % backgrounds.length)
   const next = () => setIdx((i) => (i + 1) % backgrounds.length)
 
   return (
     <section className="relative h-screen overflow-hidden">
-      {/* 背景圖片輪播，淡入淡出 */}
-      <motion.div<HTMLDivElement>
+      {/* 背景淡入淡出 */}
+      {/* @ts-ignore */}
+      <motion.div
         key={idx}
         className="absolute inset-0 bg-cover bg-center transition-all duration-700"
         style={{ backgroundImage: `url(${backgrounds[idx]})` }}
@@ -40,7 +42,7 @@ export default function HeroSection() {
       {/* 深灰→淺灰 漸層覆蓋 */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-500 opacity-80" />
 
-      {/* 文字區塊 */}
+      {/* 左側文字 */}
       <div className="relative z-10 container mx-auto px-4 max-w-2xl h-full flex items-center">
         <div>
           <motion.h1
@@ -79,7 +81,7 @@ export default function HeroSection() {
         <ChevronRightIcon className="w-6 h-6 text-white animate-pulse" />
       </button>
 
-      {/* 波浪 SVG：純黑填充，幅度較大 */}
+      {/* 波浪 SVG 漂浮 */}
       <motion.div
         className="absolute bottom-0 left-0 w-full overflow-hidden leading-none"
         animate={{ y: [0, -20, 0] }}
