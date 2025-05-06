@@ -1,9 +1,9 @@
 // app/layout.tsx
-import './globals.css'   // ← 引入你的全域樣式
+import './globals.css'    // ← 確保引入 globals.css
 
 export const metadata = {
-  title: 'My Portfolio',
-  description: 'Personal design showcase',
+  title: '小設 設計作品集',
+  description: '個人品牌視覺設計作品集',
 }
 
 export default function RootLayout({
@@ -12,8 +12,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="zh-Hant">  {/* ← 語系改為繁體中文 */}
-      <body>{children}</body>
+    <html lang="zh-Hant">
+      <head>
+        {/* 你也可以在這裡加入其他 meta、favicon */}
+      </head>
+      <body className="bg-white text-gray-900 antialiased">
+        {children}
+      </body>
     </html>
   )
 }

@@ -8,29 +8,19 @@ export default function ContactSection() {
         <form
           className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto"
           onSubmit={(e) => {
-            e.preventDefault();
-            // TODO: 串接 API 或 第三方服務
+            e.preventDefault()
           }}
         >
           <input
-            type="text"
-            name="name"
-            placeholder="您的名字"
-            required
+            type="text" name="name" placeholder="您的名字" required
             className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-primary outline-none"
           />
           <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            required
+            type="email" name="email" placeholder="Email" required
             className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-primary outline-none"
           />
           <textarea
-            name="message"
-            rows={4}
-            placeholder="想說的話…"
-            required
+            name="message" rows={4} placeholder="想說的話…" required
             className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-primary outline-none md:col-span-2"
           />
           <button
