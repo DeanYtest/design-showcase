@@ -4,6 +4,13 @@
 import { useEffect, useState } from 'react'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 
+// 把你的波浪 SVG 定义成字符串，后面会重复两次拼接
+const WAVE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+  <path fill="#000" fill-opacity="1"
+    d="M0,96L48,117.3C96,139,192,181,288,192C384,203,480,181,576,197.3C672,213,768,267,864,256C960,245,1056,171,1152,154.7C1248,139,1344,181,1392,202.7L1440,224L1440,320L0,320Z"
+  />
+</svg>`
+
 const backgrounds = [
   '/images/hero1.jpg',
   '/images/hero2.jpg',
@@ -21,7 +28,10 @@ export default function HeroSection() {
     return () => clearInterval(iv)
   }, [])
 
-  const prev = () => setIdx((i) => (i - 1 + backgrounds.length) % backgrounds.length)
+  const prev = () =>
+    setIdx((i) => {
+      return i - 1 < 0 ? backgrounds.length - 1 : i - 1
+    })
   const next = () => setIdx((i) => (i + 1) % backgrounds.length)
 
   return (
@@ -41,7 +51,12 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-500 opacity-80 z-10" />
 
       {/* 3. 無縫左右滑動海浪背景 (z-20) */}
-      <div className="absolute bottom-0 left-0 w-full h-32 wave-bg z-20" />
+      <div className="absolute bottom-0 left-0 w-full h-[320px] overflow-hidden z-20">
+        <div
+          className="flex w-[200%] h-full animate-wave"
+          dangerouslySetInnerHTML={{ __html: WAVE_SVG + WAVE_SVG }}
+        />
+      </div>
 
       {/* 4. 文字 & 箭號 (z-30) */}
       <div className="relative z-30 container mx-auto px-4 max-w-2xl h-full flex items-center">
@@ -50,11 +65,11 @@ export default function HeroSection() {
             Hi<br />
             This is Chu
           </h1>
-          <p className="text-lg text-white/90">
-            專注故事感視覺設計
-          </p>
+          <p className="text-lg text-white/90">專注故事感視覺設計</p>
         </div>
       </div>
+
+      {/* 左右控制箭頭 */}
       <button
         onClick={prev}
         className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 p-3 rounded-full transition z-30"
