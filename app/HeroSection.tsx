@@ -5,6 +5,11 @@ import { useEffect, useState } from 'react'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import { motion } from 'framer-motion'
 
+// 將 motion.div/h1/p 先轉成 any，跳過 TS 屬性檢查
+const MotionDiv: any = motion.div
+const MotionH1: any = motion.h1
+const MotionP: any = motion.p
+
 const backgrounds = [
   '/images/hero1.jpg',
   '/images/hero2.jpg',
@@ -28,10 +33,9 @@ export default function HeroSection() {
   return (
     <section className="relative h-screen overflow-hidden">
       {/* 背景淡入淡出 */}
-      {/* @ts-ignore */}
-      <motion.div
+      <MotionDiv
         key={idx}
-        className="absolute inset-0 bg-cover bg-center transition-all duration-700"
+        className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
         style={{ backgroundImage: `url(${backgrounds[idx]})` }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -39,14 +43,13 @@ export default function HeroSection() {
         transition={{ duration: 1 }}
       />
 
-      {/* 漸層覆蓋 */}
+      {/* 深灰→淺灰 漸層覆蓋 */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-500 opacity-80" />
 
-      {/* 文字 */}
+      {/* 左側文字 */}
       <div className="relative z-10 container mx-auto px-4 max-w-2xl h-full flex items-center">
         <div>
-          {/* @ts-ignore */}
-          <motion.h1
+          <MotionH1
             className="text-5xl font-bold text-white leading-tight mb-4"
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -54,20 +57,19 @@ export default function HeroSection() {
           >
             Hi<br />
             This is Chu
-          </motion.h1>
-          {/* @ts-ignore */}
-          <motion.p
+          </MotionH1>
+          <MotionP
             className="text-lg text-white/90"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
           >
             專注故事感視覺設計
-          </motion.p>
+          </MotionP>
         </div>
       </div>
 
-      {/* 箭號 */}
+      {/* 左右箭號 */}
       <button
         onClick={prev}
         className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 p-3 rounded-full transition z-10"
@@ -83,11 +85,11 @@ export default function HeroSection() {
         <ChevronRightIcon className="w-6 h-6 text-white animate-pulse" />
       </button>
 
-      {/* 波浪漂浮 */}
-      {/* @ts-ignore */}
-      <motion.div
+      {/* 波浪 SVG 漂浮 */}
+      <MotionDiv
         className="absolute bottom-0 left-0 w-full overflow-hidden leading-none"
-        animate={{ y: [0, -20, 0] }}
+        initial={{ y: 0 }}
+        animate={{ y: [-10, 10, -10] }}
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
       >
         <svg
@@ -100,7 +102,7 @@ export default function HeroSection() {
             fill="#000000"
           />
         </svg>
-      </motion.div>
+      </MotionDiv>
     </section>
   )
 }
