@@ -38,8 +38,11 @@ export default function HeroSection() {
         />
       ))}
 
-      {/* 2. 波浪 (z-10)，置于背景之上，但文字之下 */}
-      <div className="absolute bottom-0 left-0 w-full h-32 overflow-hidden z-10">
+      {/* 2. 深灰→淺灰 漸層覆蓋 (z-10) */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-500 opacity-80 z-10" />
+
+      {/* 3. 波浪左右無限滑動 (z-20) */}
+      <div className="absolute bottom-0 left-0 w-full h-32 overflow-hidden z-20">
         <div className="wave-animation relative w-[200%] h-full flex">
           <svg
             viewBox="0 0 1200 120"
@@ -64,9 +67,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* 3. 深灰→淺灰 漸層覆蓋 (z-20) */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-500 opacity-80 z-20" />
-
       {/* 4. 文字 & 箭號 (z-30) */}
       <div className="relative z-30 container mx-auto px-4 max-w-2xl h-full flex items-center">
         <div>
@@ -79,8 +79,6 @@ export default function HeroSection() {
           </p>
         </div>
       </div>
-
-      {/* 箭號 (z-30) */}
       <button
         onClick={prev}
         className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 p-3 rounded-full transition z-30"
