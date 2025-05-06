@@ -1,15 +1,15 @@
 // app/page.tsx
-'use client'
+import HomeContent from '../components/ui/HomeContent'
 
-import { useSearchParams } from 'next/navigation'
-import CategoryTabs from '../components/ui/CategoryTabs'
-import Carousel from '../components/ui/Carousel'
-import WorkSection from './WorkSection'
+export default function Page({
+  searchParams,
+}: {
+  searchParams: { cat?: string }
+}) {
+  // 伺服器端取得分類參數
+  const cat = searchParams.cat || 'ui'
 
-export default function Page() {
-  const params = useSearchParams()
-  const cat = params.get('cat') || 'ui'
-
+  // 不同分類對應的圖片列表
   const imageMap: Record<string, string[]> = {
     ui: ['/images/ui1.jpg', '/images/ui2.jpg'],
     graphic: ['/images/graphic1.jpg', '/images/graphic2.jpg'],
@@ -21,9 +21,7 @@ export default function Page() {
 
   return (
     <main>
-      <CategoryTabs />
-      <Carousel images={images} />
-      <WorkSection category={cat} />
+      <HomeContent cat={cat} images={images} />
     </main>
   )
 }
