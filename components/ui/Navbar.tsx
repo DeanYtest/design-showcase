@@ -6,10 +6,10 @@ import Image from 'next/image'
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 bg-black bg-opacity-80 z-50">
+    <header className="sticky top-0 w-full bg-black bg-opacity-80 backdrop-blur-md z-50">
       <div className="container mx-auto px-4 flex justify-between items-center h-16">
         {/* 左邊 Logo */}
-        <Link href="/">
+        <Link href="/" passHref>
           <a className="flex items-center">
             <Image
               src="/logo.png"
@@ -21,16 +21,22 @@ export default function Navbar() {
           </a>
         </Link>
 
-        {/* 右邊導覽：改為 /about 和 /contact */}
-        <nav className="space-x-6 text-white">
-          <Link href="/">
-            <a className="hover:text-accent transition">Home</a>
+        {/* 右邊導覽 */}
+        <nav className="space-x-6 text-white font-medium">
+          <Link href="/" passHref>
+            <a className="hover:text-accent transition-colors duration-200">
+              Home
+            </a>
           </Link>
-          <Link href="/about">
-            <a className="hover:text-accent transition">About Me</a>
+          <Link href="/about" passHref>
+            <a className="hover:text-accent transition-colors duration-200">
+              About Me
+            </a>
           </Link>
-          <Link href="/contact">
-            <a className="hover:text-accent transition">Contact</a>
+          <Link href="/contact" passHref>
+            <a className="hover:text-accent transition-colors duration-200">
+              Contact
+            </a>
           </Link>
         </nav>
       </div>
