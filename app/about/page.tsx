@@ -1,5 +1,4 @@
 // app/about/page.tsx
-import Navbar from '../../components/ui/Navbar'
 import Footer from '../Footer'
 import AboutSection from '../AboutSection'
 
@@ -11,7 +10,6 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <>
-      <Navbar />
       <main className="pt-16 bg-black text-white">
         {/* AboutSection 本身就是你寫的那段關於我內容 */}
         <AboutSection />

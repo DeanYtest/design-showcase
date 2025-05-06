@@ -1,5 +1,4 @@
 // app/contact/page.tsx
-import Navbar from '../../components/ui/Navbar'
 import Footer from '../Footer'
 import ContactSection from '../ContactSection'
 
@@ -11,7 +10,6 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <>
-      <Navbar />
       <main className="pt-16 bg-black text-white">
         {/* ContactSection 本身就是你的聯絡表單區塊 */}
         <ContactSection />
