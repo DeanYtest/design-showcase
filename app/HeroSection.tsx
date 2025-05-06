@@ -13,7 +13,6 @@ const backgrounds = [
 export default function HeroSection() {
   const [idx, setIdx] = useState(0)
 
-  // 自動輪播
   useEffect(() => {
     const iv = setInterval(() => {
       setIdx((i) => (i + 1) % backgrounds.length)
@@ -26,16 +25,15 @@ export default function HeroSection() {
 
   return (
     <section className="relative h-screen overflow-hidden">
-      {/* 底圖輪播 */}
+      {/* 背景圖片 */}
       <div
         className="absolute inset-0 bg-cover bg-center transition-all duration-700"
         style={{ backgroundImage: `url(${backgrounds[idx]})` }}
       />
-
-      {/* 深灰→淺灰 漸層覆蓋 (50% 透明度) */}
+      {/* 深灰→淺灰 漸層覆蓋 */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-500 opacity-80" />
 
-      {/* 內容區 */}
+      {/* 內容 */}
       <div className="relative z-10 container mx-auto px-4 max-w-2xl h-full flex items-center">
         <div>
           <h1 className="text-5xl font-bold text-white leading-tight mb-4">
@@ -64,16 +62,16 @@ export default function HeroSection() {
         <ChevronRightIcon className="w-6 h-6 text-white" />
       </button>
 
-      {/* 底部波浪，用淺灰色填充 */}
+      {/* 波浪 SVG：幅度加大，填滿下方深灰(#111) */}
       <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
         <svg
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
-          className="block w-full h-24"
+          className="block w-full h-32"
         >
           <path
-            d="M0,0 C300,100 900,0 1200,100 L1200,120 L0,120 Z"
-            fill="#f0f0f0"
+            d="M0,0 C300,200 900,-100 1200,120 L1200,120 L0,120 Z"
+            fill="#111"
           />
         </svg>
       </div>
