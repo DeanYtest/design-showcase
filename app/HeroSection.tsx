@@ -3,12 +3,6 @@
 
 import { useEffect, useState } from 'react'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
-import { motion } from 'framer-motion'
-
-// 將 motion.div/h1/p 先轉成 any，跳過 TS 屬性檢查
-const MotionDiv: any = motion.div
-const MotionH1: any = motion.h1
-const MotionP: any = motion.p
 
 const backgrounds = [
   '/images/hero1.jpg',
@@ -33,39 +27,29 @@ export default function HeroSection() {
   return (
     <section className="relative h-screen overflow-hidden">
       {/* 背景淡入淡出 */}
-      <MotionDiv
-        key={idx}
-        className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
-        style={{ backgroundImage: `url(${backgrounds[idx]})` }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 1 }}
-      />
+      {backgrounds.map((bg, i) => (
+        <div
+          key={i}
+          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
+            i === idx ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ backgroundImage: `url(${bg})` }}
+        />
+      ))}
 
-      {/* 深灰→淺灰 漸層覆蓋 */}
+      {/* 漸層覆蓋 */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-500 opacity-80" />
 
       {/* 左側文字 */}
       <div className="relative z-10 container mx-auto px-4 max-w-2xl h-full flex items-center">
         <div>
-          <MotionH1
-            className="text-5xl font-bold text-white leading-tight mb-4"
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
+          <h1 className="text-5xl font-bold text-white leading-tight mb-4">
             Hi<br />
             This is Chu
-          </MotionH1>
-          <MotionP
-            className="text-lg text-white/90"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
+          </h1>
+          <p className="text-lg text-white/90">
             專注故事感視覺設計
-          </MotionP>
+          </p>
         </div>
       </div>
 
@@ -75,34 +59,43 @@ export default function HeroSection() {
         className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 p-3 rounded-full transition z-10"
         aria-label="上一張"
       >
-        <ChevronLeftIcon className="w-6 h-6 text-white animate-pulse" />
+        <ChevronLeftIcon className="w-6 h-6 text-white" />
       </button>
       <button
         onClick={next}
         className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 p-3 rounded-full transition z-10"
         aria-label="下一張"
       >
-        <ChevronRightIcon className="w-6 h-6 text-white animate-pulse" />
+        <ChevronRightIcon className="w-6 h-6 text-white" />
       </button>
 
-      {/* 波浪 SVG 漂浮 */}
-      <MotionDiv
-        className="absolute bottom-0 left-0 w-full overflow-hidden leading-none"
-        initial={{ y: 0 }}
-        animate={{ y: [-10, 10, -10] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <svg
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-          className="block w-full h-32"
-        >
-          <path
-            d="M0,0 C300,200 900,-100 1200,120 L1200,120 L0,120 Z"
-            fill="#000000"
-          />
-        </svg>
-      </MotionDiv>
+      {/* 波浪左右無限移動動畫 */}
+      <div className="absolute bottom-0 left-0 w-full h-32 overflow-hidden">
+        <div className="wave-animation relative w-[200%] h-full">
+          {/* 第一份波浪 */}
+          <svg
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+            className="absolute top-0 left-0 w-[50%] h-full"
+          >
+            <path
+              d="M0,0 C300,200 900,-100 1200,120 L1200,120 L0,120 Z"
+              fill="#000"
+            />
+          </svg>
+          {/* 重複一份波浪拼接 */}
+          <svg
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+            className="absolute top-0 left-[50%] w-[50%] h-full"
+          >
+            <path
+              d="M0,0 C300,200 900,-100 1200,120 L1200,120 L0,120 Z"
+              fill="#000"
+            />
+          </svg>
+        </div>
+      </div>
     </section>
   )
 }
