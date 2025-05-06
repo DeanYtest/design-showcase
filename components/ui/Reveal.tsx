@@ -1,12 +1,17 @@
-// app/components/Reveal.tsx
-'use client'
+// app/components/ui/Reveal.tsx
+'use client';
 
-import { ReactNode, useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { ReactNode, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import type { RefObject } from 'react';
 
 export default function Reveal({ children }: { children: ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-100px' })
+  // 用 HTMLDivElement 作為 ref，但為了符合 useInView 參數宣告，我們稍作類型轉換
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(
+    ref as unknown as RefObject<Element>,
+    { once: true, margin: '-100px' }
+  );
 
   return (
     <motion.div
@@ -17,5 +22,5 @@ export default function Reveal({ children }: { children: ReactNode }) {
     >
       {children}
     </motion.div>
-  )
+  );
 }
