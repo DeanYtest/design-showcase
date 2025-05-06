@@ -1,4 +1,6 @@
 // app/page.tsx
+'use client'
+
 import { useSearchParams } from 'next/navigation'
 import CategoryTabs from '../components/ui/CategoryTabs'
 import Carousel from '../components/ui/Carousel'
