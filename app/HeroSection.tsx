@@ -25,7 +25,7 @@ export default function HeroSection() {
 
   return (
     <section className="relative h-screen overflow-hidden">
-      {/* 背景圖片 */}
+      {/* 背景圖片輪播 */}
       <div
         className="absolute inset-0 bg-cover bg-center transition-all duration-700"
         style={{ backgroundImage: `url(${backgrounds[idx]})` }}
@@ -62,7 +62,7 @@ export default function HeroSection() {
         <ChevronRightIcon className="w-6 h-6 text-white" />
       </button>
 
-      {/* 波浪 SVG：幅度加大，填滿下方深灰(#111) */}
+      {/* 底部波浪：純黑填充 */}
       <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
         <svg
           viewBox="0 0 1200 120"
@@ -71,7 +71,7 @@ export default function HeroSection() {
         >
           <path
             d="M0,0 C300,200 900,-100 1200,120 L1200,120 L0,120 Z"
-            fill="#111"
+            fill="#000000"
           />
         </svg>
       </div>
