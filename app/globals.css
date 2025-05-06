@@ -47,12 +47,14 @@
   background-color: #9333EA;  /* 品牌紫 */
   color: white;
 }
+/* globals.css */
 
+/* 波浪左右无缝滑动动画 */
 @keyframes wave {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
-
 .wave-animation {
   animation: wave 20s linear infinite;
 }
+
