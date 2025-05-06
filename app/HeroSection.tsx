@@ -1,3 +1,4 @@
+// app/HeroSection.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -29,10 +30,9 @@ export default function HeroSection() {
       {backgrounds.map((bg, i) => (
         <div
           key={i}
-          className={`
-            absolute inset-0 bg-cover bg-center transition-opacity duration-1000
-            ${i === idx ? 'opacity-100' : 'opacity-0'}
-          `}
+          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
+            i === idx ? 'opacity-100' : 'opacity-0'
+          }`}
           style={{ backgroundImage: `url(${bg})` }}
         />
       ))}
@@ -40,26 +40,8 @@ export default function HeroSection() {
       {/* 2. 深灰→淺灰 漸層覆蓋 (z-10) */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-500 opacity-80 z-10" />
 
-      {/* 3. 左右無縫滑動海浪 (z-20) */}
-      <div className="absolute bottom-0 left-0 w-full h-32 overflow-hidden z-20">
-        <svg
-          viewBox="0 0 1800 120"
-          preserveAspectRatio="none"
-          className="block w-[200%] h-full animate-wave"
-        >
-          <path
-            d="
-              M0,80
-              C300,240 600,-40 930,80
-              C1230,240 1530,-40 1800,80
-              L1800,120
-              L0,120
-              Z
-            "
-            fill="#000"
-          />
-        </svg>
-      </div>
+      {/* 3. 無縫左右滑動海浪背景 (z-20) */}
+      <div className="absolute bottom-0 left-0 w-full h-32 wave-bg z-20" />
 
       {/* 4. 文字 & 箭號 (z-30) */}
       <div className="relative z-30 container mx-auto px-4 max-w-2xl h-full flex items-center">

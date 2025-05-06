@@ -50,11 +50,13 @@
 /* globals.css */
 
 /* 波浪左右无缝滑动动画 */
-@keyframes wave {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.animate-wave {
-  animation: wave 20s linear infinite;
+.wave-bg {
+  background: url('/wave.svg') repeat-x bottom;
+  background-size: 600px 120px; /* 寬度匹配 SVG 的 viewBox 寬度 */
+  animation: wave-scroll 10s linear infinite;
 }
 
+@keyframes wave-scroll {
+  from { background-position-x: 0; }
+  to   { background-position-x: -600px; }
+}
