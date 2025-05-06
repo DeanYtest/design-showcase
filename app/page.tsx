@@ -1,42 +1,28 @@
 // app/page.tsx
+import HomeContent from '../components/ui/HomeContent'
 
-import HeroSection from './HeroSection'
-import AboutSection from './AboutSection'
-import CategoryTabs   from '../components/ui/CategoryTabs'
-import WorkSection from './WorkSection'
-import ContactSection from './ContactSection'
-import Footer from './Footer'
+export default function Page({
+  searchParams,
+}: {
+  searchParams: { cat?: string }
+}) {
+  // 在 Server 端先解析 URL 的 ?cat=xxx
+  const cat = searchParams.cat || 'ui'
 
-const categories = [
-  { slug: 'ui', label: 'UI 設計' },
-  { slug: 'graphic', label: '平面設計' },
-  { slug: 'packaging', label: '包裝設計' },
-  { slug: 'logo', label: 'LOGO 設計' },
-  { slug: 'illustration', label: '手繪' },
-]
+  // 不同分類對應的輪播圖
+  const imageMap: Record<string, string[]> = {
+    ui: ['/images/ui1.jpg', '/images/ui2.jpg'],
+    graphic: ['/images/graphic1.jpg', '/images/graphic2.jpg'],
+    packaging: ['/images/pack1.jpg', '/images/pack2.jpg'],
+    logo: ['/images/logo1.jpg', '/images/logo2.jpg'],
+    illustration: ['/images/ill1.jpg', '/images/ill2.jpg'],
+  }
 
-export default function Page() {
+  const images = imageMap[cat] || []
+
   return (
-    <main className="pt-20">  {/* pt-20 頂部留給 Navbar */}
-      {/* 英雄區 */}
-      <HeroSection />
-
-      {/* 關於我 */}
-      <AboutSection />
-
-      {/* 分類 Tabs */}
-      <CategoryTabs />
-
-      {/* 各分類的作品區塊 */}
-      {categories.map(c => (
-        <WorkSection key={c.slug} category={c.slug} />
-      ))}
-
-      {/* 聯絡我 */}
-      <ContactSection />
-
-      {/* 頁尾 */}
-      <Footer />
+    <main className="pt-20">
+      <HomeContent cat={cat} images={images} />
     </main>
   )
 }
