@@ -1,7 +1,7 @@
 // app/about/page.tsx
 import Image from 'next/image'
-import Navbar from '../../components/ui/Navbar'
-import Footer from '../../components/ui/Footer'
+import Navbar from '@/components/ui/Navbar'
+import Footer from '@/components/ui/Footer'
 
 export const metadata = {
   title: 'About Me — 小設計師',
@@ -24,6 +24,7 @@ export default function AboutPage() {
               width={600}
               height={600}
               className="rounded-lg object-cover shadow-lg"
+              priority
             />
           </div>
           {/* 右側：文字 */}
@@ -51,12 +52,21 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { title: '品牌識別 (Logo)', icon: '/icons/logo.svg' },
-              { title: '包裝設計', icon: '/icons/packaging.svg' },
-              { title: '社群視覺', icon: '/icons/social.svg' },
-              { title: '手繪插畫', icon: '/icons/illustration.svg' },
+              { title: '包裝設計',       icon: '/icons/packaging.svg' },
+              { title: '社群視覺',       icon: '/icons/social.svg' },
+              { title: '手繪插畫',       icon: '/icons/illustration.svg' },
             ].map((item) => (
-              <div key={item.title} className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
-                <Image src={item.icon} alt={item.title} width={64} height={64} className="mx-auto mb-4" />
+              <div
+                key={item.title}
+                className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
+              >
+                <Image
+                  src={item.icon}
+                  alt={item.title}
+                  width={64}
+                  height={64}
+                  className="mx-auto mb-4"
+                />
                 <h3 className="text-xl font-medium">{item.title}</h3>
               </div>
             ))}
@@ -69,12 +79,12 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl font-semibold mb-4">想一起合作嗎？</h2>
           <p className="mb-6">無論是品牌建置、活動視覺或其他設計需求，歡迎隨時與我聯繫！</p>
-          <a
+          <Link
             href="/contact"
             className="inline-block bg-white text-primary font-semibold px-6 py-3 rounded-full hover:bg-gray-100 transition"
           >
             聯絡我
-          </a>
+          </Link>
         </div>
       </section>
 
