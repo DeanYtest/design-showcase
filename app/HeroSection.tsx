@@ -39,12 +39,13 @@ export default function HeroSection() {
         transition={{ duration: 1 }}
       />
 
-      {/* 深灰→淺灰 漸層覆蓋 */}
+      {/* 漸層覆蓋 */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-500 opacity-80" />
 
-      {/* 左側文字 */}
+      {/* 文字 */}
       <div className="relative z-10 container mx-auto px-4 max-w-2xl h-full flex items-center">
         <div>
+          {/* @ts-ignore */}
           <motion.h1
             className="text-5xl font-bold text-white leading-tight mb-4"
             initial={{ x: -50, opacity: 0 }}
@@ -54,6 +55,7 @@ export default function HeroSection() {
             Hi<br />
             This is Chu
           </motion.h1>
+          {/* @ts-ignore */}
           <motion.p
             className="text-lg text-white/90"
             initial={{ y: 20, opacity: 0 }}
@@ -65,7 +67,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* 左右箭號 */}
+      {/* 箭號 */}
       <button
         onClick={prev}
         className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 p-3 rounded-full transition z-10"
@@ -81,7 +83,8 @@ export default function HeroSection() {
         <ChevronRightIcon className="w-6 h-6 text-white animate-pulse" />
       </button>
 
-      {/* 波浪 SVG 漂浮 */}
+      {/* 波浪漂浮 */}
+      {/* @ts-ignore */}
       <motion.div
         className="absolute bottom-0 left-0 w-full overflow-hidden leading-none"
         animate={{ y: [0, -20, 0] }}
