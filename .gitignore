@@ -5,11 +5,6 @@ node_modules
 .next
 out
 
-# Tailwind CSS generated files (if any)
-tailwind.config.js
-tailwind.config.cjs
-postcss.config.js
-
 # Build output
 dist
 
