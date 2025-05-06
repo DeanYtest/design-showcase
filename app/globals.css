@@ -52,11 +52,25 @@
 /* 波浪左右无缝滑动动画 */
 /* globals.css */
 
-@keyframes wave {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+/* globals.css */
+
+/* 1) 定义波浪滚动动画 */
+@keyframes wave-scroll {
+  from { background-position-x: 0; }
+  to   { background-position-x: 1440px; }
 }
 
-.animate-wave {
-  animation: wave 20s linear infinite;
+/* 2) wave-bg 类：把 SVG 当背景图，水平重复，无缝滚动 */
+.wave-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 320px; /* 对应 SVG viewBox 高度 */
+  background-image: url('/wave.svg');
+  background-repeat: repeat-x;
+  background-position: 0 bottom;
+  background-size: 1440px 320px; /* 宽度等于 SVG width，才能精准无缝 */
+  animation: wave-scroll 20s linear infinite;
+  z-index: 20;
 }
