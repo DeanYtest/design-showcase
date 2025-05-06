@@ -1,27 +1,43 @@
 // app/page.tsx
-import HomeContent from '../components/ui/HomeContent'
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams: { cat?: string }
-}) {
-  // 伺服器端取得分類參數
-  const cat = searchParams.cat || 'ui'
+import HeroSection from './HeroSection'
+import AboutSection from './AboutSection'
+import WorkSection from './WorkSection'
+import ContactSection from './ContactSection'
+import Footer from './Footer'
 
-  // 不同分類對應的圖片列表
-  const imageMap: Record<string, string[]> = {
-    ui: ['/images/ui1.jpg', '/images/ui2.jpg'],
-    graphic: ['/images/graphic1.jpg', '/images/graphic2.jpg'],
-    packaging: ['/images/pack1.jpg', '/images/pack2.jpg'],
-    logo: ['/images/logo1.jpg', '/images/logo2.jpg'],
-    illustration: ['/images/ill1.jpg', '/images/ill2.jpg'],
-  }
-  const images = imageMap[cat] || []
+const categories = [
+  { slug: 'ui', label: 'UI 設計' },
+  { slug: 'graphic', label: '平面設計' },
+  { slug: 'packaging', label: '包裝設計' },
+  { slug: 'logo', label: 'LOGO 設計' },
+  { slug: 'illustration', label: '手繪' },
+]
 
+export const metadata = {
+  title: '小設 設計作品集',
+  description: '個人品牌視覺設計作品集',
+}
+
+export default function Page() {
   return (
     <main>
-      <HomeContent cat={cat} images={images} />
+      {/* 英雄區 */}
+      <HeroSection />
+
+      {/* 關於我 */}
+      <AboutSection />
+
+      {/* 依序顯示各分類的作品區塊 */}
+      {categories.map((c) => (
+        <WorkSection key={c.slug} category={c.slug} />
+      ))}
+
+      {/* 聯絡我 */}
+      <ContactSection />
+
+      {/* 頁尾 */}
+      <Footer />
     </main>
   )
 }
