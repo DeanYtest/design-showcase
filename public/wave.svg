@@ -1,8 +1,13 @@
 <!-- public/wave.svg -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 120" preserveAspectRatio="none">
-  <path 
-    d="M0,40 
-       C150,120 450,40 600,40 
-       L600,120 L0,120 Z" 
-    fill="#000" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" preserveAspectRatio="none">
+  <path
+    d="
+      M0,40
+      C150,300 450,300 600,40
+      L600,300
+      L0,300
+      Z
+    "
+    fill="#000"
+  />
 </svg>

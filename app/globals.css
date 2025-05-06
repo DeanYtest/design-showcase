@@ -50,13 +50,15 @@
 /* globals.css */
 
 /* 波浪左右无缝滑动动画 */
-.wave-bg {
-  background: url('/wave.svg') repeat-x bottom;
-  background-size: 600px 120px; /* 寬度匹配 SVG 的 viewBox 寬度 */
-  animation: wave-scroll 10s linear infinite;
-}
+/* globals.css */
 
 @keyframes wave-scroll {
   from { background-position-x: 0; }
-  to   { background-position-x: -600px; }
+  to   { background-position-x: 600px; }
+}
+
+.wave-bg {
+  background: url('/wave.svg') repeat-x bottom;
+  background-size: 600px 300px;
+  animation: wave-scroll 10s linear infinite;
 }
