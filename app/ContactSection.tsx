@@ -1,4 +1,5 @@
 'use client'
+
 export default function ContactSection() {
   return (
     <section id="聯絡我" className="py-16">
@@ -41,5 +42,5 @@ export default function ContactSection() {
         </form>
       </div>
     </section>
-  );
+  )
 }
