@@ -56,8 +56,9 @@
   from { background-position-x: 0; }
   to   { background-position-x: 1440px; }
 }
+/* globals.css */
 .wave-bg {
   background: url('/wave.svg') repeat-x bottom;
-  background-size: 1440px 320px;
-  animation: wave-scroll 10s linear infinite;
+  background-size: 1440px 128px;  /* 高度改成和容器一致 */
+  animation: wave-scroll 12s linear infinite;
 }
