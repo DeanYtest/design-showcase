@@ -1,3 +1,4 @@
+// components/ui/Navbar.tsx
 'use client'
 
 import Link from 'next/link'
@@ -20,15 +21,15 @@ export default function Navbar() {
           </a>
         </Link>
 
-        {/* 右邊導覽 */}
+        {/* 右邊導覽：改為 /about 和 /contact */}
         <nav className="space-x-6 text-white">
           <Link href="/">
             <a className="hover:text-accent transition">Home</a>
           </Link>
-          <Link href="/#about">
+          <Link href="/about">
             <a className="hover:text-accent transition">About Me</a>
           </Link>
-          <Link href="/#contact">
+          <Link href="/contact">
             <a className="hover:text-accent transition">Contact</a>
           </Link>
         </nav>
