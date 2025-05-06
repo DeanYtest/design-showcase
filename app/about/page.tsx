@@ -1,5 +1,4 @@
 // app/about/page.tsx
-import Navbar from '../../components/ui/Navbar'
 import Footer from '../Footer'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,7 +11,6 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <>
-      <Navbar />
 
       <section className="bg-black text-white pt-24 pb-16">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-8">
