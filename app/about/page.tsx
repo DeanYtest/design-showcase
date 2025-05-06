@@ -1,8 +1,8 @@
 // app/about/page.tsx
+import Navbar from '../../components/ui/Navbar'
+import Footer from '../Footer'
 import Image from 'next/image'
 import Link from 'next/link'
-import Navbar from '../../components/ui/Navbar'
-import Footer from '../../components/ui/Footer'
 
 export const metadata = {
   title: 'About Me — 小設計師',
@@ -14,10 +14,8 @@ export default function AboutPage() {
     <>
       <Navbar />
 
-      {/* Hero / 頭圖 + 簡介 */}
       <section className="bg-black text-white pt-24 pb-16">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-8">
-          {/* 左側：大圖 */}
           <div className="w-full md:w-1/2">
             <Image
               src="/images/about-me.jpg"
@@ -28,7 +26,6 @@ export default function AboutPage() {
               priority
             />
           </div>
-          {/* 右側：文字 */}
           <div className="w-full md:w-1/2 space-y-4">
             <h1 className="text-4xl font-bold">關於我</h1>
             <p className="text-lg text-gray-200 leading-relaxed">
@@ -46,7 +43,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Expertise / 專長 */}
       <section className="bg-gray-100 py-16">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-semibold mb-8">我的專長</h2>
@@ -75,7 +71,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Call to Action */}
       <section className="bg-primary text-white py-12">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl font-semibold mb-4">想一起合作嗎？</h2>
