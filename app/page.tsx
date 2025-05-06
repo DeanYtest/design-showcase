@@ -1,34 +1,32 @@
 // app/page.tsx
-
-import Navbar from '../components/ui/Navbar'
 import HeroSection from './HeroSection'
 import AboutSection from './AboutSection'
 import CategorySection from '../components/ui/CategorySection'
 import ContactSection from './ContactSection'
 import Footer from './Footer'
 
+export const metadata = {
+  title: '小設 設計作品集',
+  description: '個人品牌視覺設計作品集',
+}
+
 export default function Page() {
   return (
     <>
-      {/* 1. Navbar (會固定在頂部) */}
-      <Navbar />
+      {/* 英雄區 */}
+      <HeroSection />
 
-      <main className="pt-16">
-        {/* 2. 英雄區 */}
-        <HeroSection />
+      {/* 關於我區塊 */}
+      <AboutSection />
 
-        {/* 3. About 區 (加上 id="about" 以供錨點) */}
-        <AboutSection />
+      {/* 分類卡片區塊：上方輪播＋下方連結各自的子頁 */}
+      <CategorySection />
 
-        {/* 4. 分類區塊 */}
-        <CategorySection />
+      {/* 聯絡我區塊 */}
+      <ContactSection />
 
-        {/* 5. 聯絡區 (加上 id="contact") */}
-        <ContactSection />
-
-        {/* 6. 頁尾 */}
-        <Footer />
-      </main>
+      {/* 頁尾 */}
+      <Footer />
     </>
   )
 }
