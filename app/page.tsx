@@ -1,28 +1,34 @@
 // app/page.tsx
-import HomeContent from '../components/ui/HomeContent'
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams: { cat?: string }
-}) {
-  // 在 Server 端先解析 URL 的 ?cat=xxx
-  const cat = searchParams.cat || 'ui'
+import Navbar from '../components/ui/Navbar'
+import HeroSection from './HeroSection'
+import AboutSection from './AboutSection'
+import CategorySection from '../components/ui/CategorySection'
+import ContactSection from './ContactSection'
+import Footer from './Footer'
 
-  // 不同分類對應的輪播圖
-  const imageMap: Record<string, string[]> = {
-    ui: ['/images/ui1.jpg', '/images/ui2.jpg'],
-    graphic: ['/images/graphic1.jpg', '/images/graphic2.jpg'],
-    packaging: ['/images/pack1.jpg', '/images/pack2.jpg'],
-    logo: ['/images/logo1.jpg', '/images/logo2.jpg'],
-    illustration: ['/images/ill1.jpg', '/images/ill2.jpg'],
-  }
-
-  const images = imageMap[cat] || []
-
+export default function Page() {
   return (
-    <main className="pt-20">
-      <HomeContent cat={cat} images={images} />
-    </main>
+    <>
+      {/* 1. Navbar (會固定在頂部) */}
+      <Navbar />
+
+      <main className="pt-16">
+        {/* 2. 英雄區 */}
+        <HeroSection />
+
+        {/* 3. About 區 (加上 id="about" 以供錨點) */}
+        <AboutSection />
+
+        {/* 4. 分類區塊 */}
+        <CategorySection />
+
+        {/* 5. 聯絡區 (加上 id="contact") */}
+        <ContactSection />
+
+        {/* 6. 頁尾 */}
+        <Footer />
+      </main>
+    </>
   )
 }
