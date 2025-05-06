@@ -26,8 +26,8 @@ export default function HeroSection() {
 
   return (
     <section className="relative h-screen overflow-hidden">
-      {/* 背景輪播 */}
-      <motion.div
+      {/* 背景圖片輪播，淡入淡出 */}
+      <motion.div<HTMLDivElement>
         key={idx}
         className="absolute inset-0 bg-cover bg-center transition-all duration-700"
         style={{ backgroundImage: `url(${backgrounds[idx]})` }}
@@ -37,7 +37,7 @@ export default function HeroSection() {
         transition={{ duration: 1 }}
       />
 
-      {/* 漸層覆蓋 */}
+      {/* 深灰→淺灰 漸層覆蓋 */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-500 opacity-80" />
 
       {/* 文字區塊 */}
@@ -63,7 +63,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* 箭號按鈕 */}
+      {/* 左右箭號 */}
       <button
         onClick={prev}
         className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 p-3 rounded-full transition z-10"
@@ -79,21 +79,23 @@ export default function HeroSection() {
         <ChevronRightIcon className="w-6 h-6 text-white animate-pulse" />
       </button>
 
-      {/* 波浪 SVG + 浮動動畫 */}
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
-        <motion.svg
+      {/* 波浪 SVG：純黑填充，幅度較大 */}
+      <motion.div
+        className="absolute bottom-0 left-0 w-full overflow-hidden leading-none"
+        animate={{ y: [0, -20, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <svg
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
           className="block w-full h-32"
-          animate={{ y: [0, -20, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
         >
           <path
             d="M0,0 C300,200 900,-100 1200,120 L1200,120 L0,120 Z"
             fill="#000000"
           />
-        </motion.svg>
-      </div>
+        </svg>
+      </motion.div>
     </section>
   )
 }
