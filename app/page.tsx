@@ -1,9 +1,11 @@
 // app/page.tsx
-import CategoryTabs from './components/ui/CategoryTabs'
-import Carousel from './components/ui/Carousel'
-import WorkSection from './WorkSection'
+-import CategoryTabs from './components/ui/CategoryTabs'
+-import Carousel     from './components/ui/Carousel'
++import CategoryTabs from '../components/ui/CategoryTabs'
++import Carousel     from '../components/ui/Carousel'
 
-export default function Page() {
+-export default function Page() {
++export default function Page() {
   const params = useSearchParams()
   const cat = params.get('cat') || 'ui'
   const imageMap: Record<string, string[]> = {
