@@ -1,3 +1,4 @@
+'use client'
 export default function ContactSection() {
   return (
     <section id="聯絡我" className="py-16">
