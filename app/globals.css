@@ -1,44 +1,44 @@
 /* app/globals.css */
 
-/* 1. 在最上面先引入 Google Font （可選） */
+/* 1. 引入 Google Fonts（可選） */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-/* 2. Tailwind 的三大指令一定要這樣放 */
+/* 2. Tailwind 三大指令 */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 3. 全域基本樣式 */
-/*    直接套用黑底白字，移除所有舊的 CSS 變數機制 */
+/* 3. 全域基礎樣式 */
 @layer base {
   html {
     scroll-behavior: smooth;
-    font-family: 'Poppins', sans-serif;  /* 如果你要用 Poppins，否則可刪除 */
+    font-family: 'Poppins', sans-serif;
   }
+
   body {
     @apply bg-black text-white antialiased m-0 p-0;
     line-height: 1.6;
   }
-  /* 標題 */
-  h1,h2,h3,h4,h5,h6 {
+
+  /* 標題樣式 */
+  h1, h2, h3, h4, h5, h6 {
     @apply font-bold m-0;
   }
-  /* 連結 */
+
+  /* 連結樣式 */
   a {
     @apply text-primary hover:underline no-underline;
   }
+
   /* 圖片與媒體 */
-  img,video {
-    max-width:100%;
-    height:auto;
-    display:block;
+  img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
   }
+
   /* 表單元件 */
-  input,textarea,button,select {
+  input, textarea, button, select {
     @apply font-sans text-base outline-none;
-  }
-  /* 常用 container */
-  .container {
-    @apply container mx-auto px-4;
   }
 }
