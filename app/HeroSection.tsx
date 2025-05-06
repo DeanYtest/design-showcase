@@ -1,4 +1,3 @@
-// app/HeroSection.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -41,30 +40,25 @@ export default function HeroSection() {
       {/* 2. 深灰→淺灰 漸層覆蓋 (z-10) */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-500 opacity-80 z-10" />
 
-      {/* 3. 波浪左右無限滑動 (z-20) */}
+      {/* 3. 左右無縫滑動海浪 (z-20) */}
       <div className="absolute bottom-0 left-0 w-full h-32 overflow-hidden z-20">
-        <div className="wave-animation relative w-[200%] h-full flex">
-          <svg
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-            className="w-1/2 h-full flex-none"
-          >
-            <path
-              d="M0,0 C300,200 900,-100 1200,120 L1200,120 L0,120 Z"
-              fill="#000"
-            />
-          </svg>
-          <svg
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-            className="w-1/2 h-full flex-none"
-          >
-            <path
-              d="M0,0 C300,200 900,-100 1200,120 L1200,120 L0,120 Z"
-              fill="#000"
-            />
-          </svg>
-        </div>
+        <svg
+          viewBox="0 0 1800 120"
+          preserveAspectRatio="none"
+          className="block w-[200%] h-full animate-wave"
+        >
+          <path
+            d="
+              M0,40
+              C300,80 600,0 900,40
+              C1200,80 1500,0 1800,40
+              L1800,120
+              L0,120
+              Z
+            "
+            fill="#000"
+          />
+        </svg>
       </div>
 
       {/* 4. 文字 & 箭號 (z-30) */}
