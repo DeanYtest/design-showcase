@@ -1,27 +1,16 @@
-'use client';
-
-import { MotionH1, MotionP } from '@/app/MotionTags';
-
 export default function HeroSection() {
   return (
-    <section className="h-screen flex flex-col justify-center items-center bg-gradient-to-b from-white to-gray-100 text-black font-sans">
-      <MotionH1
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="text-4xl md:text-6xl font-bold mb-4"
-      >
-        嗨，我是小設，一位平面設計師
-      </MotionH1>
-
-      <MotionP
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2 }}
-        className="text-lg md:text-xl text-gray-600"
-      >
-        我專注於品牌識別、社群視覺與包裝設計
-      </MotionP>
+    <section className="bg-primary text-primary-foreground py-24">
+      <div className="container mx-auto px-4 text-center">
+        <h1 className="text-5xl font-display font-bold mb-4">嗨，我是小設</h1>
+        <p className="text-xl mb-8">專注品牌識別、社群視覺與包裝設計</p>
+        <a
+          href="#作品展示"
+          className="inline-block bg-accent text-accent-foreground py-3 px-8 rounded-lg font-semibold hover:bg-secondary transition"
+        >
+          查看作品
+        </a>
+      </div>
     </section>
-  );
+);
 }
