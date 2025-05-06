@@ -1,7 +1,7 @@
 // app/HeroSection.tsx
 'use client';
 
-import Reveal from './Reveal';
+import Reveal from '../components/ui/Reveal';
 
 export default function HeroSection() {
   return (
