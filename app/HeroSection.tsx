@@ -26,22 +26,24 @@ export default function HeroSection() {
 
   return (
     <section className="relative h-screen overflow-hidden">
-      {/* 背景圖片 */}
+      {/* 底圖輪播 */}
       <div
         className="absolute inset-0 bg-cover bg-center transition-all duration-700"
         style={{ backgroundImage: `url(${backgrounds[idx]})` }}
       />
-      {/* 半透明遮罩 */}
-      <div className="absolute inset-0 bg-black bg-opacity-50" />
 
-      {/* 內容 */}
+      {/* 深灰→淺灰 漸層覆蓋 (50% 透明度) */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-500 opacity-80" />
+
+      {/* 內容區 */}
       <div className="relative z-10 container mx-auto px-4 max-w-2xl h-full flex items-center">
         <div>
-          <h1 className="text-5xl font-bold text-white mb-4">
-            Hi , This is Chu
+          <h1 className="text-5xl font-bold text-white leading-tight mb-4">
+            Hi<br />
+            This is Chu
           </h1>
           <p className="text-lg text-white/90">
-            我專注於打造具備故事感與識別度的品牌視覺 — 從 Logo、包裝到數位介面，一應俱全。
+            專注故事感視覺設計
           </p>
         </div>
       </div>
@@ -62,7 +64,7 @@ export default function HeroSection() {
         <ChevronRightIcon className="w-6 h-6 text-white" />
       </button>
 
-      {/* 波浪 SVG */}
+      {/* 底部波浪，用淺灰色填充 */}
       <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
         <svg
           viewBox="0 0 1200 120"
@@ -71,7 +73,7 @@ export default function HeroSection() {
         >
           <path
             d="M0,0 C300,100 900,0 1200,100 L1200,120 L0,120 Z"
-            fill="#000"   /* 填充下一節背景色，假設下一節是黑色可改成白或其他 */
+            fill="#f0f0f0"
           />
         </svg>
       </div>
