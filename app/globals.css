@@ -42,3 +42,8 @@
     @apply font-sans text-base outline-none;
   }
 }
+/* 選取文字時的底色與字色 */
+::selection {
+  background-color: #9333EA;  /* 品牌紫 */
+  color: white;
+}
