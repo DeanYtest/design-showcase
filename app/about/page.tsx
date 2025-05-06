@@ -1,7 +1,8 @@
 // app/about/page.tsx
 import Image from 'next/image'
-import Navbar from '@/components/ui/Navbar'
-import Footer from '@/components/ui/Footer'
+import Link from 'next/link'
+import Navbar from '../../components/ui/Navbar'
+import Footer from '../../components/ui/Footer'
 
 export const metadata = {
   title: 'About Me — 小設計師',
