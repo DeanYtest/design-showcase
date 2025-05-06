@@ -1,8 +1,7 @@
 // app/packaging/page.tsx
-import Navbar from '../../components/ui/Navbar'
-import Footer from '../Footer'
 import Carousel from '../../components/ui/Carousel'
 import WorkSection from '../WorkSection'
+import Footer from '../Footer'
 
 export const metadata = {
   title: '包裝設計',
@@ -14,7 +13,6 @@ export default function PackagingPage() {
 
   return (
     <>
-      <Navbar />
       <main className="pt-16 bg-black text-white">
         <section className="py-16">
           <div className="container mx-auto px-4 text-center">
