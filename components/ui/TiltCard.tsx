@@ -1,7 +1,9 @@
+
 'use client';
 
 import { useRef } from 'react';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { useMotionValue, useTransform } from 'framer-motion';
+import MotionDiv from './MotionDiv';
 
 interface TiltCardProps {
   children: React.ReactNode;
@@ -27,7 +29,7 @@ export default function TiltCard({ children }: TiltCardProps) {
   }
 
   return (
-    <motion.div
+    <MotionDiv
       ref={ref}
       onMouseMove={handleMouse}
       onMouseLeave={handleMouseLeave}
@@ -35,6 +37,6 @@ export default function TiltCard({ children }: TiltCardProps) {
       className="bg-white rounded-2xl shadow-lg p-4 cursor-pointer"
     >
       {children}
-    </motion.div>
+    </MotionDiv>
   );
 }
