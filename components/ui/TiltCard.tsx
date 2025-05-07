@@ -1,21 +1,25 @@
 'use client'
 
 import { useRef } from 'react'
-import { useMotionValue, useTransform, motion } from 'framer-motion'
+import {
+  useMotionValue,
+  useTransform,
+  motion,
+  type HTMLMotionProps,
+} from 'framer-motion'
 import type { ReactNode, MouseEvent } from 'react'
 import clsx from 'clsx'
-import type { HTMLMotionProps } from 'framer-motion'
 
 interface TiltCardProps extends HTMLMotionProps<'div'> {
   children: ReactNode
   className?: string
 }
 
-const TiltCard = ({
+export default function TiltCard({
   children,
   className,
   ...rest
-}: TiltCardProps) => {
+}: TiltCardProps) {
   const ref = useRef<HTMLDivElement>(null)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -44,11 +48,9 @@ const TiltCard = ({
         'bg-white dark:bg-neutral-900 text-black dark:text-white rounded-2xl shadow-lg p-4 cursor-pointer transform-gpu transition-transform duration-300',
         className
       )}
-      {...rest}
+      {...(rest as React.HTMLAttributes<HTMLDivElement>)}
     >
       {children}
     </motion.div>
   )
 }
-
-export default TiltCard
