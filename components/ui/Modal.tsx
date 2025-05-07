@@ -1,4 +1,3 @@
-# components/ui/Modal.tsx
 'use client';
 
 import { ReactNode } from 'react'
