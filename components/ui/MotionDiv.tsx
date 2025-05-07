@@ -1,13 +1,30 @@
-'use client';
+'use client'
 
-import { motion, MotionProps } from 'framer-motion';
-import { HTMLAttributes, forwardRef } from 'react';
+import { motion } from 'framer-motion'
+import {
+  HTMLMotionProps,
+  MotionStyle,
+  MotionValue,
+} from 'framer-motion'
+import {
+  HTMLAttributes,
+  forwardRef,
+  ForwardedRef,
+} from 'react'
 
-// 組合 framer-motion 的 MotionProps 與 HTMLDivElement 的屬性 (包含 className, onMouseMove 等)
-export type MotionDivProps = MotionProps & HTMLAttributes<HTMLDivElement>;
+// 這裡你只要用 framer-motion 提供的 HTMLMotionProps 即可，不需自己組合
+type Props = HTMLMotionProps<'div'>
 
-const MotionDiv = forwardRef<HTMLDivElement, MotionDivProps>((props, ref) => (
-  <motion.div {...props} ref={ref} />
-));
+const MotionDiv = forwardRef<HTMLDivElement, Props>(
+  ({ children, ...rest }: Props, ref: ForwardedRef<HTMLDivElement>) => {
+    return (
+      <motion.div ref={ref} {...rest}>
+        {children}
+      </motion.div>
+    )
+  }
+)
 
-export default MotionDiv;
+MotionDiv.displayName = 'MotionDiv'
+
+export default MotionDiv
