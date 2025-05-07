@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import TiltCard from './TiltCard';
 
+<WorkSection category="all" />
+
 const categories = [
   { name: '平面設計', href: '/graphic', image: '/images/graphic1.jpg' },
   { name: '插畫', href: '/illustration', image: '/images/ill1.jpg' },

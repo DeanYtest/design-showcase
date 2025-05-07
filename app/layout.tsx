@@ -2,7 +2,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import Script from 'next/script'
-import Navbar from '../components/ui/Navbar'     // 新增
+import Navbar from '../components/ui/Navbar'   
+
 
 export const metadata: Metadata = {
   title: '小設 設計作品集',

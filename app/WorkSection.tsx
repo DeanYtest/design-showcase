@@ -7,6 +7,8 @@ import { useAnimation } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import MotionDiv from '../components/ui/MotionDiv'
 
+<WorkSection category="all" />
+
 const works = [
   { title: '平面設計', href: '/graphic', img: '/images/graphic2.jpg' },
   { title: '插畫', href: '/illustration', img: '/images/ill2.jpg' },
