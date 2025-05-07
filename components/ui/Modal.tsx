@@ -1,7 +1,8 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
+import MotionDiv from './MotionDiv';
 
 interface ModalProps {
   isOpen: boolean;
@@ -13,14 +14,14 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <MotionDiv
           key="backdrop"
           className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <motion.div
+          <MotionDiv
             key="modal"
             className="bg-white rounded-lg p-6 max-w-md mx-auto"
             initial={{ scale: 0.8, opacity: 0 }}
@@ -34,8 +35,8 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
             >
               關閉
             </button>
-          </motion.div>
-        </motion.div>
+          </MotionDiv>
+        </MotionDiv>
       )}
     </AnimatePresence>
   );
