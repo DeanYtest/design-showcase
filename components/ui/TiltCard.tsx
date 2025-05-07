@@ -11,7 +11,11 @@ interface TiltCardProps extends HTMLMotionProps<'div'> {
   className?: string
 }
 
-export default function TiltCard({ children, className, ...rest }: TiltCardProps) {
+const TiltCard = ({
+  children,
+  className,
+  ...rest
+}: TiltCardProps) => {
   const ref = useRef<HTMLDivElement>(null)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -40,10 +44,11 @@ export default function TiltCard({ children, className, ...rest }: TiltCardProps
         'bg-white dark:bg-neutral-900 text-black dark:text-white rounded-2xl shadow-lg p-4 cursor-pointer transform-gpu transition-transform duration-300',
         className
       )}
-      transition={{ type: 'spring', stiffness: 120, damping: 12 }}
-      {...rest} // ✅ 把其餘合法 props 傳進去（例如 key, variants, animate 等）
+      {...rest}
     >
       {children}
     </motion.div>
   )
 }
+
+export default TiltCard
