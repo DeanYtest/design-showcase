@@ -3,9 +3,10 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useTypewriter, Cursor } from 'react-simple-typewriter';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
+import MotionDiv from '../components/ui/MotionDiv';
 
-// 背景圖陣列
+// 背景圖陣列（首張是漸層灰，其它可以按需求增減）
 const backgrounds = [
   '/images/hero-gradient.png',
   '/images/hero1.jpg',
@@ -14,7 +15,7 @@ const backgrounds = [
 ];
 
 export default function HeroSection() {
-  // 視差滾動
+  // 1. 視差滾動
   const [offsetY, setOffsetY] = useState(0);
   useEffect(() => {
     const handleScroll = () => setOffsetY(window.pageYOffset);
@@ -22,7 +23,7 @@ export default function HeroSection() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 輪播背景
+  // 2. 輪播背景（8 秒切換一次）
   const [idx, setIdx] = useState(0);
   useEffect(() => {
     const timer = setInterval(() => {
@@ -31,7 +32,7 @@ export default function HeroSection() {
     return () => clearInterval(timer);
   }, []);
 
-  // 打字機效果
+  // 3. 打字機效果
   const [text] = useTypewriter({
     words: ['Hello, I am a Designer.', 'Welcome to my Portfolio.'],
     loop: true,
@@ -42,16 +43,16 @@ export default function HeroSection() {
 
   return (
     <section className="relative h-screen overflow-hidden">
-      {/* 背景切換與視差 */}
+      {/* 背景交叉淡入＋視差 */}
       <div className="absolute inset-0">
-        <AnimatePresence initial={false}>
-          <motion.div
+        <AnimatePresence initial={false} mode="wait">
+          <MotionDiv
             key={idx}
             className="absolute inset-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 2, ease: 'easeInOut' }}
+            transition={{ duration: 4, ease: 'easeInOut' }}
           >
             <Image
               src={backgrounds[idx]}
@@ -64,11 +65,11 @@ export default function HeroSection() {
               }}
               priority
             />
-          </motion.div>
+          </MotionDiv>
         </AnimatePresence>
       </div>
 
-      {/* 動態漸層覆層 */}
+      {/* 漸層覆層 */}
       <div className="absolute inset-0 animated-gradient" />
 
       {/* 文字層 */}
