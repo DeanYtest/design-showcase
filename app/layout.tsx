@@ -2,6 +2,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import Script from 'next/script'
+import Navbar from '../components/ui/Navbar'     // 新增
 
 export const metadata: Metadata = {
   title: '小設 設計作品集',
@@ -45,7 +46,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           gtag('config','GA_MEASUREMENT_ID',{ page_path: window.location.pathname });
         `}</Script>
       </head>
-      <body>{children}</body>
+      <body>
+        <Navbar />           {/* 重新加回 Navbar */}
+        {children}
+      </body>
     </html>
   )
 }

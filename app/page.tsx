@@ -27,6 +27,10 @@ export default function Page() {
   return (
     <>
       <HeroSection />
+
+      {/* wave 特效層 */}
+      <div className="wave-bg" />
+
       <CategorySection />
       <Footer />
     </>
