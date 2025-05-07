@@ -5,9 +5,7 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import { useAnimation } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import MotionDiv from '../components/ui/MotionDiv'
-
-<WorkSection category="all" />
+import { MotionDiv } from '../components/ui/MotionDiv' // ← 重點是用花括號
 
 const works = [
   { title: '平面設計', href: '/graphic', img: '/images/graphic2.jpg' },
