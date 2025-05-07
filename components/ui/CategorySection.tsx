@@ -14,7 +14,7 @@ const categories = [
 
 export default function CategorySection() {
   return (
-    <section id="categories" className="py-16 bg-white">
+    <section id="categories" className="py-16 bg-black">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {categories.map((cat) => (

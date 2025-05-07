@@ -2,7 +2,6 @@
 import dynamic from 'next/dynamic'
 import Footer from './Footer'
 import WaveTransition from '../components/ui/WaveTransition'
-import WorkSection from './WorkSection'
 
 export const metadata = {
   title: '小設 設計作品集',
@@ -30,7 +29,6 @@ export default function Page() {
     <>
       <HeroSection />
       <WaveTransition />
-      <WorkSection category="all" />
       <CategorySection />
       <Footer />
     </>
