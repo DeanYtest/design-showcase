@@ -1,9 +1,10 @@
 'use client'
 
 import { useRef } from 'react'
-import { useMotionValue, useTransform, motion } from 'framer-motion'
+import { useMotionValue, useTransform } from 'framer-motion'
 import type { ReactNode, MouseEvent } from 'react'
 import clsx from 'clsx'
+import MotionDiv from './MotionDiv' // 使用自訂封裝好的 motion.div
 
 interface TiltCardProps {
   children: ReactNode
@@ -30,7 +31,7 @@ export default function TiltCard({ children, className }: TiltCardProps) {
   }
 
   return (
-    <motion.div
+    <MotionDiv
       ref={ref}
       onMouseMove={handleMouse}
       onMouseLeave={handleMouseLeave}
@@ -42,6 +43,6 @@ export default function TiltCard({ children, className }: TiltCardProps) {
       transition={{ type: 'spring', stiffness: 120, damping: 12 }}
     >
       {children}
-    </motion.div>
+    </MotionDiv>
   )
 }
