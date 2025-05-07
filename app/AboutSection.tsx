@@ -1,22 +1,22 @@
 'use client';
 
-import Image from 'next/image'
-import { useRef, useEffect, useState } from 'react'
-import Lottie from 'lottie-react'
-import drawingAnimation from '../public/animations/drawing.json'
+import Image from 'next/image';
+import { useRef, useEffect, useState } from 'react';
+import Lottie from 'lottie-react';
+import drawingAnimation from '../public/animations/drawing.json';
 
 export default function AboutSection() {
-  const ref = useRef<HTMLDivElement>(null)
-  const [inView, setInView] = useState(false)
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
       ([entry]) => setInView(entry.isIntersecting),
       { threshold: 0.3 }
-    )
-    if (ref.current) obs.observe(ref.current)
-    return () => obs.disconnect()
-  }, [])
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
 
   return (
     <section
@@ -36,4 +36,5 @@ export default function AboutSection() {
         </p>
       </div>
     </section>
+  );
 }

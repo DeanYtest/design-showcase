@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useRef } from 'react'
@@ -38,4 +37,3 @@ export default function TiltCard({ children }: TiltCardProps) {
     </motion.div>
   )
 }
-
