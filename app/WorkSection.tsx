@@ -37,21 +37,10 @@ export default function WorkSection() {
             variants={variants}
             className="overflow-hidden rounded-lg"
           >
-            <Link href={work.href} className="block">
-              <div className="relative h-48">
-                <Image
-                  src={work.image}
-                  alt={work.title}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
-              </div>
-              <h3 className="mt-4 text-xl font-semibold text-center">
-                {work.title}
-              </h3>
-            </Link>
+            {/* …內容省略 */}
           </motion.div>
         ))}
       </div>
     </section>
-}
+  );  // ← 這行一定要有
+}      // ← 然後才是 function 結尾
