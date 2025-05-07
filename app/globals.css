@@ -74,15 +74,19 @@
   inset: 0;
   background: linear-gradient(
     -45deg,
-    #ee7752,  /* 珊瑚橘 */
-    #e73c7e,  /* 紫紅 */
-    #23a6d5,  /* 湖水藍 */
-    #23d5ab   /* 薄荷綠 */
+    #ff9a9e, /* 珊瑚粉 */
+    #fad0c4, /* 霧粉 */
+    #a18cd1, /* 薰衣紫 */
+    #fbc2eb, /* 粉紫 */
+    #8fd3f4, /* 淡藍 */
+    #84fab0, /* 薄荷綠 */
+    #a6c0fe, /* 淡藍紫 */
+    #ffd1ff  /* 淡粉 */
   );
-  background-size: 400% 400%;
-  animation: gradientBG 30s ease infinite;
+  background-size: 200% 200%;
+  animation: gradientBG 20s ease infinite;
   mix-blend-mode: overlay;
-  opacity: 0.5;
+  opacity: 0.6;
   pointer-events: none;
 }
 
