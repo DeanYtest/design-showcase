@@ -40,6 +40,8 @@ export default function TiltCard({ children, className }: TiltCardProps) {
         className
       )}
       transition={{ type: 'spring', stiffness: 120, damping: 12 }}
+      // 👇 加這一行是關鍵，讓 TS 理解這是 div
+      as="div"
     >
       {children}
     </motion.div>
