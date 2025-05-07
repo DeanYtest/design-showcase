@@ -1,21 +1,15 @@
 'use client'
 
-import { useRef } from 'react'
-import {
-  useMotionValue,
-  useTransform,
-  motion,
-  type MotionProps
-} from 'framer-motion'
-import type { ReactNode, MouseEvent } from 'react'
+import { useRef, type ReactNode, type MouseEvent } from 'react'
+import { useMotionValue, useTransform, motion } from 'framer-motion'
 import clsx from 'clsx'
 
-interface TiltCardProps extends MotionProps {
+interface TiltCardProps {
   children: ReactNode
   className?: string
 }
 
-export default function TiltCard({ children, className, ...rest }: TiltCardProps) {
+export default function TiltCard({ children, className }: TiltCardProps) {
   const ref = useRef<HTMLDivElement>(null)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -36,7 +30,7 @@ export default function TiltCard({ children, className, ...rest }: TiltCardProps
 
   return (
     <motion.div
-      ref={ref}
+      ref={ref as React.Ref<HTMLDivElement>}
       onMouseMove={handleMouse}
       onMouseLeave={handleMouseLeave}
       style={{ rotateX, rotateY }}
@@ -44,7 +38,8 @@ export default function TiltCard({ children, className, ...rest }: TiltCardProps
         'bg-white dark:bg-neutral-900 text-black dark:text-white rounded-2xl shadow-lg p-4 cursor-pointer transform-gpu transition-transform duration-300',
         className
       )}
-      {...rest}
+      // 明確告訴 motion.div 這是 div 屬性，避免 TS 錯誤
+      {...({} as React.HTMLAttributes<HTMLDivElement>)}
     >
       {children}
     </motion.div>
