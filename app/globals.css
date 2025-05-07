@@ -68,3 +68,26 @@
   from { background-position-x: 0; }
   to { background-position-x: 1000px; }
 }
+/* 新增：動態漸層覆層 */
+.animated-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    -45deg,
+    #ee7752,  /* 珊瑚橘 */
+    #e73c7e,  /* 紫紅 */
+    #23a6d5,  /* 湖水藍 */
+    #23d5ab   /* 薄荷綠 */
+  );
+  background-size: 400% 400%;
+  animation: gradientBG 30s ease infinite;
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@keyframes gradientBG {
+  0%   { background-position:   0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position:   0% 50%; }
+}
