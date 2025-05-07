@@ -6,10 +6,7 @@ import { forwardRef } from 'react'
 
 type Props = HTMLMotionProps<'div'>
 
-const MotionDiv = forwardRef<HTMLDivElement, Props>(function MotionDiv(
-  props,
-  ref
-) {
+const MotionDiv = forwardRef<HTMLDivElement, Props>((props, ref) => {
   return <motion.div ref={ref} {...props} />
 })
 
