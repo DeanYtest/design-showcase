@@ -68,25 +68,23 @@
   from { background-position-x: 0; }
   to { background-position-x: 1000px; }
 }
-/* 新增：動態漸層覆層 */
 .animated-gradient {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     -45deg,
-    #ff9a9e, /* 珊瑚粉 */
-    #fad0c4, /* 霧粉 */
-    #a18cd1, /* 薰衣紫 */
-    #fbc2eb, /* 粉紫 */
-    #8fd3f4, /* 淡藍 */
-    #84fab0, /* 薄荷綠 */
-    #a6c0fe, /* 淡藍紫 */
-    #ffd1ff  /* 淡粉 */
+    rgba(255, 154, 158, 0.5), /* 珊瑚粉 */
+    rgba(250, 208, 196, 0.5), /* 霧粉 */
+    rgba(161, 140, 209, 0.5), /* 薰衣紫 */
+    rgba(252, 194, 235, 0.5), /* 粉紫 */
+    rgba(143, 211, 244, 0.5), /* 淡藍 */
+    rgba(132, 250, 176, 0.5), /* 薄荷綠 */
+    rgba(166, 192, 254, 0.5), /* 淡藍紫 */
+    rgba(255, 209, 255, 0.5)  /* 淡粉 */
   );
-  background-size: 200% 200%;
-  animation: gradientBG 20s ease infinite;
-  mix-blend-mode: overlay;
-  opacity: 0.6;
+  background-size: 400% 400%;
+  animation: gradientBG 30s ease infinite;
+  z-index: 10;
   pointer-events: none;
 }
 
