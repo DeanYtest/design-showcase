@@ -1,11 +1,19 @@
 'use client'
 
-import { forwardRef } from 'react'
 import { motion } from 'framer-motion'
 import type { HTMLMotionProps } from 'framer-motion'
+import { forwardRef } from 'react'
 
-export const MotionDiv = forwardRef<HTMLDivElement, HTMLMotionProps<'div'>>(
-  (props, ref) => <motion.div ref={ref} {...props} />
+const MotionDiv = forwardRef<HTMLDivElement, HTMLMotionProps<'div'>>(
+  ({ children, ...props }, ref) => {
+    return (
+      <motion.div ref={ref} {...props}>
+        {children}
+      </motion.div>
+    )
+  }
 )
 
 MotionDiv.displayName = 'MotionDiv'
+
+export default MotionDiv

@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import { useAnimation } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import MotionDiv from '../components/ui/MotionDiv' // ← 預設匯入
+import MotionDiv from '../components/ui/MotionDiv'
 
 const works = [
   { title: '平面設計', href: '/graphic', img: '/images/graphic2.jpg' },
