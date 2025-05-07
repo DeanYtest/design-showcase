@@ -1,58 +1,65 @@
 // app/WorkSection.tsx
-'use client';
+interface Project {
+  title: string;
+  img: string;
+  cat: string;
+}
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+interface WorkSectionProps {
+  category: string;
+}
 
-const works = [
-  { title: 'Project A', href: '/graphic', image: '/images/graphic2.jpg' },
-  { title: 'Project B', href: '/illustration', image: '/images/ill2.jpg' },
-  { title: 'Project C', href: '/logo', image: '/images/logo2.jpg' },
+const allProjects: Project[] = [
+  { title: '作品1', img: '/images/ui1.jpg', cat: 'ui' },
+  { title: '作品2', img: '/images/ui2.jpg', cat: 'ui' },
+  { title: '平面-作品1', img: '/images/graphic1.jpg', cat: 'graphic' },
+  { title: '平面-作品2', img: '/images/graphic2.jpg', cat: 'graphic' },
+  { title: '包裝-作品1', img: '/images/pack1.jpg', cat: 'packaging' },
+  { title: '包裝-作品2', img: '/images/pack2.jpg', cat: 'packaging' },
+  { title: 'LOGO-作品1', img: '/images/logo1.jpg', cat: 'logo' },
+  { title: 'LOGO-作品2', img: '/images/logo2.jpg', cat: 'logo' },
+  { title: '手繪-作品1', img: '/images/ill1.jpg', cat: 'illustration' },
+  { title: '手繪-作品2', img: '/images/ill2.jpg', cat: 'illustration' },
+  // …如果還有更多作品請繼續補齊
 ];
 
-export default function WorkSection() {
-  const controls = useAnimation();
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
-
-  useEffect(() => {
-    if (inView) controls.start('visible');
-  }, [controls, inView]);
-
-  const variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
+export default function WorkSection({ category }: WorkSectionProps) {
+  const list = allProjects.filter((p) => p.cat === category);
 
   return (
-    <section ref={ref} className="py-16 bg-gray-50">
-      <h2 className="text-3xl font-bold text-center mb-8">Work Showcase</h2>
-      <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {works.map((work) => (
-          <motion.div<HTMLDivElement>
-            key={work.title}
-            initial="hidden"
-            animate={controls}
-            variants={variants}
-            className="overflow-hidden rounded-lg"
-          >
-            <Link href={work.href} className="block">
-              <div className="relative h-48">
-                <Image
-                  src={work.image}
-                  alt={work.title}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
+    <section id="作品展示" className="py-16 bg-black">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-display font-semibold mb-8 text-center text-white">
+          {category === 'ui'
+            ? 'UI 設計'
+            : category === 'graphic'
+            ? '平面設計'
+            : category === 'packaging'
+            ? '包裝設計'
+            : category === 'logo'
+            ? 'LOGO 設計'
+            : '手繪作品'}
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {list.map((p, idx) => (
+            <div
+              key={idx}
+              className="bg-gray-800 rounded-lg overflow-hidden shadow hover:shadow-lg transition"
+            >
+              <img
+                src={p.img}
+                alt={p.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-xl font-semibold mb-2 text-white">
+                  {p.title}
+                </h3>
               </div>
-              <h3 className="mt-4 text-xl font-semibold text-center">
-                {work.title}
-              </h3>
-            </Link>
-          </motion.div>
-        ))}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
