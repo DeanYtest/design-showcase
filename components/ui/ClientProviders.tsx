@@ -1,5 +1,5 @@
 // app/components/ui/ClientProviders.tsx
-'use client'
+'use client';
 
 import CustomCursor from './CustomCursor'
 

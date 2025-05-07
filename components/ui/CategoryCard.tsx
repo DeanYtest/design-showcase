@@ -1,5 +1,5 @@
 // components/ui/CategoryCard.tsx
-'use client'
+'use client';
 
 import Link from 'next/link'
 import Carousel from './Carousel'

@@ -1,6 +1,5 @@
 # components/ui/Modal.tsx
-tsx
-'use client'
+'use client';
 
 import { ReactNode } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'

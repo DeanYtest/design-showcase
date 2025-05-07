@@ -1,6 +1,5 @@
 # components/ui/TiltCard.tsx
-tsx
-'use client'
+'use client';
 
 import { useRef } from 'react'
 import { motion, useMotionValue, useTransform } from 'framer-motion'

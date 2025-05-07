@@ -1,5 +1,5 @@
 // app/components/ui/Carousel.tsx
-'use client'
+'use client';
 import { useEffect, useState } from 'react'
 
 interface CarouselProps { images: string[] }

@@ -1,5 +1,5 @@
 // components/ui/HomeContent.tsx
-'use client'
+'use client';
 
 import CategoryTabs from './CategoryTabs'
 import Carousel from './Carousel'
