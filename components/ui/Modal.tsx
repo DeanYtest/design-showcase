@@ -1,13 +1,13 @@
-'use client';
+'use client'
 
-import { ReactNode } from 'react';
-import { AnimatePresence } from 'framer-motion';
-import MotionDiv from './MotionDiv';
+import { ReactNode } from 'react'
+import { AnimatePresence } from 'framer-motion'
+import MotionDiv from './MotionDiv'
 
 interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  children: ReactNode;
+  isOpen: boolean
+  onClose: () => void
+  children: ReactNode
 }
 
 export default function Modal({ isOpen, onClose, children }: ModalProps) {
@@ -39,5 +39,5 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
         </MotionDiv>
       )}
     </AnimatePresence>
-  );
+  )
 }
