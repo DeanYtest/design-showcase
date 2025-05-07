@@ -1,67 +1,44 @@
-// app/HeroSection.tsx
 'use client'
 
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
-
-const backgrounds = [
-  '/images/hero1.jpg',
-  '/images/hero2.jpg',
-  '/images/hero3.jpg',
-]
+import TypingText from '../components/ui/TypingText'
 
 export default function HeroSection() {
-  const [idx, setIdx] = useState(0)
-
+  const [offsetY, setOffsetY] = useState(0)
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIdx((i) => (i + 1) % backgrounds.length)
-    }, 5000)
-    return () => clearInterval(interval)
+    const handleScroll = () => setOffsetY(window.pageYOffset)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const prev = () => {
-    setIdx((i) => (i - 1 + backgrounds.length) % backgrounds.length)
-  }
-  const next = () => {
-    setIdx((i) => (i + 1) % backgrounds.length)
-  }
 
   return (
     <section className="relative h-screen overflow-hidden">
-      {backgrounds.map((bg, i) => (
-        <div
-          key={i}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            idx === i ? 'opacity-100 z-20' : 'opacity-0 z-10'
-          }`}
-        >
-          <Image
-            src={bg}
-            alt={`英雄背景 ${i + 1}`}
-            fill
-            sizes="100vw"
-            style={{ objectFit: 'cover' }}
-            priority={i === 0}
-          />
-        </div>
-      ))}
+      <div
+        className="absolute inset-0"
+        style={{ transform: `translateY(${offsetY * 0.5}px)` }}
+      >
+        <Image
+          src="/images/hero1.jpg"
+          alt="英雄背景"
+          fill
+          sizes="100vw"
+          style={{ objectFit: 'cover' }}
+          priority
+        />
+      </div>
 
-      <button
-        onClick={prev}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 p-3 rounded-full z-30"
-        aria-label="上一張"
-      >
-        <ChevronLeftIcon className="w-6 h-6 text-white" />
-      </button>
-      <button
-        onClick={next}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 p-3 rounded-full z-30"
-        aria-label="下一張"
-      >
-        <ChevronRightIcon className="w-6 h-6 text-white" />
-      </button>
+      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+        <TypingText
+          words={[
+            'Hello, I am a Designer.',
+            'Welcome to my Portfolio.',
+          ]}
+        />
+        <p className="mt-4 text-lg md:text-2xl">
+          Design / Illustration / Branding
+        </p>
+      </div>
     </section>
   )
 }
