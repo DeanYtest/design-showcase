@@ -4,13 +4,14 @@ import { useRef } from 'react'
 import { useMotionValue, useTransform, motion } from 'framer-motion'
 import type { ReactNode, MouseEvent } from 'react'
 import clsx from 'clsx'
+import type { HTMLMotionProps } from 'framer-motion'
 
-interface TiltCardProps {
+interface TiltCardProps extends HTMLMotionProps<'div'> {
   children: ReactNode
   className?: string
 }
 
-export default function TiltCard({ children, className }: TiltCardProps) {
+export default function TiltCard({ children, className, ...rest }: TiltCardProps) {
   const ref = useRef<HTMLDivElement>(null)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -40,8 +41,7 @@ export default function TiltCard({ children, className }: TiltCardProps) {
         className
       )}
       transition={{ type: 'spring', stiffness: 120, damping: 12 }}
-      // 👇 加這一行是關鍵，讓 TS 理解這是 div
-      as="div"
+      {...rest} // ✅ 把其餘合法 props 傳進去（例如 key, variants, animate 等）
     >
       {children}
     </motion.div>
