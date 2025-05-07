@@ -30,7 +30,7 @@ export default function TiltCard({ children, className }: TiltCardProps) {
   }
 
   return (
-    <motion.div>
+    <motion.div
       ref={ref}
       onMouseMove={handleMouse}
       onMouseLeave={handleMouseLeave}
