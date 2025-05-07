@@ -1,4 +1,3 @@
-// components/ui/Modal.tsx
 'use client';
 
 import { ReactNode } from 'react';
@@ -14,16 +13,14 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        // 背景遮罩層
-        <motion.div<HTMLDivElement>
+        <motion.div
           key="backdrop"
           className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          {/* 內容區塊 */}
-          <motion.div<HTMLDivElement>
+          <motion.div
             key="modal"
             className="bg-white rounded-lg p-6 max-w-md mx-auto"
             initial={{ scale: 0.8, opacity: 0 }}
