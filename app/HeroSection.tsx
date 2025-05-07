@@ -1,6 +1,7 @@
 // app/HeroSection.tsx
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 
@@ -14,42 +15,38 @@ export default function HeroSection() {
   const [idx, setIdx] = useState(0)
 
   useEffect(() => {
-    const iv = setInterval(() => setIdx(i => (i + 1) % backgrounds.length), 5000)
-    return () => clearInterval(iv)
+    const interval = setInterval(() => {
+      setIdx((i) => (i + 1) % backgrounds.length)
+    }, 5000)
+    return () => clearInterval(interval)
   }, [])
 
-  const prev = () => setIdx(i => (i - 1 + backgrounds.length) % backgrounds.length)
-  const next = () => setIdx(i => (i + 1) % backgrounds.length)
+  const prev = () => {
+    setIdx((i) => (i - 1 + backgrounds.length) % backgrounds.length)
+  }
+  const next = () => {
+    setIdx((i) => (i + 1) % backgrounds.length)
+  }
 
   return (
     <section className="relative h-screen overflow-hidden">
-      {/* 背景圖片輪播 (z-0) */}
       {backgrounds.map((bg, i) => (
         <div
           key={i}
-          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
-            i === idx ? 'opacity-100' : 'opacity-0'
+          className={`absolute inset-0 transition-opacity duration-1000 ${
+            idx === i ? 'opacity-100 z-20' : 'opacity-0 z-10'
           }`}
-          style={{ backgroundImage: `url(${bg})` }}
-        />
-      ))}
-
-      {/* 漸層覆蓋 (z-10) */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-500 opacity-80 z-10" />
-
-      {/* 無縫波浪背景 (z-20) */}
-      <div className="wave-bg" />
-
-      {/* 文字 & 箭頭 (z-30) */}
-      <div className="relative z-30 container mx-auto px-4 max-w-2xl h-full flex items-center">
-        <div>
-          <h1 className="text-5xl font-bold text-white leading-tight mb-4">
-            Hi<br />
-            This is Chu
-          </h1>
-          <p className="text-lg text-white/90">專注故事感視覺設計</p>
+        >
+          <Image
+            src={bg}
+            alt={`英雄背景 ${i + 1}`}
+            fill
+            sizes="100vw"
+            style={{ objectFit: 'cover' }}
+            priority={i === 0}
+          />
         </div>
-      </div>
+      ))}
 
       <button
         onClick={prev}
