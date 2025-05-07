@@ -3,8 +3,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import MotionDiv from '../components/ui/MotionDiv';
 
 const works = [
   { title: 'Project A', href: '/graphic', img: '/images/graphic2.jpg' },
@@ -32,7 +33,7 @@ export default function WorkSection({ category }: { category: string }) {
         {works
           .filter((p) => p.href.includes(category))
           .map((work, idx) => (
-            <motion.div
+            <MotionDiv
               key={idx}
               initial="hidden"
               animate={controls}
@@ -52,7 +53,7 @@ export default function WorkSection({ category }: { category: string }) {
                   {work.title}
                 </h3>
               </Link>
-            </motion.div>
+            </MotionDiv>
           ))}
       </div>
     </section>
