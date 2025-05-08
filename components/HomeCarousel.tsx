@@ -1,146 +1,92 @@
 // components/HomeCarousel.tsx
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useInView } from 'react-intersection-observer';
 
 const categories = [
-  {
-    title: 'UI',
-    href: '/ui',
-    images: ['/images/ui1.jpg','/images/ui2.jpg','/images/ui3.jpg'],
-  },
-  {
-    title: 'Logo',
-    href: '/logo',
-    images: ['/images/logo1.jpg','/images/logo2.jpg','/images/logo3.jpg'],
-  },
-  {
-    title: 'Graphic',
-    href: '/graphic',
-    images: ['/images/graphic1.jpg','/images/graphic2.jpg','/images/graphic3.jpg'],
-  },
-  {
-    title: 'Packaging',
-    href: '/packaging',
-    images: ['/images/pack1.jpg','/images/pack2.jpg','/images/pack3.jpg'],
-  },
-  {
-    title: 'Illustration',
-    href: '/illustration',
-    images: ['/images/ill1.jpg','/images/ill2.jpg','/images/ill3.jpg'],
-  },
+  { title: 'UI',           href: '/ui',           img: '/images/ui1.jpg' },
+  { title: 'Logo',         href: '/logo',         img: '/images/logo1.jpg' },
+  { title: 'Graphic',      href: '/graphic',      img: '/images/graphic1.jpg' },
+  { title: 'Packaging',    href: '/packaging',    img: '/images/pack1.jpg' },
+  { title: 'Illustration', href: '/illustration', img: '/images/ill1.jpg' },
 ];
 
 export default function HomeCarousel() {
-  // ————— 走馬燈部份 —————
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [idxs, setIdxs] = useState<number[]>(categories.map(() => 0));
+  // 当前滑动到第几页，0～(categories.length - visibleCount)
+  const VISIBLE = 3;
+  const MAX_INDEX = categories.length - VISIBLE; // 5 - 3 = 2
+  const [page, setPage] = useState(0);
 
-  useEffect(() => {
-    const timers = categories.map((_, i) =>
-      window.setInterval(() => {
-        setIdxs(prev => {
-          const next = [...prev];
-          next[i] = (next[i] + 1) % categories[i].images.length;
-          return next;
-        });
-      }, 3000)
-    );
-    return () => timers.forEach(clearInterval);
-  }, []);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const DELTA = 336; // 320px card + 16px gap
-  const scroll = (dir: 'left'|'right') => {
-    scrollRef.current?.scrollBy({
-      left: dir==='right'? DELTA : -DELTA,
+  const CARD_TOTAL_WIDTH = 320 + 16; // 卡片宽 320 + 间距 16
+
+  const handlePrev = () => {
+    const next = Math.max(0, page - 1);
+    setPage(next);
+    wrapperRef.current?.scrollTo({
+      left: next * CARD_TOTAL_WIDTH,
       behavior: 'smooth',
     });
   };
 
-  // ————— 網格淡入部份 —————
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
-  const [visible, setVisible] = useState<number[]>([]);
-  useEffect(() => {
-    if (inView) {
-      categories.forEach((_, i) =>
-        setTimeout(() => setVisible(v => [...v, i]), i * 150)
-      );
-    }
-  }, [inView]);
+  const handleNext = () => {
+    const next = Math.min(MAX_INDEX, page + 1);
+    setPage(next);
+    wrapperRef.current?.scrollTo({
+      left: next * CARD_TOTAL_WIDTH,
+      behavior: 'smooth',
+    });
+  };
 
   return (
-    <section className="bg-black py-12">
-      <h2 className="sr-only">作品走馬燈與展示</h2>
+    <section className="relative bg-black py-12">
+      <h2 className="sr-only">作品分類走馬燈</h2>
 
-      {/* ==== 走馬燈 ==== */}
-      <div className="relative max-w-[calc(336px*3)] mx-auto mb-12">
+      {/* 宽度刚好放三张卡并居中，隐藏水平溢出 */}
+      <div className="relative mx-auto max-w-[calc(320px*3+16*2)] overflow-hidden">
+        {/* 左按钮 */}
         <button
-          onClick={() => scroll('left')}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-2 bg-white bg-opacity-50 rounded-full hover:bg-opacity-75 transition"
+          onClick={handlePrev}
+          disabled={page === 0}
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-50 rounded-full disabled:bg-opacity-25 transition"
         >
           ‹
         </button>
+
+        {/* 滑动容器 */}
         <div
-          ref={scrollRef}
+          ref={wrapperRef}
           className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide px-2"
         >
-          {categories.map((cat, i) => (
+          {categories.map((cat) => (
             <Link key={cat.title} href={cat.href}>
-              <a className="group flex-shrink-0 w-80 relative">
-                <div className="relative w-full h-48 overflow-hidden rounded-xl shadow-lg">
-                  <Image
-                    src={cat.images[idxs[i]]}
-                    alt={`${cat.title} ${idxs[i]+1}`}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                    priority
-                  />
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <h3 className="text-white text-lg">{cat.title}</h3>
-                </div>
-              </a>
-            </Link>
-          ))}
-        </div>
-        <button
-          onClick={() => scroll('right')}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-2 bg-white bg-opacity-50 rounded-full hover:bg-opacity-75 transition"
-        >
-          ›
-        </button>
-      </div>
-
-      {/* ==== 網格淡入展示 ==== */}
-      <div
-        ref={ref}
-        className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-      >
-        {categories.map((cat, i) => (
-          <Link key={i} href={cat.href}>
-            <a
-              className={`group relative overflow-hidden rounded-xl shadow-lg ${
-                visible.includes(i) ? `fade-up delay-${i}` : 'opacity-0'
-              }`}
-            >
-              <div className="relative w-full h-64">
+              <a className="flex-shrink-0 w-[320px] h-[200px] relative rounded-xl overflow-hidden shadow-lg">
                 <Image
-                  src={cat.images[0]}
+                  src={cat.img}
                   alt={cat.title}
                   fill
                   style={{ objectFit: 'cover' }}
                   priority
                 />
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <h3 className="text-white text-xl">{cat.title}</h3>
-              </div>
-            </a>
-          </Link>
-        ))}
+                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-3 text-white text-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                  {cat.title}
+                </div>
+              </a>
+            </Link>
+          ))}
+        </div>
+
+        {/* 右按钮 */}
+        <button
+          onClick={handleNext}
+          disabled={page === MAX_INDEX}
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-50 rounded-full disabled:bg-opacity-25 transition"
+        >
+          ›
+        </button>
       </div>
     </section>
   );
