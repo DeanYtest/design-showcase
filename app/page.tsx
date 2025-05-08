@@ -1,5 +1,5 @@
 // app/page.tsx
-'use client'
+'use client';
 
 import HeroSection from './HeroSection'
 import HomeCarousel from '../components/HomeCarousel'
@@ -7,10 +7,10 @@ import HomeCarousel from '../components/HomeCarousel'
 export default function HomePage() {
   return (
     <>
-      {/* 1. Hero（保持原有打字機、按鈕、文案等） */}
+      {/* HeroSection 保留原有效果 */}
       <HeroSection />
 
-      {/* 2. 首頁走馬燈：3 張卡＋左右箭頭＋自動輪播 */}
+      {/* 首页走马灯：3 张卡＋左右箭头＋自动轮播 */}
       <HomeCarousel />
     </>
   )

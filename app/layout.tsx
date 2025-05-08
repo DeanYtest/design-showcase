@@ -16,25 +16,29 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh">
-      <body className="relative bg-black text-white antialiased">
-        {/* Navbar */}
-        <Navbar />
-
-        {/* 漸層背景：加上 -z-10 讓它跑到最底層 */}
-        <div className="animated-gradient absolute inset-0 -z-10 pointer-events-none" />
-
-        {/* 波浪底圖：同樣 -z-10 */}
-        <div className="absolute bottom-0 left-0 w-full -z-10 pointer-events-none">
-          <WaveTransition />
+      <body className="relative min-h-screen bg-black text-white antialiased">
+        {/* Navbar 固定在最顶，上层 z-30 */}
+        <div className="relative z-30">
+          <Navbar />
         </div>
 
-        {/* 內容 */}
-        <main className="relative pt-16">
+        {/* 背景层：渐变 + 波浪，全部 z-0，绝对铺满屏幕 */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="animated-gradient absolute inset-0" />
+          <div className="absolute bottom-0 left-0 w-full">
+            <WaveTransition />
+          </div>
+        </div>
+
+        {/* 主内容区，z-10，留出顶部 Navbar 高度 */}
+        <main className="relative z-10 pt-16">
           {children}
         </main>
 
-        {/* Footer */}
-        <Footer />
+        {/* Footer，z-10 */}
+        <div className="relative z-10">
+          <Footer />
+        </div>
       </body>
     </html>
   )
