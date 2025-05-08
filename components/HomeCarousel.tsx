@@ -1,9 +1,9 @@
 // components/HomeCarousel.tsx
 'use client';
 
-import { useRef, useState, useEffect } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
+import { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const categories = [
   {
@@ -24,57 +24,57 @@ const categories = [
   {
     title: 'Packaging',
     href: '/packaging',
-    images: ['/images/packaging1.jpg', '/images/packaging2.jpg', '/images/packaging3.jpg'],
+    images: ['/images/pack1.jpg', '/images/pack2.jpg', '/images/pack3.jpg'],
   },
   {
     title: 'Illustration',
     href: '/illustration',
     images: ['/images/ill1.jpg', '/images/ill2.jpg', '/images/ill3.jpg'],
   },
-]
+];
 
 export default function HomeCarousel() {
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const [indexes, setIndexes] = useState<number[]>(categories.map(() => 0))
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [indexes, setIndexes] = useState<number[]>(
+    categories.map(() => 0)
+  );
 
-  // 自动轮播：每 3 秒切换同一类别下一张图
+  // 每3秒自動輪播
   useEffect(() => {
     const timers = categories.map((_, i) =>
       window.setInterval(() => {
-        setIndexes(prev => {
-          const next = [...prev]
-          next[i] = (next[i] + 1) % categories[i].images.length
-          return next
-        })
+        setIndexes((prev) => {
+          const next = [...prev];
+          next[i] = (next[i] + 1) % categories[i].images.length;
+          return next;
+        });
       }, 3000)
-    )
-    return () => timers.forEach(clearInterval)
-  }, [])
+    );
+    return () => timers.forEach(clearInterval);
+  }, []);
 
-  // 每张卡 320px 宽 + 16px 间距 = 336px
-  const SCROLL_DELTA = 336
-
-  const handleArrow = (dir: 'left' | 'right') => {
-    if (!scrollRef.current) return
-    scrollRef.current.scrollBy({
+  // 卡片寬度320 + 間距16 = 336px
+  const SCROLL_DELTA = 336;
+  const handleScroll = (dir: 'left' | 'right') => {
+    scrollRef.current?.scrollBy({
       left: dir === 'right' ? SCROLL_DELTA : -SCROLL_DELTA,
       behavior: 'smooth',
-    })
-  }
+    });
+  };
 
   return (
     <section className="relative py-12 container mx-auto">
       <h2 className="sr-only">作品分類走馬燈</h2>
 
-      {/* 左箭头 */}
+      {/* 左箭頭 */}
       <button
-        onClick={() => handleArrow('left')}
+        onClick={() => handleScroll('left')}
         className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-2 bg-white bg-opacity-50 rounded-full hover:bg-opacity-75 transition"
       >
         ‹
       </button>
 
-      {/* 卡片横向滚动区 */}
+      {/* 卡片滾動容器 */}
       <div
         ref={scrollRef}
         className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide px-8"
@@ -99,13 +99,13 @@ export default function HomeCarousel() {
         ))}
       </div>
 
-      {/* 右箭头 */}
+      {/* 右箭頭 */}
       <button
-        onClick={() => handleArrow('right')}
+        onClick={() => handleScroll('right')}
         className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-2 bg-white bg-opacity-50 rounded-full hover:bg-opacity-75 transition"
       >
         ›
       </button>
     </section>
-  )
+  );
 }
