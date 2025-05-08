@@ -5,23 +5,26 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
+// 五種作品類型
 const works = [
-  { title: 'Project A', href: '/graphic', img: '/images/graphic2.jpg' },
-  { title: 'Project B', href: '/illustration', img: '/images/ill2.jpg' },
-  { title: 'Project C', href: '/logo', img: '/images/logo2.jpg' },
-  // ...依專案需求自行新增
+  { title: 'Graphic',      href: '/graphic',      img: '/images/graphic2.jpg' },
+  { title: 'Illustration', href: '/illustration', img: '/images/ill2.jpg'    },
+  { title: 'Logo',         href: '/logo',         img: '/images/logo2.jpg'   },
+  { title: 'Packaging',    href: '/packaging',    img: '/images/packaging.jpg' },
+  { title: 'UI',           href: '/ui',           img: '/images/ui.jpg'      },
 ];
 
-export default function WorkSection({ category }: { category: string }) {
+export default function WorkSection() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
 
   useEffect(() => {
     if (inView) {
+      // 依序讓五張卡片淡入
       works.forEach((_, i) =>
         setTimeout(() => {
           setVisibleItems((prev) => [...prev, i]);
-        }, i * 150) // 每個卡片延遲 150ms
+        }, i * 150) // 每張延遲 150ms
       );
     }
   }, [inView]);
@@ -34,9 +37,8 @@ export default function WorkSection({ category }: { category: string }) {
           return (
             <Link key={index} href={work.href}>
               <a
-                className={`group relative overflow-hidden rounded-xl shadow-lg ${
-                  isVisible ? `fade-up delay-${index}` : ''
-                }`}
+                className={`group relative overflow-hidden rounded-xl shadow-lg
+                  ${isVisible ? `fade-up delay-${index}` : 'opacity-0'}`}
               >
                 <div className="relative w-full h-64">
                   <Image
@@ -47,7 +49,8 @@ export default function WorkSection({ category }: { category: string }) {
                     priority
                   />
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4
+                                opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <h3 className="text-white text-xl">{work.title}</h3>
                 </div>
               </a>
