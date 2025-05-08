@@ -2,7 +2,6 @@
 import './globals.css'
 import Navbar from '../components/ui/Navbar'
 import WaveTransition from '../components/ui/WaveTransition'
-// 把這行改成從 app 資料夾讀 Footer
 import Footer from './Footer'
 
 export const metadata = {
@@ -21,11 +20,11 @@ export default function RootLayout({
         {/* Navbar */}
         <Navbar />
 
-        {/* 漸層背景 */}
-        <div className="animated-gradient absolute inset-0 pointer-events-none" />
+        {/* 漸層背景：加上 -z-10 讓它跑到最底層 */}
+        <div className="animated-gradient absolute inset-0 -z-10 pointer-events-none" />
 
-        {/* 波浪底圖 */}
-        <div className="absolute bottom-0 left-0 w-full pointer-events-none">
+        {/* 波浪底圖：同樣 -z-10 */}
+        <div className="absolute bottom-0 left-0 w-full -z-10 pointer-events-none">
           <WaveTransition />
         </div>
 
@@ -34,7 +33,7 @@ export default function RootLayout({
           {children}
         </main>
 
-        {/* Footer（來自 app/Footer.tsx） */}
+        {/* Footer */}
         <Footer />
       </body>
     </html>
