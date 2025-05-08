@@ -1,36 +1,25 @@
+// app/page.tsx
+import HeroSection from '@/components/HeroSection';
+import HomeCarousel from '@/components/HomeCarousel';
+import Footer from '@/components/Footer';
 
-import dynamic from 'next/dynamic'
-import Footer from './Footer'
-import WaveTransition from '../components/ui/WaveTransition'
-
-export const metadata = {
-  title: '小設 設計作品集',
-  description: '個人品牌視覺設計作品集',
-}
-
-const HeroSection = dynamic(() => import('./HeroSection'), {
-  ssr: false,
-  loading: () => (
-    <div className="h-96 flex items-center justify-center">載入中…</div>
-  ),
-})
-const CategorySection = dynamic(
-  () => import('../components/ui/CategorySection'),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-32 flex items-center justify-center">載入中…</div>
-    ),
-  }
-)
-
-export default function Page() {
+export default function HomePage() {
   return (
-    <>
+    <main className="relative bg-black text-white overflow-hidden">
+      {/* 1. 漸層背景：animated-gradient 在 globals.css 已定義 */}
+      <div className="animated-gradient" />
+
+      {/* 2. 波浪圖案：wave-bg 在 globals.css 已定義 */}
+      <div className="wave-bg absolute bottom-0 left-0 w-full" />
+
+      {/* 3. Hero 區塊（保留所有原本邏輯與樣式） */}
       <HeroSection />
-      <WaveTransition />
-      <CategorySection />
+
+      {/* 4. 首頁走馬燈（左右箭頭 + 輪番播放） */}
+      <HomeCarousel />
+
+      {/* 5. Footer */}
       <Footer />
-    </>
-  )
+    </main>
+  );
 }
