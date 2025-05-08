@@ -1,3 +1,4 @@
+// components/HomeCarousel.tsx
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
@@ -8,44 +9,43 @@ const categories = [
   {
     title: 'UI',
     href: '/ui',
-    images: ['/images/ui1.jpg', '/images/ui2.jpg', '/images/ui3.jpg'],
+    images: ['/ui1.jpg', '/ui2.jpg', '/ui3.jpg'],
   },
   {
     title: 'Logo',
     href: '/logo',
-    images: ['/images/logo1.jpg', '/images/logo2.jpg', '/images/logo3.jpg'],
+    images: ['/logo1.jpg', '/logo2.jpg', '/logo3.jpg'],
   },
   {
     title: 'Graphic',
     href: '/graphic',
-    images: ['/images/graphic1.jpg', '/images/graphic2.jpg', '/images/graphic3.jpg'],
+    images: ['/graphic1.jpg', '/graphic2.jpg', '/graphic3.jpg'],
   },
   {
     title: 'Packaging',
     href: '/packaging',
-    images: ['/images/packaging1.jpg', '/images/packaging2.jpg', '/images/packaging3.jpg'],
+    images: ['/packaging1.jpg', '/packaging2.jpg', '/packaging3.jpg'],
   },
   {
     title: 'Illustration',
     href: '/illustration',
-    images: ['/images/ill1.jpg', '/images/ill2.jpg', '/images/ill3.jpg'],
+    images: ['/ill1.jpg', '/ill2.jpg', '/ill3.jpg'],
   },
 ];
 
 export default function HomeCarousel() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  // 每個分類目前顯示的圖片索引
   const [currentIdx, setCurrentIdx] = useState<number[]>(
     categories.map(() => 0)
   );
 
-  // 自動輪番：每個分類各自定時切換
+  // 自動輪番：每 3 秒切換同類型圖片
   useEffect(() => {
-    const timers = categories.map((cat, i) =>
+    const timers = categories.map((_, i) =>
       window.setInterval(() => {
         setCurrentIdx((prev) => {
           const next = [...prev];
-          next[i] = (next[i] + 1) % cat.images.length;
+          next[i] = (next[i] + 1) % categories[i].images.length;
           return next;
         });
       }, 3000)
@@ -53,7 +53,7 @@ export default function HomeCarousel() {
     return () => timers.forEach((t) => clearInterval(t));
   }, []);
 
-  // 點箭頭左右滾動 offset px
+  // 點箭頭時，水平滾動卡片寬度＋間距（344px）
   const scroll = (offset: number) => {
     scrollRef.current?.scrollBy({ left: offset, behavior: 'smooth' });
   };
@@ -70,7 +70,7 @@ export default function HomeCarousel() {
         ‹
       </button>
 
-      {/* 水平滾動容器：同時只顯示 3 張卡 */}
+      {/* 卡片橫向滾動區，只顯示三張 */}
       <div
         ref={scrollRef}
         className="flex space-x-6 overflow-x-auto scroll-smooth scrollbar-hide px-8"
@@ -78,7 +78,6 @@ export default function HomeCarousel() {
         {categories.map((cat, i) => (
           <Link key={cat.title} href={cat.href}>
             <a className="group flex-shrink-0 w-80 relative">
-              {/* 輪播圖 */}
               <div className="relative w-full h-48 rounded-xl overflow-hidden shadow-lg">
                 <Image
                   src={cat.images[currentIdx[i]]}
@@ -88,7 +87,6 @@ export default function HomeCarousel() {
                   priority
                 />
               </div>
-              {/* 卡片 Hover 標題 */}
               <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-3 opacity-0 group-hover:opacity-100 transition-opacity">
                 <h3 className="text-white text-lg">{cat.title}</h3>
               </div>
