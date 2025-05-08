@@ -1,22 +1,29 @@
 // app/page.tsx
 'use client';
 
-import HeroSection from './HeroSection';           // 位於 app/HeroSection.tsx
-import HomeCarousel from '../components/HomeCarousel';  // 位於 components/HomeCarousel.tsx
-import WorkSection from './WorkSection';           // 位於 app/WorkSection.tsx
+import dynamic from 'next/dynamic';
+import HomeCarousel from '../components/HomeCarousel'; // 确认这个文件存在
+import Footer from './Footer';                       // 位于 app/Footer.tsx
+
+// HeroSection 仍由动态加载，并且只在客户端运行
+const HeroSection = dynamic(() => import('./HeroSection'), {
+  ssr: false,
+  loading: () => (
+    <div className="h-96 flex items-center justify-center">載入中…</div>
+  ),
+});
 
 export default function HomePage() {
   return (
     <>
-      {/* 1. Hero（打字機、漸層背景由 layout 管理） */}
+      {/* HERO */}
       <HeroSection />
 
-      {/* 2. 首頁走馬燈：3 張卡＋左右箭頭＋自動輪播 */}
+      {/* 首頁走馬燈：三張卡＋左右箭頭＋自動輪播 */}
       <HomeCarousel />
 
-      {/* 3. 作品展示區（原本的 WorkSection） */}
-      <WorkSection category="all" />
-
+      {/* Footer（app/Footer.tsx） */}
+      <Footer />
     </>
   );
 }
