@@ -14,29 +14,27 @@ const categories = [
 ];
 
 export default function HomeCarousel() {
-  // 当前滑动到第几页，0～(categories.length - visibleCount)
   const VISIBLE = 3;
-  const MAX_INDEX = categories.length - VISIBLE; // 5 - 3 = 2
+  const MAX_PAGE = categories.length - VISIBLE; // 5 - 3 = 2
   const [page, setPage] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  // 每张卡片 320px + 间距 16px = 336px
+  const STEP = 320 + 16;
 
-  const CARD_TOTAL_WIDTH = 320 + 16; // 卡片宽 320 + 间距 16
-
-  const handlePrev = () => {
+  const goPrev = () => {
     const next = Math.max(0, page - 1);
     setPage(next);
-    wrapperRef.current?.scrollTo({
-      left: next * CARD_TOTAL_WIDTH,
+    carouselRef.current?.scrollTo({
+      left: next * STEP,
       behavior: 'smooth',
     });
   };
-
-  const handleNext = () => {
-    const next = Math.min(MAX_INDEX, page + 1);
+  const goNext = () => {
+    const next = Math.min(MAX_PAGE, page + 1);
     setPage(next);
-    wrapperRef.current?.scrollTo({
-      left: next * CARD_TOTAL_WIDTH,
+    carouselRef.current?.scrollTo({
+      left: next * STEP,
       behavior: 'smooth',
     });
   };
@@ -45,20 +43,19 @@ export default function HomeCarousel() {
     <section className="relative bg-black py-12">
       <h2 className="sr-only">作品分類走馬燈</h2>
 
-      {/* 宽度刚好放三张卡并居中，隐藏水平溢出 */}
-      <div className="relative mx-auto max-w-[calc(320px*3+16*2)] overflow-hidden">
-        {/* 左按钮 */}
+      <div className="relative mx-auto w-[calc(320px*3+16*2)] overflow-hidden">
+        {/* 左箭頭 */}
         <button
-          onClick={handlePrev}
+          onClick={goPrev}
           disabled={page === 0}
           className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-50 rounded-full disabled:bg-opacity-25 transition"
         >
           ‹
         </button>
 
-        {/* 滑动容器 */}
+        {/* 滑動區 */}
         <div
-          ref={wrapperRef}
+          ref={carouselRef}
           className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide px-2"
         >
           {categories.map((cat) => (
@@ -79,10 +76,10 @@ export default function HomeCarousel() {
           ))}
         </div>
 
-        {/* 右按钮 */}
+        {/* 右箭頭 */}
         <button
-          onClick={handleNext}
-          disabled={page === MAX_INDEX}
+          onClick={goNext}
+          disabled={page === MAX_PAGE}
           className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-50 rounded-full disabled:bg-opacity-25 transition"
         >
           ›

@@ -1,15 +1,16 @@
 // app/page.tsx
 'use client';
 
-import dynamic from 'next/dynamic';
+import HeroSection from './HeroSection';
 import HomeCarousel from '../components/HomeCarousel';
-
-const HeroSection = dynamic(() => import('./HeroSection'), { ssr: false });
 
 export default function HomePage() {
   return (
     <>
+      {/* 1. Hero */}
       <HeroSection />
+
+      {/* 2. 三張卡片走馬燈 */}
       <HomeCarousel />
     </>
   );
