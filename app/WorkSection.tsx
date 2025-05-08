@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 interface WorkSectionProps {
-  category: 'ui' | 'logo' | 'graphic' | 'packaging' | 'illustration' | 'all';
+  category: string;
 }
 
 const allWorks = [
@@ -19,13 +19,12 @@ const allWorks = [
 ];
 
 export default function WorkSection({ category }: WorkSectionProps) {
-  // 篩選：all 顯示全部，否則只顯示對應 category
+  // 如果要 “all” 显示全部，否则根据字符串筛选
   const works =
     category === 'all'
       ? allWorks
-      : allWorks.filter((w) => w.category === category);
+      : allWorks.filter((w) => w.category === category.toLowerCase());
 
-  // 監控視窗進入，觸發淡入
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
 
@@ -44,7 +43,6 @@ export default function WorkSection({ category }: WorkSectionProps) {
       <h2 className="text-3xl font-bold mb-6 capitalize">
         {category === 'all' ? '所有作品' : category}
       </h2>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {works.map((work, idx) => {
           const isVisible = visibleItems.includes(idx);
