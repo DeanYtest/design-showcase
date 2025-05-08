@@ -1,5 +1,5 @@
 // components/HomeCarousel.tsx
-'use client'
+'use client';
 
 import { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
@@ -35,13 +35,13 @@ const categories = [
 
 export default function HomeCarousel() {
   const scrollRef = useRef<HTMLDivElement>(null)
-  const [idxs, setIdxs] = useState<number[]>(categories.map(() => 0))
+  const [indexes, setIndexes] = useState<number[]>(categories.map(() => 0))
 
-  // 每 3 秒自動切換各卡片內部圖片
+  // 自动轮播：每 3 秒切换同一类别下一张图
   useEffect(() => {
     const timers = categories.map((_, i) =>
       window.setInterval(() => {
-        setIdxs(prev => {
+        setIndexes(prev => {
           const next = [...prev]
           next[i] = (next[i] + 1) % categories[i].images.length
           return next
@@ -51,12 +51,13 @@ export default function HomeCarousel() {
     return () => timers.forEach(clearInterval)
   }, [])
 
-  // 單張卡片寬度 320px + gap 16px = 336px
-  const SCROLL_BY = 336
-  const handleScroll = (dir: 'left' | 'right') => {
+  // 每张卡 320px 宽 + 16px 间距 = 336px
+  const SCROLL_DELTA = 336
+
+  const handleArrow = (dir: 'left' | 'right') => {
     if (!scrollRef.current) return
     scrollRef.current.scrollBy({
-      left: dir === 'right' ? SCROLL_BY : -SCROLL_BY,
+      left: dir === 'right' ? SCROLL_DELTA : -SCROLL_DELTA,
       behavior: 'smooth',
     })
   }
@@ -65,15 +66,15 @@ export default function HomeCarousel() {
     <section className="relative py-12 container mx-auto">
       <h2 className="sr-only">作品分類走馬燈</h2>
 
-      {/* 左箭頭 */}
+      {/* 左箭头 */}
       <button
-        onClick={() => handleScroll('left')}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-50 rounded-full hover:bg-opacity-75 transition"
+        onClick={() => handleArrow('left')}
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-2 bg-white bg-opacity-50 rounded-full hover:bg-opacity-75 transition"
       >
         ‹
       </button>
 
-      {/* 卡片橫向滾動區 */}
+      {/* 卡片横向滚动区 */}
       <div
         ref={scrollRef}
         className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide px-8"
@@ -83,8 +84,8 @@ export default function HomeCarousel() {
             <a className="group flex-shrink-0 w-80 relative">
               <div className="relative w-full h-48 rounded-xl overflow-hidden shadow-lg">
                 <Image
-                  src={cat.images[idxs[i]]}
-                  alt={`${cat.title} ${idxs[i] + 1}`}
+                  src={cat.images[indexes[i]]}
+                  alt={`${cat.title} ${indexes[i] + 1}`}
                   fill
                   style={{ objectFit: 'cover' }}
                   priority
@@ -98,10 +99,10 @@ export default function HomeCarousel() {
         ))}
       </div>
 
-      {/* 右箭頭 */}
+      {/* 右箭头 */}
       <button
-        onClick={() => handleScroll('right')}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-50 rounded-full hover:bg-opacity-75 transition"
+        onClick={() => handleArrow('right')}
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-2 bg-white bg-opacity-50 rounded-full hover:bg-opacity-75 transition"
       >
         ›
       </button>

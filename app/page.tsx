@@ -1,17 +1,22 @@
 // app/page.tsx
 'use client';
 
-import HeroSection from './HeroSection'
-import HomeCarousel from '../components/HomeCarousel'
+import HeroSection from './HeroSection';           // 位於 app/HeroSection.tsx
+import HomeCarousel from '../components/HomeCarousel';  // 位於 components/HomeCarousel.tsx
+import WorkSection from './WorkSection';           // 位於 app/WorkSection.tsx
 
 export default function HomePage() {
   return (
     <>
-      {/* HeroSection 保留原有效果 */}
+      {/* 1. Hero（打字機、漸層背景由 layout 管理） */}
       <HeroSection />
 
-      {/* 首页走马灯：3 张卡＋左右箭头＋自动轮播 */}
+      {/* 2. 首頁走馬燈：3 張卡＋左右箭頭＋自動輪播 */}
       <HomeCarousel />
+
+      {/* 3. 作品展示區（原本的 WorkSection） */}
+      <WorkSection category="all" />
+
     </>
-  )
+  );
 }
