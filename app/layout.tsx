@@ -2,7 +2,8 @@
 import './globals.css'
 import Navbar from '../components/ui/Navbar'
 import WaveTransition from '../components/ui/WaveTransition'
-import Footer from '../components/Footer'
+// 把這行改成從 app 資料夾讀 Footer
+import Footer from './Footer'
 
 export const metadata = {
   title: '小設 設計作品集',
@@ -17,23 +18,23 @@ export default function RootLayout({
   return (
     <html lang="zh">
       <body className="relative bg-black text-white antialiased">
-        {/* 1. 全站固定顯示的 Navbar */}
+        {/* Navbar */}
         <Navbar />
 
-        {/* 2. 漸變動態背景 */}
+        {/* 漸層背景 */}
         <div className="animated-gradient absolute inset-0 pointer-events-none" />
 
-        {/* 3. 波浪底圖 */}
+        {/* 波浪底圖 */}
         <div className="absolute bottom-0 left-0 w-full pointer-events-none">
           <WaveTransition />
         </div>
 
-        {/* 4. 真正的頁面內容 */}
+        {/* 內容 */}
         <main className="relative pt-16">
           {children}
         </main>
 
-        {/* 5. 全站 Footer */}
+        {/* Footer（來自 app/Footer.tsx） */}
         <Footer />
       </body>
     </html>
