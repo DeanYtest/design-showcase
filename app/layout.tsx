@@ -9,14 +9,18 @@ export const metadata = {
   description: '個人品牌視覺設計作品集',
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="zh">
       <body className="relative min-h-screen bg-black text-white antialiased">
         {/* Navbar */}
         <Navbar />
 
-        {/* 背景：漸層 + 波浪，永遠在最下層 */}
+        {/* 全站背景：漸層 + 波浪 */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="animated-gradient absolute inset-0" />
           <div className="absolute bottom-0 left-0 w-full">
@@ -24,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </div>
 
-        {/* 主体内容 */}
+        {/* 主內容 (z-10 确保在背景之上) */}
         <main className="relative z-10 pt-16">
           {children}
         </main>
