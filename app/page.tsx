@@ -1,6 +1,4 @@
 // app/page.tsx
-'use client';
-
 import dynamic from 'next/dynamic';
 import WaveTransition from '../components/ui/WaveTransition';
 import Footer from './Footer';
