@@ -1,43 +1,28 @@
-'use client'
-
-import { ReactNode } from 'react'
-import { AnimatePresence } from 'framer-motion'
-import MotionDiv from './MotionDiv'
+'use client';
+import { ReactNode } from 'react';
 
 interface ModalProps {
-  isOpen: boolean
-  onClose: () => void
-  children: ReactNode
+  isOpen: boolean;
+  onClose: () => void;
+  title?: string;
+  children: ReactNode;
 }
 
-export default function Modal({ isOpen, onClose, children }: ModalProps) {
+export default function Modal({ isOpen, onClose, title, children }: ModalProps) {
+  if (!isOpen) return null;
+
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <MotionDiv
-          key="backdrop"
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white rounded-xl p-6 max-w-lg w-full fade-up">
+        {title && <h2 className="text-2xl font-semibold mb-4">{title}</h2>}
+        <div className="mb-4">{children}</div>
+        <button
+          onClick={onClose}
+          className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
         >
-          <MotionDiv
-            key="modal"
-            className="bg-white rounded-lg p-6 max-w-md mx-auto"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-          >
-            {children}
-            <button
-              onClick={onClose}
-              className="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary/80"
-            >
-              關閉
-            </button>
-          </MotionDiv>
-        </MotionDiv>
-      )}
-    </AnimatePresence>
-  )
+          關閉
+        </button>
+      </div>
+    </div>
+  );
 }
