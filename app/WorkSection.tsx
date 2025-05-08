@@ -1,94 +1,113 @@
-// app/WorkSection.tsx
 'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef, useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { useRef, useState, useEffect } from 'react';
 
 interface WorkSectionProps {
   category: string;
 }
 
-const works = [
-  { title: 'Graphic',      href: '/graphic',      img: '/images/graphic2.jpg' },
-  { title: 'Illustration', href: '/illustration', img: '/images/ill2.jpg'    },
-  { title: 'Logo',         href: '/logo',         img: '/images/logo2.jpg'   },
-  { title: 'Packaging',    href: '/packaging',    img: '/images/packaging.jpg' },
-  { title: 'UI',           href: '/ui',           img: '/images/ui.jpg'      },
+const categories = [
+  {
+    title: 'UI',
+    href: '/ui',
+    images: ['/images/ui1.jpg', '/images/ui2.jpg', '/images/ui3.jpg'],
+  },
+  {
+    title: 'Logo',
+    href: '/logo',
+    images: ['/images/logo1.jpg', '/images/logo2.jpg', '/images/logo3.jpg'],
+  },
+  {
+    title: 'Graphic',
+    href: '/graphic',
+    images: ['/images/graphic1.jpg', '/images/graphic2.jpg', '/images/graphic3.jpg'],
+  },
+  {
+    title: 'Packaging',
+    href: '/packaging',
+    images: ['/images/packaging1.jpg', '/images/packaging2.jpg', '/images/packaging3.jpg'],
+  },
+  {
+    title: 'Illustration',
+    href: '/illustration',
+    images: ['/images/ill1.jpg', '/images/ill2.jpg', '/images/ill3.jpg'],
+  },
 ];
 
 export default function WorkSection({ category }: WorkSectionProps) {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
-  const [visibleItems, setVisibleItems] = useState<number[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
+  // 每個分類目前顯示的圖片索引
+  const [currentIdx, setCurrentIdx] = useState<number[]>(
+    categories.map(() => 0)
+  );
 
+  // 自動輪播：每個分類各自定時切換
   useEffect(() => {
-    if (inView) {
-      works.forEach((_, i) =>
-        setTimeout(() => {
-          setVisibleItems((prev) => [...prev, i]);
-        }, i * 150)
-      );
-    }
-  }, [inView]);
+    const timers = categories.map((cat, i) =>
+      window.setInterval(() => {
+        setCurrentIdx((prev) => {
+          const next = [...prev];
+          next[i] = (next[i] + 1) % cat.images.length;
+          return next;
+        });
+      }, 3000)
+    );
+    return () => timers.forEach((t) => clearInterval(t));
+  }, []);
 
   const scroll = (offset: number) => {
     scrollRef.current?.scrollBy({ left: offset, behavior: 'smooth' });
   };
 
   return (
-    <section ref={ref} className="container mx-auto py-12">
-      <h2 className="sr-only">{category} 作品集</h2>
+    <section className="relative container mx-auto py-12">
+      {/* 無障礙隱藏標題 */}
+      <h2 className="sr-only">{category} 作品切換區</h2>
 
-      <div className="relative">
-        {/* 左箭頭 */}
-        <button
-          onClick={() => scroll(-300)}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-2 bg-black bg-opacity-50 rounded-full text-white hover:bg-opacity-75 transition"
-        >
-          ‹
-        </button>
+      {/* 左箭頭 */}
+      <button
+        onClick={() => scroll(-320)}
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-50 rounded-full hover:bg-opacity-75 transition"
+      >
+        ‹
+      </button>
 
-        {/* 水平滾動容器 */}
-        <div
-          ref={scrollRef}
-          className="flex space-x-6 overflow-x-auto scrollbar-hide py-4 px-8"
-        >
-          {works.map((work, index) => {
-            const isVisible = visibleItems.includes(index);
-            return (
-              <Link key={work.title} href={work.href}>
-                <a
-                  className={`relative flex-shrink-0 w-[300px] rounded-xl shadow-lg overflow-hidden
-                    ${isVisible ? `fade-up delay-${index}` : 'opacity-0'}`}
-                >
-                  <div className="relative w-full h-48">
-                    <Image
-                      src={work.img}
-                      alt={work.title}
-                      fill
-                      style={{ objectFit: 'cover' }}
-                      priority
-                    />
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <h3 className="text-white text-xl">{work.title}</h3>
-                  </div>
-                </a>
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* 右箭頭 */}
-        <button
-          onClick={() => scroll(300)}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-2 bg-black bg-opacity-50 rounded-full text-white hover:bg-opacity-75 transition"
-        >
-          ›
-        </button>
+      {/* 水平滾動容器 */}
+      <div
+        ref={scrollRef}
+        className="flex space-x-6 overflow-x-auto scroll-smooth scrollbar-hide px-12"
+      >
+        {categories.map((cat, i) => (
+          <Link key={cat.title} href={cat.href}>
+            <a className="group flex-shrink-0 w-80 relative">
+              {/* 圖片輪播區 */}
+              <div className="relative w-full h-48 rounded-xl overflow-hidden shadow-lg">
+                <Image
+                  src={cat.images[currentIdx[i]]}
+                  alt={`${cat.title} ${currentIdx[i] + 1}`}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  priority
+                />
+              </div>
+              {/* 懸停顯示分類名稱 */}
+              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                <h3 className="text-white text-xl">{cat.title}</h3>
+              </div>
+            </a>
+          </Link>
+        ))}
       </div>
+
+      {/* 右箭頭 */}
+      <button
+        onClick={() => scroll(320)}
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-50 rounded-full hover:bg-opacity-75 transition"
+      >
+        ›
+      </button>
     </section>
   );
 }
