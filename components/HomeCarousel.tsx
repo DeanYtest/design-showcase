@@ -17,33 +17,25 @@ export default function HomeCarousel() {
   const VISIBLE = 3;
   const MAX_PAGE = categories.length - VISIBLE; // 5 - 3 = 2
   const [page, setPage] = useState(0);
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  // 每张卡片 320px + 间距 16px = 336px
+  // 320px card + 16px gap
   const STEP = 320 + 16;
 
   const goPrev = () => {
     const next = Math.max(0, page - 1);
     setPage(next);
-    carouselRef.current?.scrollTo({
-      left: next * STEP,
-      behavior: 'smooth',
-    });
+    scrollRef.current?.scrollTo({ left: next * STEP, behavior: 'smooth' });
   };
   const goNext = () => {
     const next = Math.min(MAX_PAGE, page + 1);
     setPage(next);
-    carouselRef.current?.scrollTo({
-      left: next * STEP,
-      behavior: 'smooth',
-    });
+    scrollRef.current?.scrollTo({ left: next * STEP, behavior: 'smooth' });
   };
 
   return (
     <section className="relative bg-black py-12">
-      <h2 className="sr-only">作品分類走馬燈</h2>
-
-      <div className="relative mx-auto w-[calc(320px*3+16*2)] overflow-hidden">
+      <div className="relative mx-auto w-[992px] overflow-hidden">
         {/* 左箭頭 */}
         <button
           onClick={goPrev}
@@ -55,12 +47,12 @@ export default function HomeCarousel() {
 
         {/* 滑動區 */}
         <div
-          ref={carouselRef}
+          ref={scrollRef}
           className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide px-2"
         >
           {categories.map((cat) => (
             <Link key={cat.title} href={cat.href}>
-              <a className="flex-shrink-0 w-[320px] h-[200px] relative rounded-xl overflow-hidden shadow-lg">
+              <a className="group flex-shrink-0 w-[320px] h-[200px] relative rounded-xl overflow-hidden shadow-lg">
                 <Image
                   src={cat.img}
                   alt={cat.title}
