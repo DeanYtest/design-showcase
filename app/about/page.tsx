@@ -9,13 +9,11 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="relative min-h-screen bg-black text-white py-16 overflow-hidden">
-      {/* 流金色網狀線條 */}
-      <div className="net-line horizontal top-1/4 left-1/2 transform -translate-x-1/2"></div>
-      <div className="net-line vertical left-1/4 top-1/2 transform -translate-y-1/2"></div>
-      <div className="net-line horizontal bottom-1/4 right-1/2 transform translate-x-1/2"></div>
-      <div className="net-line vertical right-1/4 bottom-1/2 transform translate-y-1/2"></div>
+      {/* 不規則流金網格背景（倒數第二層） */}
+      <div className="background-net" />
 
-      <div className="container mx-auto px-4 bg-white bg-opacity-10 rounded-3xl shadow-xl p-8 md:p-16 relative z-10">
+      {/* 內容卡片 */}
+      <div className="container mx-auto px-4 bg-white bg-opacity-10 rounded-3xl shadow-xl p-8 md:p-16 relative z-20">
         <div className="flex flex-col md:flex-row items-center gap-12">
           {/* 動畫浮動方形大頭貼 */}
           <AnimatedAvatar />
@@ -24,7 +22,7 @@ export default function AboutPage() {
           <div>
             <h1 className="text-5xl font-bold text-purple-400 mb-4">關於 Chu</h1>
             <p className="max-w-xl text-lg text-gray-200 mb-4 leading-relaxed">
-              嗨，我是 Chu 設計師，一位專注於平面與品牌識別的創意人才。
+              嗨，我是 Chu 設計師，一位專注於平面與品牌識別的創意人才。<br/>
               我喜歡將極簡與色彩結合，為品牌注入故事與溫度。
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-300 mb-6">

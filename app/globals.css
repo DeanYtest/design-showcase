@@ -117,41 +117,27 @@
 
 /* 頭像浮動動畫 */
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
 }
 .avatar-float {
   animation: float 3s ease-in-out infinite;
 }
 
-/* ——— 新增：呼吸燈網狀線條 ——— */
+/* ——— 呼吸燈動畫 ——— */
 @keyframes breathe {
-  0%, 100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 1;
-  }
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
 }
 
-/* 流金色網狀線條通用設定 */
-.net-line {
+/* 流金色不規則網格背景，置於倒數第二層 */
+.background-net {
   position: absolute;
-  background-color: #d4af37; /* 流金色 */
-  opacity: 0.3;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(212,175,55,0.3) 80px, rgba(212,175,55,0.3) 82px),
+    repeating-linear-gradient(90deg, transparent, transparent 120px, rgba(212,175,55,0.3) 120px, rgba(212,175,55,0.3) 122px),
+    repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(212,175,55,0.3) 100px, rgba(212,175,55,0.3) 102px);
   animation: breathe 4s ease-in-out infinite;
-}
-/* 水平線條 */
-.net-line.horizontal {
-  height: 1px;
-  width: 80%;
-}
-/* 垂直線條 */
-.net-line.vertical {
-  width: 1px;
-  height: 80%;
+  z-index: 10;
 }
