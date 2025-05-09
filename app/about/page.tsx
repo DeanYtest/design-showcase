@@ -12,8 +12,8 @@ export default function AboutPage() {
       {/* 不規則流金網格背景（倒數第二層） */}
       <div className="background-net" />
 
-      {/* 內容卡片 */}
-      <div className="container mx-auto px-4 bg-white bg-opacity-10 rounded-3xl shadow-xl p-8 md:p-16 relative z-20">
+      {/* 內容卡片（霧化模糊 + 深色半透明） */}
+      <div className="container mx-auto px-4 bg-black bg-opacity-60 backdrop-blur-md rounded-3xl shadow-xl p-8 md:p-16 relative z-20">
         <div className="flex flex-col md:flex-row items-center gap-12">
           {/* 動畫浮動方形大頭貼 */}
           <AnimatedAvatar />

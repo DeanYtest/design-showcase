@@ -124,7 +124,7 @@
   animation: float 3s ease-in-out infinite;
 }
 
-/* ——— 呼吸燈動畫 ——— */
+/* 呼吸燈動畫 */
 @keyframes breathe {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }
@@ -135,9 +135,10 @@
   position: absolute;
   inset: 0;
   background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(212,175,55,0.3) 80px, rgba(212,175,55,0.3) 82px),
-    repeating-linear-gradient(90deg, transparent, transparent 120px, rgba(212,175,55,0.3) 120px, rgba(212,175,55,0.3) 122px),
-    repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(212,175,55,0.3) 100px, rgba(212,175,55,0.3) 102px);
+    repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(212,175,55,0.3) 80px, rgba(212,175,55,0.3) 83px),
+    repeating-linear-gradient(90deg, transparent, transparent 120px, rgba(212,175,55,0.3) 120px, rgba(212,175,55,0.3) 123px),
+    repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(212,175,55,0.3) 100px, rgba(212,175,55,0.3) 105px),
+    repeating-linear-gradient(-45deg, transparent, transparent 60px, rgba(212,175,55,0.3) 60px, rgba(212,175,55,0.3) 64px);
   animation: breathe 4s ease-in-out infinite;
   z-index: 10;
 }
