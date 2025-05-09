@@ -1,8 +1,8 @@
 // app/layout.tsx
-+import './globals.css'
-+import Navbar from '../components/ui/Navbar'
-+import WaveTransition from '../components/ui/WaveTransition'  // ← 保留底部波浪
-+import Footer from './Footer'
+import './globals.css'
+import Navbar from '../components/ui/Navbar'
+import WaveTransition from '../components/ui/WaveTransition'  // ← 保留底部波浪
+import Footer from './Footer'
 
 export const metadata = {
   title: '小設 設計作品集',
