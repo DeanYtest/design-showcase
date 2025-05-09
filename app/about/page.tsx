@@ -9,19 +9,21 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="relative min-h-screen bg-black text-white py-16 overflow-hidden">
-      {/* 流星特效背景，倒數第二層 */}
+      {/* 流星特效背景 */}
       <div className="shooting-stars">
         <div className="meteor" />
+        <div className="meteor arc" />
         <div className="meteor" />
+        <div className="meteor arc" />
         <div className="meteor" />
-        <div className="meteor" />
+        <div className="meteor arc" />
         <div className="meteor" />
       </div>
 
       {/* 內容卡片（霧化模糊 + 深色半透明） */}
       <div className="container mx-auto px-4 bg-black bg-opacity-60 backdrop-blur-md rounded-3xl shadow-xl p-8 md:p-16 relative z-20">
         <div className="flex flex-col md:flex-row items-center gap-12">
-          {/* 動畫浮動方形大頭貼 */}
+          {/* 動畫浮動大頭貼 */}
           <AnimatedAvatar />
 
           {/* 自我介紹 */}
