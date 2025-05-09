@@ -105,6 +105,7 @@
 .group:hover .fade-up {
   animation-play-state: paused;
 }
+
 /* hide scrollbar */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
@@ -113,6 +114,8 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* 頭像浮動動畫 */
 @keyframes float {
   0%, 100% {
     transform: translateY(0);
@@ -121,48 +124,34 @@
     transform: translateY(-15px);
   }
 }
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-}
-
-@keyframes breathe {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
-}
-
 .avatar-float {
   animation: float 3s ease-in-out infinite;
 }
 
+/* ——— 新增：呼吸燈網狀線條 ——— */
+@keyframes breathe {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* 流金色網狀線條通用設定 */
 .net-line {
   position: absolute;
   background-color: #d4af37; /* 流金色 */
   opacity: 0.3;
   animation: breathe 4s ease-in-out infinite;
 }
-
-/* 網狀線條範例：水平 & 垂直 */
-.net-line.horizontal { height: 1px; width: 80%; }
-.net-line.vertical   { width: 1px; height: 80%; }
-
-
-// components/AnimatedAvatar.tsx
-'use client';
-
-import Image from 'next/image';
-
-export default function AnimatedAvatar() {
-  return (
-    <div className="avatar-float w-64 h-64 rounded-lg overflow-hidden border-4 border-purple-300 mx-auto">
-      <Image
-        src="/images/about-me.jpg"
-        alt="Chu 設計師"
-        fill
-        className="object-cover"
-        priority
-      />
-    </div>
-  );
+/* 水平線條 */
+.net-line.horizontal {
+  height: 1px;
+  width: 80%;
+}
+/* 垂直線條 */
+.net-line.vertical {
+  width: 1px;
+  height: 80%;
 }

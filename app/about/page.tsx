@@ -1,4 +1,3 @@
-// app/about/page.tsx
 import AnimatedAvatar from '../../components/AnimatedAvatar';
 import Link from 'next/link';
 
@@ -24,9 +23,9 @@ export default function AboutPage() {
           {/* 自我介紹 */}
           <div>
             <h1 className="text-5xl font-bold text-purple-400 mb-4">關於 Chu</h1>
-            <p className="text-lg text-gray-200 mb-4 leading-relaxed max-w-xl">
+            <p className="max-w-xl text-lg text-gray-200 mb-4 leading-relaxed">
               嗨，我是 Chu 設計師，一位專注於平面與品牌識別的創意人才。
-              我喜歡將簡約與色彩結合，為品牌注入故事與溫度。
+              我喜歡將極簡與色彩結合，為品牌注入故事與溫度。
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-300 mb-6">
               <li>Logo & VI 系統設計</li>
