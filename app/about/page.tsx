@@ -1,88 +1,55 @@
 // app/about/page.tsx
-import Footer from '../Footer'
-import Image from 'next/image'
-import Link from 'next/link'
+'use client';
+
+import Image from 'next/image';
+import Link from 'next/link';
 
 export const metadata = {
-  title: 'About Me — 小設計師',
-  description: '關於小設計師的背景、專長與作品。',
-}
+  title: 'About Me — Chu',
+  description: '關於Chu的背景與專長。',
+};
 
 export default function AboutPage() {
   return (
-    <>
-
-      <section className="bg-black text-white pt-24 pb-16">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-8">
-          <div className="w-full md:w-1/2">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 py-16">
+      <div className="container mx-auto px-4 bg-white rounded-3xl shadow-xl p-8 md:p-16">
+        <div className="flex flex-col md:flex-row items-center gap-8">
+          {/* 照片 */}
+          <div className="flex-shrink-0 w-48 h-48 rounded-full overflow-hidden ring-4 ring-purple-200 animate-pulse">
             <Image
               src="/images/about-me.jpg"
-              alt="About Me"
-              width={600}
-              height={600}
-              className="rounded-lg object-cover shadow-lg"
+              alt="Chu"
+              width={192}
+              height={192}
+              className="object-cover"
               priority
             />
           </div>
-          <div className="w-full md:w-1/2 space-y-4">
-            <h1 className="text-4xl font-bold">關於我</h1>
-            <p className="text-lg text-gray-200 leading-relaxed">
-              嗨，我是小設，一位熱愛將故事轉化為視覺語言的平面設計師。  
-              從 Logo、包裝到社群視覺，我致力於打造既美觀又有溫度的品牌體驗。  
-              我相信設計不只是一種「美化」，更能透過色彩、字體與排版，傳遞品牌的價值與精神。
+
+          {/* 自我介紹 */}
+          <div>
+            <h1 className="text-4xl font-bold text-purple-600 mb-4">關於我</h1>
+            <p className="text-lg text-gray-700 mb-4 leading-relaxed">
+              嗨，我是Chu，一位熱愛將故事轉化為視覺語言的平面設計師。從 Logo、包裝到社群視覺，
+              我致力於打造既美觀又有溫度的品牌體驗。設計對我而言，不僅是美觀，更是一種傳達。
             </p>
-            <p className="text-lg text-gray-200 leading-relaxed">
-              • 5 年以上品牌設計經驗  
-              • 擅長 Adobe Illustrator、Photoshop、Figma  
-              • 曾服務科技、餐飲、時尚等多元領域  
-              • 喜歡在設計中注入故事感，讓觀者感受到溫度
-            </p>
+
+            <ul className="list-disc list-inside space-y-2 mb-6 text-gray-700">
+              <li>5 年以上品牌設計經驗</li>
+              <li>精通 Illustrator、Photoshop、Figma</li>
+              <li>服務過科技、餐飲、時尚等多元領域</li>
+              <li>喜歡在設計中注入故事感，讓品牌更有溫度</li>
+            </ul>
+
+            <Link
+              href="/contact"
+              className="inline-block bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition"
+            >
+              想一起合作？點我聯絡
+            </Link>
           </div>
         </div>
-      </section>
-
-      <section className="bg-gray-100 py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-semibold mb-8">我的專長</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: '品牌識別 (Logo)', icon: '/icons/logo.svg' },
-              { title: '包裝設計',       icon: '/icons/packaging.svg' },
-              { title: '社群視覺',       icon: '/icons/social.svg' },
-              { title: '手繪插畫',       icon: '/icons/illustration.svg' },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
-              >
-                <Image
-                  src={item.icon}
-                  alt={item.title}
-                  width={64}
-                  height={64}
-                  className="mx-auto mb-4"
-                />
-                <h3 className="text-xl font-medium">{item.title}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-primary text-white py-12">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl font-semibold mb-4">想一起合作嗎？</h2>
-          <p className="mb-6">無論是品牌建置、活動視覺或其他設計需求，歡迎隨時與我聯繫！</p>
-          <Link
-            href="/contact"
-            className="inline-block bg-white text-primary font-semibold px-6 py-3 rounded-full hover:bg-gray-100 transition"
-          >
-            聯絡我
-          </Link>
-        </div>
-      </section>
-
-      <Footer />
-    </>
-  )
+      </div>
+    </div>
+  );
 }
