@@ -14,38 +14,41 @@ const allWorks = [
 ];
 
 export default function WorkCarousel() {
-  // 當前第一張的 index
-  const [start, setStart] = useState(0);
-  // 最多可以滑到 start = allWorks.length - visibleCount
-  const visibleCount = 3;
-  const maxStart = allWorks.length - visibleCount;
+  const [index, setIndex] = useState(0);
+  const maxIndex = allWorks.length - 3; // 最多滑動到倒數第3張
+  
+  const prev = () => index > 0 && setIndex(index - 1);
+  const next = () => index < maxIndex && setIndex(index + 1);
 
-  const prev = () => setStart((s) => Math.max(s - 1, 0));
-  const next = () => setStart((s) => Math.min(s + 1, maxStart));
-
-  // 取出當前要顯示的那 3 張
-  const visibleWorks = allWorks.slice(start, start + visibleCount);
+  // 當前要顯示的三張
+  const visible = allWorks.slice(index, index + 3);
 
   return (
-    <section className="container mx-auto py-12 relative">
+    <section className="relative container mx-auto py-12">
       <h2 className="text-3xl font-bold mb-6">所有作品</h2>
 
       {/* 左箭頭 */}
-      {start > 0 && (
-        <button
-          onClick={prev}
-          className="absolute left-0 top-1/2 -translate-y-1/2 p-2 bg-white bg-opacity-80 rounded-full shadow hover:bg-opacity-100 transition"
-        >
-          <ChevronLeft size={24} />
-        </button>
-      )}
+      <button
+        onClick={prev}
+        disabled={index === 0}
+        className={`
+          absolute top-1/2 -translate-y-1/2 left-0
+          p-2 rounded-full
+          bg-white bg-opacity-50 hover:bg-opacity-80
+          disabled:opacity-30 disabled:cursor-not-allowed
+          z-10
+        `}
+      >
+        <ChevronLeft className="w-6 h-6 text-gray-800" />
+      </button>
 
-      {/* 作品列表 */}
-      <div className="flex overflow-hidden gap-6">
-        {visibleWorks.map((work, i) => (
-          <Link key={start + i} href={work.href} passHref>
-            <a className="block flex-shrink-0 w-[calc((100%-_2*1.5rem)/3)] overflow-hidden rounded-xl shadow-lg">
-              <div className="relative aspect-[3/2]">
+      {/* 圖片區 */}
+      <div className="grid grid-cols-3 gap-6">
+        {visible.map((work, i) => (
+          <Link key={i} href={work.href}>
+            <a className="block overflow-hidden rounded-lg shadow-lg">
+              {/* 固定高度，確保圖片不會太小 */}
+              <div className="relative w-full h-64">
                 <Image
                   src={work.img}
                   alt={work.title}
@@ -54,21 +57,26 @@ export default function WorkCarousel() {
                   priority
                 />
               </div>
-              <h3 className="text-white text-center mt-2">{work.title}</h3>
+              <div className="mt-2 text-center text-white">{work.title}</div>
             </a>
           </Link>
         ))}
       </div>
 
       {/* 右箭頭 */}
-      {start < maxStart && (
-        <button
-          onClick={next}
-          className="absolute right-0 top-1/2 -translate-y-1/2 p-2 bg-white bg-opacity-80 rounded-full shadow hover:bg-opacity-100 transition"
-        >
-          <ChevronRight size={24} />
-        </button>
-      )}
+      <button
+        onClick={next}
+        disabled={index === maxIndex}
+        className={`
+          absolute top-1/2 -translate-y-1/2 right-0
+          p-2 rounded-full
+          bg-white bg-opacity-50 hover:bg-opacity-80
+          disabled:opacity-30 disabled:cursor-not-allowed
+          z-10
+        `}
+      >
+        <ChevronRight className="w-6 h-6 text-gray-800" />
+      </button>
     </section>
   );
 }
