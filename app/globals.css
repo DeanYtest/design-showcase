@@ -1,6 +1,6 @@
 /* app/globals.css */
 
-/* 1. 引入 Google Fonts */
+/* 1. 引入 Google Fonts（可選） */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 /* 2. Tailwind 三大指令 */
@@ -18,10 +18,20 @@
     @apply bg-black text-white antialiased m-0 p-0;
     line-height: 1.6;
   }
-  h1,h2,h3,h4,h5,h6 { @apply font-bold m-0; }
-  a              { @apply text-primary hover:underline no-underline; }
-  img, video     { max-width:100%; height:auto; display:block; }
-  input,textarea,button,select { @apply font-sans text-base outline-none; }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold m-0;
+  }
+  a {
+    @apply text-primary hover:underline no-underline;
+  }
+  img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  input, textarea, button, select {
+    @apply font-sans text-base outline-none;
+  }
 }
 
 /* 選取文字時的底色與字色 */
@@ -30,96 +40,76 @@
   color: white;
 }
 
-/* 波浪無縫滑動 */
-.wave-bg {
-  width:100%; height:100px;
-  background: url('/wave.svg') repeat-x bottom;
-  animation: wave-scroll 20s linear infinite;
-}
-@keyframes wave-scroll {
-  from { background-position-x: 0; }
-  to   { background-position-x:1000px; }
-}
-
-/* 頭像浮動 */
+/* 頭像浮動動畫 */
 @keyframes float {
-  0%,100% { transform: translateY(0); }
-  50%      { transform: translateY(-15px); }
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-15px); }
 }
 .avatar-float {
   animation: float 3s ease-in-out infinite;
 }
 
-/* 流星特效容器 */
+/* 流星特效容器，置於倒數第二層 */
 .shooting-stars {
-  position:absolute; inset:0;
-  overflow:hidden; pointer-events:none;
-  z-index:10;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 10;
 }
+
 /* 直線流星 */
 .meteor {
-  position:absolute; width:2px; transform: skewX(-20deg);
-  opacity:0; animation: meteor 2s linear infinite;
+  position: absolute;
+  width: 2px;
+  transform: skewX(-20deg);
+  opacity: 0;
+  animation: meteor 2s linear infinite;
 }
+
 /* 弧線流星 */
 .meteor.arc {
-  width:3px; animation-name: meteorArc;
+  width: 3px;
+  animation-name: meteorArc;
 }
 
 /* 各流星隨機設定 */
-.meteor:nth-child(1)      { top:-10%; left: 5%;  height:25%; animation-delay: 0s; background:linear-gradient(45deg,#ffeb3b,#ffc107); }
-.meteor.arc:nth-child(2)  { top:-20%; left:20%;  height:30%; animation-delay:0.5s; background:linear-gradient(45deg,#4caf50,#8bc34a); }
-.meteor:nth-child(3)      { top:-15%; left:35%;  height:18%; animation-delay: 1s; background:linear-gradient(45deg,#2196f3,#03a9f4); }
-.meteor.arc:nth-child(4)  { top:-25%; left:50%;  height:35%; animation-delay:1.5s; background:linear-gradient(45deg,#9c27b0,#673ab7); }
-.meteor:nth-child(5)      { top:-10%; left:65%;  height:22%; animation-delay: 2s; background:linear-gradient(45deg,#ff4081,#e91e63); }
-.meteor.arc:nth-child(6)  { top:   0%; left:80%;  height:28%; animation-delay:2.5s; background:linear-gradient(45deg,#03a9f4,#00bcd4); }
-.meteor:nth-child(7)      { top:  10%; left:90%;  height:40%; animation-delay: 3s; background:linear-gradient(45deg,#e91e63,#f44336); }
+.meteor:nth-child(1) { top: -10%; left: 5%;   height: 25%; animation-delay: 0s;    background: linear-gradient(45deg, #ffeb3b, #ffc107); }
+.meteor.arc:nth-child(2) { top: -20%; left: 20%;  height: 30%; animation-delay: 0.5s;  background: linear-gradient(45deg, #4caf50,#8bc34a); }
+.meteor:nth-child(3) { top: -15%; left: 35%;  height: 18%; animation-delay: 1s;    background: linear-gradient(45deg, #2196f3,#03a9f4); }
+.meteor.arc:nth-child(4) { top: -25%; left: 50%;  height: 35%; animation-delay: 1.5s;  background: linear-gradient(45deg, #9c27b0,#673ab7); }
+.meteor:nth-child(5) { top: -10%; left: 65%;  height: 22%; animation-delay: 2s;    background: linear-gradient(45deg, #ff4081,#e91e63); }
+.meteor.arc:nth-child(6) { top: 0%;   left: 80%;  height: 28%; animation-delay: 2.5s;  background: linear-gradient(45deg, #03a9f4,#00bcd4); }
+.meteor:nth-child(7) { top: 10%;  left: 90%;  height: 40%; animation-delay: 3s;    background: linear-gradient(45deg, #e91e63,#f44336); }
 
 /* 流星直線動畫 */
 @keyframes meteor {
-  0%   { transform:translate(-100%,-100%) skewX(-20deg); opacity:0; }
-  10%,80% { opacity:1; }
-  85%  { transform:translate(200%,200%) skewX(-20deg); opacity:1; }
-  100% { transform:translate(200%,200%) skewX(-20deg); opacity:0; }
+  0%   { transform: translate(-100%, -100%) skewX(-20deg); opacity: 0; }
+  10%,80% { opacity: 1; }
+  85%  { transform: translate(200%, 200%) skewX(-20deg); opacity: 1; }
+  100% { transform: translate(200%, 200%) skewX(-20deg); opacity: 0; }
 }
 
 /* 流星弧線動畫 */
 @keyframes meteorArc {
-  0%   { transform:translate(-100%,-100%) rotate(0deg)   skewX(-20deg); opacity:0; }
-  10%,70% { opacity:1; }
-  100% { transform:translate(200%,150%) rotate(40deg) skewX(-20deg); opacity:0; }
+  0%   { transform: translate(-100%, -100%) rotate(0deg)   skewX(-20deg); opacity: 0; }
+  10%,70% { opacity: 1; }
+  100% { transform: translate(200%, 150%) rotate(40deg) skewX(-20deg); opacity: 0; }
 }
 
-/* 星芒（十字） */
-.meteor::before,
+/* 星芒閃爍 */
 .meteor::after {
   content: '';
-  position:absolute; left:50%; top:50%;
-  background:white; pointer-events:none;
-  animation: spark 4s ease-in-out infinite;
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 8px; height: 8px;
+  border: 2px solid #fff;
+  transform: translate(-50%, 50%) rotate(45deg);
+  opacity: 0;
+  animation: spark 2s linear infinite;
 }
-.meteor::before {
-  width:2px;   height:24px;
-  transform:translate(-50%,-50%) rotate(0deg);
-}
-.meteor::after {
-  width:24px;  height:2px;
-  transform:translate(-50%,-50%) rotate(90deg);
-}
-
-/* 星芒動畫：更長停留 */
 @keyframes spark {
-  0%, 60% {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  65%, 95% {
-    opacity: 1;
-    transform: scale(1);
-    box-shadow: 0 0 8px 4px rgba(255,255,255,0.9);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.2);
-  }
+  90% { opacity: 0; }
+  95% { opacity: 1; box-shadow: 0 0 8px 3px rgba(255,255,255,0.8); }
+  100% { opacity: 0; }
 }
