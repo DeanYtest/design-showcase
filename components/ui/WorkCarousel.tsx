@@ -15,13 +15,13 @@ const allWorks = [
 
 export default function WorkCarousel() {
   const [index, setIndex] = useState(0);
-  const maxIndex = allWorks.length - 3; // 最多滑動到倒數第3張
-  
-  const prev = () => index > 0 && setIndex(index - 1);
-  const next = () => index < maxIndex && setIndex(index + 1);
+  const N = allWorks.length;
 
-  // 當前要顯示的三張
-  const visible = allWorks.slice(index, index + 3);
+  const prev = () => setIndex((index - 1 + N) % N);
+  const next = () => setIndex((index + 1) % N);
+
+  // 無限迴圈計算要顯示的三張
+  const visible = [0, 1, 2].map((offset) => allWorks[(index + offset) % N]);
 
   return (
     <section className="relative container mx-auto py-12">
@@ -30,14 +30,12 @@ export default function WorkCarousel() {
       {/* 左箭頭 */}
       <button
         onClick={prev}
-        disabled={index === 0}
-        className={`
+        className="
           absolute top-1/2 -translate-y-1/2 left-0
           p-2 rounded-full
           bg-white bg-opacity-50 hover:bg-opacity-80
-          disabled:opacity-30 disabled:cursor-not-allowed
           z-10
-        `}
+        "
       >
         <ChevronLeft className="w-6 h-6 text-gray-800" />
       </button>
@@ -47,7 +45,6 @@ export default function WorkCarousel() {
         {visible.map((work, i) => (
           <Link key={i} href={work.href}>
             <a className="block overflow-hidden rounded-lg shadow-lg">
-              {/* 固定高度，確保圖片不會太小 */}
               <div className="relative w-full h-64">
                 <Image
                   src={work.img}
@@ -66,14 +63,12 @@ export default function WorkCarousel() {
       {/* 右箭頭 */}
       <button
         onClick={next}
-        disabled={index === maxIndex}
-        className={`
+        className="
           absolute top-1/2 -translate-y-1/2 right-0
           p-2 rounded-full
           bg-white bg-opacity-50 hover:bg-opacity-80
-          disabled:opacity-30 disabled:cursor-not-allowed
           z-10
-        `}
+        "
       >
         <ChevronRight className="w-6 h-6 text-gray-800" />
       </button>
