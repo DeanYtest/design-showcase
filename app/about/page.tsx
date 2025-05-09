@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="relative min-h-screen bg-black text-white py-12 overflow-hidden">
+    <div className="relative bg-black text-white py-8 overflow-hidden">
       {/* 流星特效背景 */}
       <div className="shooting-stars">
         <div className="meteor" />
@@ -20,11 +20,13 @@ export default function AboutPage() {
         <div className="meteor" />
       </div>
 
-      {/* 內容卡片（縮小底部間距） */}
+      {/* 內容卡片（縮小底部空間） */}
       <div className="container mx-auto px-4 bg-black bg-opacity-60 backdrop-blur-md rounded-3xl shadow-xl p-6 md:p-12 relative z-20">
         <div className="flex flex-col md:flex-row items-center gap-12">
+          {/* 動畫浮動大頭貼 */}
           <AnimatedAvatar />
 
+          {/* 自我介紹 */}
           <div>
             <h1 className="text-5xl font-bold text-purple-400 mb-4">關於 Chu</h1>
             <p className="max-w-xl text-lg text-gray-200 mb-4 leading-relaxed">
@@ -38,7 +40,7 @@ export default function AboutPage() {
             </ul>
             <Link
               href="/contact"
-              className="inline-block bg-purple-600 text-white px-8 py-4 rounded-full hover:bg-purple-700 transition"
+              className="inline-block bg-purple-600 text-white px-8 py-3 rounded-full hover:bg-purple-700 transition"
             >
               一起合作
             </Link>
