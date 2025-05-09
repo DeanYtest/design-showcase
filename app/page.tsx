@@ -3,6 +3,7 @@
 
 import HeroSection from './HeroSection';
 import HomeCarousel from '../components/HomeCarousel';
+import WorkSection from './WorkSection';
 
 export default function HomePage() {
   return (
@@ -12,6 +13,9 @@ export default function HomePage() {
 
       {/* 2. 三張卡片走馬燈 */}
       <HomeCarousel />
+
+      {/* 3. 所有作品 */}
+      <WorkSection category="all" />        // ← 新增
     </>
   );
 }

@@ -20,16 +20,11 @@ export default function RootLayout({
         {/* Navbar */}
         <Navbar />
 
-        {/* 全站背景：漸層 + 波浪 */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="animated-gradient absolute inset-0" />
-          <div className="absolute bottom-0 left-0 w-full">
-            <WaveTransition />
-          </div>
-        </div>
+        {/* 波浪過渡 */}
+        <WaveTransition />
 
-        {/* 主內容 (z-10 确保在背景之上) */}
-        <main className="relative z-10 pt-16">
+        {/* 主內容 (z-10 確保在背景之上) */}
+        <main className="relative z-10 pt-16 pb-16">  {/* ← 新增 pb-16 */}
           {children}
         </main>
 
