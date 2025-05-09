@@ -9,8 +9,14 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="relative min-h-screen bg-black text-white py-16 overflow-hidden">
-      {/* 不規則流金網格背景（倒數第二層） */}
-      <div className="background-net" />
+      {/* 流星特效背景，倒數第二層 */}
+      <div className="shooting-stars">
+        <div className="meteor" />
+        <div className="meteor" />
+        <div className="meteor" />
+        <div className="meteor" />
+        <div className="meteor" />
+      </div>
 
       {/* 內容卡片（霧化模糊 + 深色半透明） */}
       <div className="container mx-auto px-4 bg-black bg-opacity-60 backdrop-blur-md rounded-3xl shadow-xl p-8 md:p-16 relative z-20">
@@ -22,7 +28,7 @@ export default function AboutPage() {
           <div>
             <h1 className="text-5xl font-bold text-purple-400 mb-4">關於 Chu</h1>
             <p className="max-w-xl text-lg text-gray-200 mb-4 leading-relaxed">
-              嗨，我是 Chu 設計師，一位專注於平面與品牌識別的創意人才。<br/>
+              嗨，我是 Chu 設計師，一位專注於平面與品牌識別的創意人才。<br />
               我喜歡將極簡與色彩結合，為品牌注入故事與溫度。
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-300 mb-6">
