@@ -1,12 +1,16 @@
-// app/about/page.tsx
 import AnimatedAvatar from '../../components/AnimatedAvatar';
 import Link from 'next/link';
+
+export const metadata = {
+  title: 'About — Chu 設計師',
+  description: '關於 Chu 的背景與專長。',
+};
 
 export default function AboutPage() {
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 py-16 overflow-hidden">
       {/* 裝飾線條 */}
-      <div className="absolute top-10 left-8 w-24 h-px bg-purple-300 animate-pulse"></div>
+      <div className="absolute top-12 left-8 w-24 h-px bg-purple-300"></div>
       <div className="absolute top-32 right-12 w-32 h-px bg-pink-300"></div>
       <div className="absolute bottom-20 left-16 w-20 h-px bg-indigo-300"></div>
       <div className="absolute bottom-10 right-10 h-24 w-px bg-purple-200"></div>
@@ -18,7 +22,7 @@ export default function AboutPage() {
 
           {/* 自我介紹 */}
           <div>
-            <h1 className="text-4xl font-bold text-purple-600 mb-4">關於我</h1>
+            <h1 className="text-4xl font-bold text-purple-600 mb-4">關於 Chu</h1>
             <p className="text-lg text-gray-700 mb-4 leading-relaxed">
               嗨，我是 Chu 設計師，一位專注於平面與品牌識別的創意人才。
               我喜歡將簡約與色彩結合，為品牌注入故事與溫度。
