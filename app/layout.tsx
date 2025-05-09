@@ -25,7 +25,7 @@ export default function RootLayout({
           {children}
         </main>
         {/* 底部波浪過渡，保留 */}
-+       <WaveTransition />
+        <WaveTransition />
 
         {/* Footer */}
         <Footer />
