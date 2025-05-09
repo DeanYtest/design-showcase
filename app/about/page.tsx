@@ -1,26 +1,27 @@
+// app/about/page.tsx
+
 import AnimatedAvatar from '../../components/AnimatedAvatar';
 import Link from 'next/link';
+import styles from './about.module.scss';
 
 export const metadata = {
   title: 'About — Chu 設計師',
   description: '關於 Chu 的背景與專長。',
 };
 
+const METEOR_COUNT = 30;
+
 export default function AboutPage() {
   return (
-    <div className="relative min-h-screen bg-black text-white py-8 overflow-hidden">
-      {/* 流星特效背景 */}
-      <div className="shooting-stars">
-        <div className="meteor" />
-        <div className="meteor arc" />
-        <div className="meteor" />
-        <div className="meteor arc" />
-        <div className="meteor" />
-        <div className="meteor arc" />
-        <div className="meteor" />
+    <div className="relative bg-black text-white py-8 min-h-screen overflow-hidden">
+      {/* About 專屬 七彩流星雨 背景 */}
+      <div className={styles.aboutBackground}>
+        {Array.from({ length: METEOR_COUNT }).map((_, i) => (
+          <div key={i} className={`meteor-${i + 1}`} />
+        ))}
       </div>
 
-      {/* 內容卡片（縮小底部空間） */}
+      {/* 內容卡片 */}
       <div className="container mx-auto px-4 bg-black bg-opacity-60 backdrop-blur-md rounded-3xl shadow-xl p-6 md:p-12 relative z-20">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <AnimatedAvatar />
