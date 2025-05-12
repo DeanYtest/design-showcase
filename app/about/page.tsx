@@ -2,7 +2,7 @@
 import AnimatedAvatar from '@/components/AnimatedAvatar';  // 這兩個通常已經在它們的檔案最上方有 'use client'
 import MeteorRain from '@/components/MeteorRain';
 import Link from 'next/link';
-import FooterLight from '@/components/FooterLight';        // 從 components 底下引入
+import FooterLight from '../FooterLight';       // 從 components 底下引入
 
 export const metadata = {
   title: 'About — Chu 設計師',
