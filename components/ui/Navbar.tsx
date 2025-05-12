@@ -22,7 +22,25 @@ const portfolioLinks = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
   const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // 根據滑鼠位置顯示/隱藏 Navbar
+  useEffect(() => {
+    const onMouseMove = (e: MouseEvent) => {
+      const threshold = window.innerHeight * 0.1;
+      setVisible(e.clientY <= threshold);
+    };
+    window.addEventListener('mousemove', onMouseMove);
+    return () => window.removeEventListener('mousemove', onMouseMove);
+  }, []);
+
+  // 當 Navbar 隱藏時自動收起下拉選單
+  useEffect(() => {
+    if (!visible && open) {
+      setOpen(false);
+    }
+  }, [visible, open]);
 
   const handleMouseEnter = () => {
     if (closeTimeout.current) {
@@ -33,32 +51,11 @@ export default function Navbar() {
   };
 
   const handleMouseLeave = () => {
-    // 滑鼠離開後延遲 500ms 再關閉，讓使用者有更多時間點擊
     closeTimeout.current = setTimeout(() => {
       setOpen(false);
       closeTimeout.current = null;
     }, 500);
   };
-
-  useEffect(() => {
-    // 清理定時器以免 memory leak
-    return () => {
-      if (closeTimeout.current) clearTimeout(closeTimeout.current);
-    };
-  }, []);
-
-  // 顯示/隱藏 Navbar 的邏輯保持不變...
-  const [visible, setVisible] = useState(false);
-  const prevY = useRef<number>(0);
-  useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => {
-      const threshold = window.innerHeight * 0.1;
-      setVisible(e.clientY <= threshold);
-      prevY.current = e.clientY;
-    };
-    window.addEventListener('mousemove', onMouseMove);
-    return () => window.removeEventListener('mousemove', onMouseMove);
-  }, []);
 
   return (
     <header
@@ -73,19 +70,27 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" passHref>
           <a className="flex items-center">
-            <Image src="/logo.png" alt="Logo" width={120} height={40} priority />
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              width={120}
+              height={40}
+              priority
+            />
           </a>
         </Link>
 
-        {/* Navigation */}
+        {/* 導覽 */}
         <nav className="flex items-center space-x-6 text-gray-800 font-medium">
           {navLinks.map(l => (
             <Link key={l.href} href={l.href} passHref>
-              <a className="hover:text-primary transition-colors">{l.name}</a>
+              <a className="hover:text-primary transition-colors duration-200">
+                {l.name}
+              </a>
             </Link>
           ))}
 
-          {/* Portfolio Dropdown */}
+          {/* Portfolio 下拉 */}
           <div
             className="relative"
             onMouseEnter={handleMouseEnter}
