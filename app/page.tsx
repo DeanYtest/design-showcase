@@ -22,7 +22,6 @@ export default function HomePage() {
   return (
     <div
       className={`flex flex-col min-h-screen ${
-        // 全页渐变背景（手机）或白底黑字（桌机）
         isMobile
           ? 'bg-gradient-to-b from-purple-500 to-blue-500 text-white'
           : 'bg-white text-black'

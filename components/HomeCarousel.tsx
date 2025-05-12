@@ -14,7 +14,7 @@ const categories = [
 
 export default function HomeCarousel() {
   return (
-    <section className="bg-black py-12">
+    <section className="py-12 bg-transparent md:bg-black md:text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* 橫向滑動 + scroll-snap：手機手指滑動、桌機滑鼠拖曳 */}
         <div className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide snap-x snap-mandatory">
