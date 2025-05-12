@@ -1,5 +1,4 @@
 // app/about/page.tsx
-'use client'
 
 import AnimatedAvatar from '@/components/AnimatedAvatar'
 import MeteorRain from '@/components/MeteorRain'
