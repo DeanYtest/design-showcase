@@ -27,21 +27,17 @@ export default function Navbar() {
   const [visible, setVisible] = useState(true);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Only desktop toggles on mouse position; mobile always visible
+  // Desktop: hide/show on mouse Y; Mobile: always visible
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => {
-      if (window.innerWidth >= 768) {
-        setVisible(e.clientY <= window.innerHeight * 0.1);
-      } else {
-        setVisible(true);
-      }
+      setVisible(window.innerWidth < 768 || e.clientY <= window.innerHeight * 0.1);
     };
     window.addEventListener('mousemove', onMouseMove);
     onMouseMove({ clientY: 0 } as any);
     return () => window.removeEventListener('mousemove', onMouseMove);
   }, []);
 
-  // Close dropdown if not hovering and navbar hidden
+  // Close dropdown if navbar hidden and not hovering
   useEffect(() => {
     if (!visible && !hovering) setOpen(false);
   }, [visible, hovering]);
@@ -51,6 +47,7 @@ export default function Navbar() {
     setHovering(true);
     setOpen(true);
   };
+
   const onLeave = () => {
     setHovering(false);
     timeoutRef.current = setTimeout(() => setOpen(false), 300);
@@ -63,7 +60,7 @@ export default function Navbar() {
       className={`
         fixed top-0 w-full z-50 transform transition-transform duration-500 ease-out
         ${visible ? 'translate-y-0' : '-translate-y-full'}
-        bg-white md:bg-white/60 md:backdrop-blur shadow-md
+        bg-transparent md:bg-white/60 md:backdrop-blur-md shadow-md
       `}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
@@ -76,16 +73,16 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Desktop nav */}
+        {/* Desktop navigation */}
         <nav className="hidden md:flex items-center space-x-6 font-medium text-gray-800">
           {navLinks.map(({ name, href }) => (
             <Link key={href} href={href}>
-              <a className="hover:text-primary transition">{name}</a>
+              <a className="hover:text-primary transition-colors">{name}</a>
             </Link>
           ))}
           <div className="relative" onMouseEnter={onEnter} onMouseLeave={onLeave}>
             <button
-              className="flex items-center hover:text-primary transition focus:outline-none"
+              className="flex items-center hover:text-primary transition-colors focus:outline-none"
               onClick={() => setOpen(v => !v)}
             >
               Portfolio <ChevronDown className="ml-1 w-4 h-4" />
@@ -94,7 +91,9 @@ export default function Navbar() {
               <div className="absolute right-0 mt-2 w-40 bg-white rounded shadow-lg z-50">
                 {portfolioLinks.map(({ name, href }) => (
                   <Link key={href} href={href}>
-                    <a className="block px-4 py-2 hover:bg-gray-100">{name}</a>
+                    <a className="block px-4 py-2 hover:bg-gray-100 transition-colors">
+                      {name}
+                    </a>
                   </Link>
                 ))}
               </div>
@@ -102,9 +101,9 @@ export default function Navbar() {
           </div>
         </nav>
 
-        {/* Mobile menu button only */}
+        {/* Mobile menu button: only icon, transparent background */}
         <button
-          className="md:hidden p-2 text-gray-800"
+          className="md:hidden p-2 text-gray-800 bg-transparent"
           onClick={() => setMobileOpen(v => !v)}
           aria-label="Toggle menu"
         >
@@ -112,10 +111,10 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu panel */}
+      {/* Mobile dropdown: full-width white background */}
       {mobileOpen && (
-        <div className="md:hidden bg-white">
-          <div className="flex flex-col px-4 py-4 space-y-2">
+        <div className="md:hidden bg-white shadow-md">
+          <nav className="flex flex-col px-4 py-4 space-y-2">
             {navLinks.map(({ name, href }) => (
               <Link key={href} href={href}>
                 <a className="block text-lg font-medium py-2">{name}</a>
@@ -127,7 +126,7 @@ export default function Navbar() {
                 <a className="block text-lg font-medium py-2">{name}</a>
               </Link>
             ))}
-          </div>
+          </nav>
         </div>
       )}
     </header>
