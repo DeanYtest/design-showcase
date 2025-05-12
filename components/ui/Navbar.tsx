@@ -27,7 +27,7 @@ export default function Navbar() {
   const [visible, setVisible] = useState(true);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Desktop: hide/show on mouse Y; Mobile: always visible
+  // 桌機滑鼠至頂端顯示/隱藏；手機永遠顯示
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => {
       setVisible(window.innerWidth < 768 || e.clientY <= window.innerHeight * 0.1);
@@ -37,7 +37,7 @@ export default function Navbar() {
     return () => window.removeEventListener('mousemove', onMouseMove);
   }, []);
 
-  // Close dropdown if navbar hidden and not hovering
+  // 收起桌機下拉選單
   useEffect(() => {
     if (!visible && !hovering) setOpen(false);
   }, [visible, hovering]);
@@ -60,11 +60,12 @@ export default function Navbar() {
       className={`
         fixed top-0 w-full z-50 transform transition-transform duration-500 ease-out
         ${visible ? 'translate-y-0' : '-translate-y-full'}
-        bg-transparent md:bg-white/60 md:backdrop-blur-md shadow-md
+        bg-transparent md:bg-white/60 md:backdrop-blur-md
+        shadow-none md:shadow-md
       `}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-        {/* Logo: hidden on mobile, shown on md+ */}
+        {/* Logo: 桌機顯示，手機隱藏 */}
         <div className="hidden md:flex">
           <Link href="/">
             <a>
@@ -73,7 +74,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Desktop navigation */}
+        {/* 桌機選單 */}
         <nav className="hidden md:flex items-center space-x-6 font-medium text-gray-800">
           {navLinks.map(({ name, href }) => (
             <Link key={href} href={href}>
@@ -101,7 +102,7 @@ export default function Navbar() {
           </div>
         </nav>
 
-        {/* Mobile menu button: only icon, transparent background */}
+        {/* 手機漢堡按鈕：透明背景 */}
         <button
           className="md:hidden p-2 text-gray-800 bg-transparent"
           onClick={() => setMobileOpen(v => !v)}
@@ -111,16 +112,16 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile dropdown: full-width white background */}
+      {/* 手機下拉選單：半透明白底 + 模糊 */}
       {mobileOpen && (
-        <div className="md:hidden bg-white shadow-md">
+        <div className="md:hidden bg-white bg-opacity-60 backdrop-blur-md">
           <nav className="flex flex-col px-4 py-4 space-y-2">
             {navLinks.map(({ name, href }) => (
               <Link key={href} href={href}>
                 <a className="block text-lg font-medium py-2">{name}</a>
               </Link>
             ))}
-            <div className="border-t my-2" />
+            <div className="border-t border-white/30 my-2" />
             {portfolioLinks.map(({ name, href }) => (
               <Link key={href} href={href}>
                 <a className="block text-lg font-medium py-2">{name}</a>
