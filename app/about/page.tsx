@@ -1,10 +1,8 @@
 // app/about/page.tsx
-'use client';
-
-import AnimatedAvatar from '../../components/AnimatedAvatar';
-import MeteorRain from '../../components/MeteorRain';
+import AnimatedAvatar from '@/components/AnimatedAvatar';  // 這兩個通常已經在它們的檔案最上方有 'use client'
+import MeteorRain from '@/components/MeteorRain';
 import Link from 'next/link';
-import FooterLight from '../FooterLight';
+import FooterLight from '@/components/FooterLight';        // 從 components 底下引入
 
 export const metadata = {
   title: 'About — Chu 設計師',
@@ -18,12 +16,14 @@ export default function AboutPage() {
         {/* 只在 About 頁顯示的七彩流星雨 */}
         <MeteorRain count={30} />
 
-        {/* 主內容卡片（置於流星之上） */}
+        {/* 主內容卡片 */}
         <div className="container mx-auto px-4 bg-black bg-opacity-60 backdrop-blur-md rounded-3xl shadow-xl p-6 md:p-12 relative z-10">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <AnimatedAvatar />
             <div>
-              <h1 className="text-5xl font-bold text-purple-400 mb-4">關於 Chu</h1>
+              <h1 className="text-5xl font-bold text-purple-400 mb-4">
+                關於 Chu
+              </h1>
               <p className="max-w-xl text-lg text-gray-200 mb-4 leading-relaxed">
                 嗨，我是 Chu 設計師，一位專注於平面與品牌識別的創意人才。<br />
                 我喜歡將極簡與色彩結合，為品牌注入故事與溫度。
