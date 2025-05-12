@@ -24,9 +24,13 @@ export default function WorkCarousel() {
   const visible = [0, 1, 2].map((offset) => allWorks[(index + offset) % N]);
 
   return (
-    <section className="relative px-4 sm:px-6 lg:px-8 py-12
-                        bg-transparent text-black
-                        md:bg-black md:text-white">
+    <section
+      className="
+        relative px-4 sm:px-6 lg:px-8 py-12
+        bg-transparent md:bg-black
+        text-current md:text-white
+      "
+    >
       <div className="max-w-7xl mx-auto relative">
         <h2 className="text-3xl font-bold mb-6">所有作品</h2>
 
