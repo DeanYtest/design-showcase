@@ -19,38 +19,33 @@ export default function HomePage() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  // 手机端：只显示 HeroSection（隐藏波浪）和深色 Footer
-  if (isMobile) {
-    return (
-      <div className="flex flex-col min-h-screen">
-        <div className="flex-1">
-          <HeroSection disableWave={true} />
-        </div>
-        <FooterDark />
-      </div>
-    );
-  }
-
-  // 桌机端：正常多区块布局
   return (
-    <div className="flex flex-col min-h-screen bg-white text-black">
-      <main className="flex-1">
-        {/* Hero：不隐藏波浪 */}
-        <HeroSection disableWave={false} />
+    <div className="relative flex flex-col min-h-screen">
+      {/* 手机端：全页渐变背景 */}
+      {isMobile && (
+        <div className="absolute inset-0 bg-gradient-to-b from-purple-500 to-blue-500 z-0" />
+      )}
 
-        {/* HomeCarousel：纯 horizontal scroll */}
-        <HomeCarousel />
+      {/* 内容容器：位于背景之上 */}
+      <div className={`relative flex-1 flex flex-col ${isMobile ? 'text-white' : 'bg-white text-black'}`}>
+        <main className="flex-1">
+          {/* Hero：传入 disableWave 隐藏底部波浪 */}
+          <HeroSection disableWave={isMobile} />
 
-        {/* WorkCarousel 区块：黑底白字 */}
-        <div className="bg-black text-white py-16">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <WorkCarousel />
+          {/* HomeCarousel：纯 horizontal scroll */}
+          <HomeCarousel />
+
+          {/* WorkCarousel 区块：始终显示，手机背景透明+白字，桌机黑底白字 */}
+          <div className={`${isMobile ? 'bg-transparent text-white' : 'bg-black text-white'} py-16`}>
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <WorkCarousel />
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
 
-      {/* 桌机浅色 Footer */}
-      <FooterLight />
+        {/* Footer：手机深底白字，桌机浅底黑字 */}
+        {isMobile ? <FooterDark /> : <FooterLight />}
+      </div>
     </div>
   );
 }
