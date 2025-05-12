@@ -15,19 +15,10 @@ function LineIcon(props: React.SVGProps<SVGSVGElement>) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      {/* 聊天氣泡主體 */}
-      <path d="M2 4h20v14H6l-4 4V4z" />
-      {/* 中間 LINE 文字 */}
-      <text
-        x="12"
-        y="13"
-        textAnchor="middle"
-        fontSize="4"
-        fontFamily="Arial, sans-serif"
-        fill="currentColor"
-      >
-        LINE
-      </text>
+      {/* 外層圓角方框 */}
+      <rect x="1" y="1" width="22" height="22" rx="4" ry="4" />
+      {/* 內部對話泡泡 */}
+      <path d="M6 9h12a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H10l-3 3v-3H6a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2z" />
     </svg>
   );
 }
@@ -39,9 +30,8 @@ export default function FooterLight() {
         {/* 左側 LOGO + 品牌 */}
         <div className="flex items-center space-x-2 mb-4 md:mb-0">
           <div className="w-10 h-10 border border-black flex items-center justify-center">
-            LOGO
+            Chu Designs
           </div>
-          <span className="font-medium">Chu Designs</span>
         </div>
 
         {/* 中間 版權 */}
@@ -54,12 +44,9 @@ export default function FooterLight() {
           <a href="#" aria-label="Instagram" target="_blank" rel="noreferrer">
             <Instagram size={24} />
           </a>
-
           <a href="#" aria-label="LINE" target="_blank" rel="noreferrer">
-            {/* inline LINE */}
             <LineIcon width={24} height={24} />
           </a>
-
           <a href="#" aria-label="Gmail">
             <Mail size={24} />
           </a>
