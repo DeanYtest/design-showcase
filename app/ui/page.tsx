@@ -1,15 +1,15 @@
 // app/ui/page.tsx
-import Carousel from '../../components/ui/Carousel'
-import WorkSection from '../WorkSection'
-import Footer from '../Footer'
+import Carousel from '../../components/ui/Carousel';
+import WorkSection from '../WorkSection';
+import FooterDark from '../FooterDark';
 
 export const metadata = {
   title: 'UI 設計',
   description: '小設｜UI 設計作品集',
-}
+};
 
 export default function UIPage() {
-  const images = ['/images/ui1.jpg', '/images/ui2.jpg', '/images/ui3.jpg']
+  const images = ['/images/ui1.jpg', '/images/ui2.jpg', '/images/ui3.jpg'];
 
   return (
     <>
@@ -22,7 +22,7 @@ export default function UIPage() {
           </div>
         </section>
       </main>
-      <Footer />
+      <FooterDark />
     </>
-  )
+  );
 }

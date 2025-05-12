@@ -1,15 +1,15 @@
 // app/packaging/page.tsx
-import Carousel from '../../components/ui/Carousel'
-import WorkSection from '../WorkSection'
-import Footer from '../Footer'
+import Carousel from '../../components/ui/Carousel';
+import WorkSection from '../WorkSection';
+import FooterDark from '../FooterDark';
 
 export const metadata = {
   title: '包裝設計',
   description: '小設｜包裝設計作品集',
-}
+};
 
 export default function PackagingPage() {
-  const images = ['/images/pack1.jpg', '/images/pack2.jpg', '/images/pack3.jpg']
+  const images = ['/images/pack1.jpg', '/images/pack2.jpg', '/images/pack3.jpg'];
 
   return (
     <>
@@ -22,7 +22,7 @@ export default function PackagingPage() {
           </div>
         </section>
       </main>
-      <Footer />
+      <FooterDark />
     </>
-  )
+  );
 }
