@@ -5,15 +5,15 @@ import Image from 'next/image';
 
 export default function FooterLight() {
   return (
-    <footer className="bg-white text-black border-t border-black py-6">
-      <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+    <footer className="bg-white text-black border-t border-black py-6 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
         {/* LOGO + 品牌 */}
-        <div className="flex items-center mb-4 md:mb-0">
+        <div className="flex items-center">
           <div className="text-xl font-semibold">Chu Designs</div>
         </div>
 
         {/* 版權 */}
-        <div className="mb-4 md:mb-0">
+        <div>
           <span className="text-sm">© 2025 Chu Designs。All rights reserved.</span>
         </div>
 

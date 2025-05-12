@@ -13,10 +13,13 @@
   html {
     scroll-behavior: smooth;
     font-family: 'Poppins', sans-serif;
+    /* 響應式字級基準 */
+    font-size: 100%;
   }
   body {
     @apply bg-black text-white antialiased m-0 p-0;
     line-height: 1.6;
+    min-height: 100vh;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold m-0;
@@ -40,10 +43,10 @@
   color: white;
 }
 
-/* 波浪無縫滑動動畫 */
+/* 4. 波浪無縫滑動動畫 */
 .wave-bg {
   width: 100%;
-  height: 100px;
+  height: 10vh;                    /* 響應式高度，手機更合宜 */
   background: url('/wave.svg') repeat-x bottom;
   animation: wave-scroll 20s linear infinite;
 }
@@ -104,7 +107,7 @@
 /* —— 七彩尾翼流星雨 —— */
 .meteorRain {
   position: absolute;
-  width: 300px;
+  width: 20vw;                     /* 響應式寬度 */
   height: 2px;
   filter: blur(2px);
   opacity: 0;
@@ -119,17 +122,17 @@
   position: absolute;
   top: -3px;
   left: 0;
-  width: 8px;
-  height: 8px;
+  width: 1.6vw;                    /* 響應式大小 */
+  height: 1.6vw;
   border-radius: 50%;
   background: inherit;
-  box-shadow: 0 0 8px 2px inherit;
+  box-shadow: 0 0 0.8vw 0.2vw inherit;
 }
 
 @keyframes meteorFall {
   0% {
     opacity: 0;
-    transform: translate(-300px, -300px) skewX(-20deg) rotate(-45deg);
+    transform: translate(-20vw, -20vh) skewX(-20deg) rotate(-45deg);
   }
   10% {
     opacity: 1;
@@ -139,6 +142,21 @@
   }
   100% {
     opacity: 0;
-    transform: translate(500px, 500px) skewX(-20deg) rotate(-45deg);
+    transform: translate(50vw, 50vh) skewX(-20deg) rotate(-45deg);
   }
+}
+
+/* —— 響應式調整 —— */
+@media (max-width: 640px) {
+  .wave-bg { height: 8vh; }
+  .animated-gradient { animation-duration: 40s; }
+  .meteorRain { width: 30vw; }
+  .meteorRain::before { width: 2vw; height: 2vw; box-shadow: 0 0 1vw 0.3vw inherit; }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .wave-bg { height: 9vh; }
+  .animated-gradient { animation-duration: 35s; }
+  .meteorRain { width: 25vw; }
+  .meteorRain::before { width: 1.8vw; height: 1.8vw; box-shadow: 0 0 0.9vw 0.25vw inherit; }
 }

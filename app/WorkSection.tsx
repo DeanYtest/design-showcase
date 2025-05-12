@@ -19,7 +19,7 @@ const allWorks = [
 ];
 
 export default function WorkSection({ category }: WorkSectionProps) {
-  // 如果要 “all” 显示全部，否则根据字符串筛选
+  // 篩選作品
   const works =
     category === 'all'
       ? allWorks
@@ -39,21 +39,21 @@ export default function WorkSection({ category }: WorkSectionProps) {
   }, [inView, works]);
 
   return (
-    <section ref={ref} className="container mx-auto py-12">
+    <section ref={ref} className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <h2 className="text-3xl font-bold mb-6 capitalize">
         {category === 'all' ? '所有作品' : category}
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
         {works.map((work, idx) => {
           const isVisible = visibleItems.includes(idx);
           return (
-            <Link key={idx} href={work.href}>
+            <Link key={idx} href={work.href} passHref>
               <a
                 className={`group relative overflow-hidden rounded-xl shadow-lg ${
                   isVisible ? `fade-up delay-${idx}` : 'opacity-0'
                 }`}
               >
-                <div className="relative w-full h-64">
+                <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-56 xl:h-64">
                   <Image
                     src={work.img}
                     alt={work.title}

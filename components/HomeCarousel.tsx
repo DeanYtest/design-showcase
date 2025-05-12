@@ -2,8 +2,9 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
+import Image from 'next/image';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const categories = [
   { title: 'UI',           href: '/ui',           img: '/images/ui1.jpg' },
@@ -14,45 +15,45 @@ const categories = [
 ];
 
 export default function HomeCarousel() {
-  const VISIBLE = 3;
-  const MAX_PAGE = categories.length - VISIBLE; // 5 - 3 = 2
   const [page, setPage] = useState(0);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const VISIBLE = 3;
+  const maxPage = categories.length - VISIBLE;
 
-  // 320px card + 16px gap
-  const STEP = 320 + 16;
-
-  const goPrev = () => {
-    const next = Math.max(0, page - 1);
-    setPage(next);
-    scrollRef.current?.scrollTo({ left: next * STEP, behavior: 'smooth' });
+  // 計算單步滾動寬度
+  const getStep = () => {
+    if (!ref.current) return 336; // fallback
+    const card = ref.current.querySelector<HTMLAnchorElement>('a');
+    return card ? card.offsetWidth + 16 : 336;
   };
-  const goNext = () => {
-    const next = Math.min(MAX_PAGE, page + 1);
+
+  const go = (dir: number) => {
+    const next = Math.min(maxPage, Math.max(0, page + dir));
+    const step = getStep();
+    ref.current?.scrollTo({ left: next * step, behavior: 'smooth' });
     setPage(next);
-    scrollRef.current?.scrollTo({ left: next * STEP, behavior: 'smooth' });
   };
 
   return (
     <section className="relative bg-black py-12">
-      <div className="relative mx-auto w-[992px] overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* 左箭頭 */}
         <button
-          onClick={goPrev}
+          onClick={() => go(-1)}
           disabled={page === 0}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-50 rounded-full disabled:bg-opacity-25 transition"
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 p-2 rounded-full bg-white bg-opacity-50 disabled:opacity-25 transition"
         >
-          ‹
+          <ChevronLeft className="w-6 h-6 text-gray-800" />
         </button>
 
-        {/* 滑動區 */}
+        {/* 滾動區 */}
         <div
-          ref={scrollRef}
+          ref={ref}
           className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide px-2"
         >
           {categories.map((cat) => (
-            <Link key={cat.title} href={cat.href}>
-              <a className="group flex-shrink-0 w-[320px] h-[200px] relative rounded-xl overflow-hidden shadow-lg">
+            <Link key={cat.title} href={cat.href} passHref>
+              <a className="group flex-shrink-0 w-[80vw] sm:w-[320px] h-[50vw] sm:h-[200px] relative rounded-xl overflow-hidden shadow-lg">
                 <Image
                   src={cat.img}
                   alt={cat.title}
@@ -70,11 +71,11 @@ export default function HomeCarousel() {
 
         {/* 右箭頭 */}
         <button
-          onClick={goNext}
-          disabled={page === MAX_PAGE}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-50 rounded-full disabled:bg-opacity-25 transition"
+          onClick={() => go(1)}
+          disabled={page === maxPage}
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 p-2 rounded-full bg-white bg-opacity-50 disabled:opacity-25 transition"
         >
-          ›
+          <ChevronRight className="w-6 h-6 text-gray-800" />
         </button>
       </div>
     </section>
