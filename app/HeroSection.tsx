@@ -17,17 +17,14 @@ export default function HeroSection({ disableWave = false }: HeroSectionProps) {
   })
 
   return (
-    <section className="relative flex items-center justify-center min-h-[80vh] sm:min-h-[90vh] overflow-hidden bg-transparent">
-      {/* 背景漸層 */}
-      <div className="absolute inset-0 animated-gradient z-0" />
-
+    <section className="relative flex items-center justify-center min-h-[80vh] sm:min-h-[90vh] overflow-hidden">
       {/* 主要文字內容 */}
       <div className="relative z-10 flex flex-col justify-center items-center text-center px-4">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-current">
           {text}
           <Cursor />
         </h1>
-        <p className="text-base sm:text-lg md:text-xl max-w-xl text-gray-200">
+        <p className="text-base sm:text-lg md:text-xl max-w-xl text-current/80">
           I'm a creative developer passionate about design and code.
         </p>
       </div>
