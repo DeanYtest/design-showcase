@@ -23,9 +23,10 @@ const portfolioLinks = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [isNavHover, setIsNavHover] = useState(false);
   const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // 根據滑鼠位置顯示/隱藏 Navbar
+  // 根據滑鼠 Y 座標，當滑鼠在視窗頂端10%時顯示Navbar
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => {
       const threshold = window.innerHeight * 0.1;
@@ -35,14 +36,15 @@ export default function Navbar() {
     return () => window.removeEventListener('mousemove', onMouseMove);
   }, []);
 
-  // 當 Navbar 隱藏時自動收起下拉選單
+  // 當滑鼠既不在觸發區也不在 Navbar 上，收起下拉選單
   useEffect(() => {
-    if (!visible && open) {
+    if (!visible && !isNavHover) {
       setOpen(false);
     }
-  }, [visible, open]);
+  }, [visible, isNavHover]);
 
   const handleMouseEnter = () => {
+    setIsNavHover(true);
     if (closeTimeout.current) {
       clearTimeout(closeTimeout.current);
       closeTimeout.current = null;
@@ -51,6 +53,7 @@ export default function Navbar() {
   };
 
   const handleMouseLeave = () => {
+    setIsNavHover(false);
     closeTimeout.current = setTimeout(() => {
       setOpen(false);
       closeTimeout.current = null;
@@ -59,9 +62,11 @@ export default function Navbar() {
 
   return (
     <header
+      onMouseEnter={() => setIsNavHover(true)}
+      onMouseLeave={() => setIsNavHover(false)}
       className={`
         fixed top-0 left-0 w-full z-50 transform transition-transform ease-out
-        ${visible
+        ${(visible || isNavHover)
           ? 'translate-y-0 bg-white bg-opacity-60 backdrop-blur-md shadow-md duration-500'
           : '-translate-y-full duration-700'}
       `}
@@ -70,13 +75,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" passHref>
           <a className="flex items-center">
-            <Image
-              src="/logo.png"
-              alt="Logo"
-              width={120}
-              height={40}
-              priority
-            />
+            <Image src="/logo.png" alt="Logo" width={120} height={40} priority />
           </a>
         </Link>
 
@@ -84,9 +83,7 @@ export default function Navbar() {
         <nav className="flex items-center space-x-6 text-gray-800 font-medium">
           {navLinks.map(l => (
             <Link key={l.href} href={l.href} passHref>
-              <a className="hover:text-primary transition-colors duration-200">
-                {l.name}
-              </a>
+              <a className="hover:text-primary transition-colors">{l.name}</a>
             </Link>
           ))}
 
