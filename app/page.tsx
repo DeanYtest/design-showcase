@@ -34,8 +34,8 @@ export default function HomePage() {
         {/* HomeCarousel：纯 horizontal scroll */}
         <HomeCarousel />
 
-        {/* WorkCarousel 区块：手机透明底，桌机黑底白字 */}
-        <div className={`${isMobile ? 'bg-transparent' : 'bg-black text-white'} py-16`}>
+        {/* WorkCarousel 区块：手机透明底 + 黑字，桌机黑底白字 */}
+        <div className={`${isMobile ? 'bg-transparent text-black' : 'bg-black text-white'} py-16`}>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <WorkCarousel />
           </div>
