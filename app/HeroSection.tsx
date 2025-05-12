@@ -3,7 +3,11 @@
 
 import { useTypewriter, Cursor } from 'react-simple-typewriter'
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  disableWave?: boolean
+}
+
+export default function HeroSection({ disableWave = false }: HeroSectionProps) {
   const [text] = useTypewriter({
     words: ['Hello, I am a Designer.', 'Welcome to my Portfolio.'],
     loop: true,
@@ -28,16 +32,18 @@ export default function HeroSection() {
         </p>
       </div>
 
-      {/* 波浪與下方黑底銜接 */}
-      <div className="absolute bottom-0 left-0 w-full leading-none z-10">
-        <svg
-          viewBox="0 0 1440 100"
-          className="w-full h-16 sm:h-20 md:h-24"
-          preserveAspectRatio="none"
-        >
-          <path fill="#000" d="M0,0 C360,100 1080,0 1440,100 L1440,100 L0,100 Z" />
-        </svg>
-      </div>
+      {/* 波浪與下方黑底銜接（手機 disableWave=true 時隱藏） */}
+      {!disableWave && (
+        <div className="absolute bottom-0 left-0 w-full leading-none z-10">
+          <svg
+            viewBox="0 0 1440 100"
+            className="w-full h-16 sm:h-20 md:h-24"
+            preserveAspectRatio="none"
+          >
+            <path fill="#000" d="M0,0 C360,100 1080,0 1440,100 L1440,100 L0,100 Z" />
+          </svg>
+        </div>
+      )}
     </section>
   )
 }
