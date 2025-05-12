@@ -5,7 +5,7 @@ import WaveTransition from '../components/ui/WaveTransition';
 // import Footer from './Footer';  // <- 刪除這一行
 
 export const metadata = {
-  title: '小設 設計作品集',
+  title: 'Chu Designs',
   description: '個人品牌視覺設計作品集',
 };
 
