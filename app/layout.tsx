@@ -1,8 +1,6 @@
 // app/layout.tsx
 import './globals.css';
 import Navbar from '../components/ui/Navbar';
-import WaveTransition from '../components/ui/WaveTransition';
-// import Footer from './Footer';  // <- 刪除這一行
 
 export const metadata = {
   title: 'Chu Designs',
@@ -16,16 +14,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh-TW">
-      <body className="bg-white text-black">
+      <body id="__next" className="flex flex-col min-h-screen bg-white text-black">
+        {/* 頁首導覽 */}
         <Navbar />
 
-        {/* 主內容 */}
-        <main className="relative z-10 pb-16">{children}</main>
+        {/* 主內容：撐滿剩餘空間 */}
+        <main className="flex-1 relative z-10">
+          {children}
+        </main>
 
-        {/* 底部波浪過渡 */}
-        <WaveTransition />
-
-        {/* 刪除 <Footer /> 由各頁面自行決定 */}
+        {/* Footer 由各頁面自行決定貼底 */}
       </body>
     </html>
   );
