@@ -4,7 +4,7 @@
 import { useTypewriter, Cursor } from 'react-simple-typewriter'
 
 interface HeroSectionProps {
-  disableWave?: boolean
+  disableWave?: boolean  // 仅控制底部波浪
 }
 
 export default function HeroSection({ disableWave = false }: HeroSectionProps) {
@@ -18,7 +18,10 @@ export default function HeroSection({ disableWave = false }: HeroSectionProps) {
 
   return (
     <section className="relative flex items-center justify-center min-h-[80vh] sm:min-h-[90vh] overflow-hidden">
-      {/* 主要文字內容 */}
+      {/* —— 桌机 & 手机 都显示的背景渐变 —— */}
+      <div className="absolute inset-0 animated-gradient z-0" />
+
+      {/* 主要文字内容，继承外层文字色 */}
       <div className="relative z-10 flex flex-col justify-center items-center text-center px-4">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-current">
           {text}
@@ -29,7 +32,7 @@ export default function HeroSection({ disableWave = false }: HeroSectionProps) {
         </p>
       </div>
 
-      {/* 波浪與下方黑底銜接（手機 disableWave=true 時隱藏） */}
+      {/* —— 底部波浪，仅在 disableWave=false 时显示 —— */}
       {!disableWave && (
         <div className="absolute bottom-0 left-0 w-full leading-none z-10">
           <svg
