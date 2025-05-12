@@ -1,7 +1,7 @@
 // components/ui/Navbar.tsx
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronDown } from 'lucide-react';
@@ -22,8 +22,23 @@ const portfolioLinks = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  // 用來存關閉的定時器
+  const [visible, setVisible] = useState(false);
   const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const prevY = useRef<number>(0);
+
+  // show/hide on mouse move
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (e.clientY < prevY.current) {
+        setVisible(true);
+      } else {
+        setVisible(false);
+      }
+      prevY.current = e.clientY;
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   const handleMouseEnter = () => {
     if (closeTimeout.current) {
@@ -34,14 +49,18 @@ export default function Navbar() {
   };
 
   const handleMouseLeave = () => {
-    // 滑鼠離開後 300ms 再關閉
-    closeTimeout.current = setTimeout(() => {
-      setOpen(false);
-    }, 300);
+    closeTimeout.current = setTimeout(() => setOpen(false), 300);
   };
 
   return (
-    <header className="sticky top-0 w-full bg-white bg-opacity-80 backdrop-blur-md z-50">
+    <header
+      className={`
+        fixed top-0 left-0 w-full z-50
+        bg-white bg-opacity-80 backdrop-blur-md
+        transform transition-transform duration-300
+        ${visible ? 'translate-y-0' : '-translate-y-full'}
+      `}
+    >
       <div className="container mx-auto px-4 flex justify-between items-center h-16">
         {/* Logo */}
         <Link href="/" passHref>
