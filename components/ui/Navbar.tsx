@@ -1,7 +1,7 @@
 // components/ui/Navbar.tsx
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronDown, Menu, X } from 'lucide-react';
@@ -24,12 +24,11 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hovering, setHovering] = useState(false);
+  const [visible, setVisible] = useState(true);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // 桌機才用頂端 10% 顯示/隱藏，手機永遠顯示
-  const [visible, setVisible] = useState(true);
+  // Only desktop toggles on mouse position; mobile always visible
   useEffect(() => {
-    if (typeof window === 'undefined') return;
     const onMouseMove = (e: MouseEvent) => {
       if (window.innerWidth >= 768) {
         setVisible(e.clientY <= window.innerHeight * 0.1);
@@ -38,10 +37,11 @@ export default function Navbar() {
       }
     };
     window.addEventListener('mousemove', onMouseMove);
-    onMouseMove({ clientY: 0 } as MouseEvent);
+    onMouseMove({ clientY: 0 } as any);
     return () => window.removeEventListener('mousemove', onMouseMove);
   }, []);
 
+  // Close dropdown if not hovering and navbar hidden
   useEffect(() => {
     if (!visible && !hovering) setOpen(false);
   }, [visible, hovering]);
@@ -62,20 +62,22 @@ export default function Navbar() {
       onMouseLeave={() => setHovering(false)}
       className={`
         fixed top-0 w-full z-50 transform transition-transform duration-500 ease-out
-        bg-white bg-opacity-60 backdrop-blur-md shadow
         ${visible ? 'translate-y-0' : '-translate-y-full'}
+        bg-white md:bg-white/60 md:backdrop-blur shadow-md
       `}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-        {/* Logo */}
-        <Link href="/">
-          <a className="flex items-center">
-            <Image src="/logo.png" alt="Logo" width={120} height={40} />
-          </a>
-        </Link>
+        {/* Logo: hidden on mobile, shown on md+ */}
+        <div className="hidden md:flex">
+          <Link href="/">
+            <a>
+              <Image src="/logo.png" alt="Logo" width={120} height={40} />
+            </a>
+          </Link>
+        </div>
 
-        {/* 大於 md 顯示水平選單 */}
-        <nav className="hidden md:flex items-center space-x-6">
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center space-x-6 font-medium text-gray-800">
           {navLinks.map(({ name, href }) => (
             <Link key={href} href={href}>
               <a className="hover:text-primary transition">{name}</a>
@@ -83,7 +85,7 @@ export default function Navbar() {
           ))}
           <div className="relative" onMouseEnter={onEnter} onMouseLeave={onLeave}>
             <button
-              className="flex items-center hover:text-primary transition"
+              className="flex items-center hover:text-primary transition focus:outline-none"
               onClick={() => setOpen(v => !v)}
             >
               Portfolio <ChevronDown className="ml-1 w-4 h-4" />
@@ -100,9 +102,9 @@ export default function Navbar() {
           </div>
         </nav>
 
-        {/* 小於 md 顯示漢堡按鈕 */}
+        {/* Mobile menu button only */}
         <button
-          className="md:hidden p-2"
+          className="md:hidden p-2 text-gray-800"
           onClick={() => setMobileOpen(v => !v)}
           aria-label="Toggle menu"
         >
@@ -110,9 +112,9 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* 手機選單：垂直全寬顯示 */}
+      {/* Mobile menu panel */}
       {mobileOpen && (
-        <div className="md:hidden bg-white bg-opacity-95 backdrop-blur-md shadow-lg">
+        <div className="md:hidden bg-white">
           <div className="flex flex-col px-4 py-4 space-y-2">
             {navLinks.map(({ name, href }) => (
               <Link key={href} href={href}>
