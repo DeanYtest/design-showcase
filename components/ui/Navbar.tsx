@@ -23,10 +23,10 @@ const portfolioLinks = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(false);
-  const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const prevY = useRef<number>(0);
+  const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // show/hide on mouse move
+  // 顯示/隱藏 navbar
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (e.clientY < prevY.current) {
@@ -55,10 +55,10 @@ export default function Navbar() {
   return (
     <header
       className={`
-        fixed top-0 left-0 w-full z-50
-        bg-white bg-opacity-80 backdrop-blur-md
-        transform transition-transform duration-300
-        ${visible ? 'translate-y-0' : '-translate-y-full'}
+        fixed top-0 left-0 w-full z-50 transform transition-transform duration-500 ease-out
+        ${visible
+          ? 'translate-y-0 bg-white bg-opacity-60 backdrop-blur-md shadow-md'
+          : '-translate-y-full bg-transparent'}
       `}
     >
       <div className="container mx-auto px-4 flex justify-between items-center h-16">
