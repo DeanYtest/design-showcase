@@ -1,13 +1,20 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, MotionProps } from 'framer-motion';
 import GraphicItem from '@/components/GraphicItem';
 import Modal from '@/components/ui/Modal';
 import FooterDark from '../FooterDark';
 
-// 使用泛型工廠，讓 MotionDiv 同時支援 HTMLDivElement 的所有屬性與 MotionProps
-const MotionDiv = motion<HTMLDivElement>('div');
+// 1. 定義 MotionDivProps：把 React 原生的 <div> 屬性和 MotionProps 合併
+type MotionDivProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+> &
+  MotionProps;
+
+// 2. 用 type assertion 將 motion.div 拷貝為支援以上 props 的元件
+const MotionDiv = motion.div as React.ComponentType<MotionDivProps>;
 
 const images = [
   '/images/graphic1.jpg',
@@ -80,7 +87,6 @@ export default function GraphicPage() {
                 </>
               )}
             </Modal>
-
           </div>
         </section>
       </main>
