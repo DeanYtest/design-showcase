@@ -18,75 +18,81 @@ export default function GraphicPage() {
   const slots = Array.from({ length: SLOT_COUNT }, (_, i) => i);
 
   return (
-    <div className="relative min-h-screen bg-white text-black overflow-hidden">
-      {/* 桌面圓環 + 標題 */}
-      <div className="hidden md:block absolute inset-0 flex items-center justify-center">
-        {slots.map((i) => {
-          const angle = (360 / SLOT_COUNT) * i;
-          const radius = 200;
-          const rad = (angle * Math.PI) / 180;
-          const x = Math.cos(rad) * radius;
-          const y = Math.sin(rad) * radius;
-          const src = rawImages[i % rawImages.length];
-          return (
-            <div
-              key={i}
-              className="absolute top-1/2 left-1/2 w-20 h-28 cursor-pointer"
-              style={{
-                transform: `translate(${x}px, ${y}px)`,
-                transformOrigin: 'center',
-              }}
-              onClick={() => setSelectedImage(src)}
-            >
-              <motion.div
-                initial={{ opacity: 0.7 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
-                whileHover={{ scale: 1.2 }}
+    <div className="flex flex-col min-h-screen bg-white text-black">
+      {/* 桌面版：可旋轉的完整圓環與標題 */}
+      <div className="hidden md:flex flex-1 items-center justify-center">
+        <motion.div
+          className="relative w-[500px] h-[500px]"
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 60, ease: 'linear' }}
+        >
+          {slots.map((i) => {
+            const angle = (360 / SLOT_COUNT) * i;
+            const radius = 200;
+            const rad = (angle * Math.PI) / 180;
+            const x = Math.cos(rad) * radius;
+            const y = Math.sin(rad) * radius;
+            const src = rawImages[i % rawImages.length];
+            return (
+              <div
+                key={i}
+                className="absolute top-1/2 left-1/2 w-16 h-24 cursor-pointer"
+                style={{
+                  transform: `translate(${x}px, ${y}px)`,
+                  transformOrigin: 'center',
+                }}
+                onClick={() => setSelectedImage(src)}
               >
-                <GraphicItem src={src} />
-              </motion.div>
-            </div>
-          );
-        })}
-
-        {/* 圓心標題 */}
-        <h1 className="absolute text-4xl font-bold">平面設計</h1>
+                <motion.div
+                  initial={{ opacity: 0.7 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1 }}
+                  whileHover={{ scale: 1.2 }}
+                >
+                  <GraphicItem src={src} />
+                </motion.div>
+              </div>
+            );
+          })}
+          <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl font-bold">
+            平面設計
+          </h1>
+        </motion.div>
       </div>
 
-      {/* 手機半圓 + 標題 */}
-      <div className="md:hidden relative w-full h-96 flex items-end justify-center pt-8">
-        {slots.map((i) => {
-          const angle = -90 + (180 / (SLOT_COUNT - 1)) * i;
-          const radius = 120;
-          const rad = (angle * Math.PI) / 180;
-          const x = Math.cos(rad) * radius;
-          const y = -Math.sin(rad) * radius;
-          const src = rawImages[i % rawImages.length];
-          return (
-            <div
-              key={i}
-              className="absolute top-1/2 left-1/2 w-16 h-20 cursor-pointer"
-              style={{
-                transform: `translate(${x}px, ${y}px)`,
-                transformOrigin: 'center',
-              }}
-              onClick={() => setSelectedImage(src)}
-            >
-              <motion.div
-                initial={{ opacity: 0.7 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-                whileHover={{ scale: 1.1 }}
+      {/* 手機版：半圓靜態排列，標題置於下方 */}
+      <div className="md:hidden flex flex-1 items-center justify-center relative">
+        <div className="relative w-[300px] h-[200px]">
+          {slots.map((i) => {
+            const angle = -90 + (180 / (SLOT_COUNT - 1)) * i;
+            const radius = 100;
+            const rad = (angle * Math.PI) / 180;
+            const x = Math.cos(rad) * radius;
+            const y = -Math.sin(rad) * radius;
+            const src = rawImages[i % rawImages.length];
+            return (
+              <div
+                key={i}
+                className="absolute top-1/2 left-1/2 w-12 h-16 cursor-pointer"
+                style={{
+                  transform: `translate(${x}px, ${y}px)`,
+                  transformOrigin: 'center',
+                }}
+                onClick={() => setSelectedImage(src)}
               >
-                <GraphicItem src={src} />
-              </motion.div>
-            </div>
-          );
-        })}
-
-        {/* 手機版圓心標題 */}
-        <h1 className="absolute text-2xl font-bold">平面設計</h1>
+                <motion.div
+                  initial={{ opacity: 0.7 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                  whileHover={{ scale: 1.1 }}
+                >
+                  <GraphicItem src={src} />
+                </motion.div>
+              </div>
+            );
+          })}
+        </div>
+        <h1 className="absolute bottom-4 text-2xl font-bold">平面設計</h1>
       </div>
 
       {/* Modal */}
@@ -103,12 +109,13 @@ export default function GraphicPage() {
               className="rounded-lg object-cover mx-auto max-h-80"
             />
             <p className="mt-4 text-left">
-              這裡可以放作品的詳細說明，例如設計理念、使用工具與發想過程等。
+              這裡可以放作品的詳細說明，例如：設計理念、使用工具與發想過程等。
             </p>
           </>
         )}
       </Modal>
 
+      {/* Footer 固定在最底端 */}
       <FooterDark />
     </div>
   );
