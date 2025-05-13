@@ -6,6 +6,9 @@ import GraphicItem from '@/components/GraphicItem';
 import Modal from '@/components/ui/Modal';
 import FooterDark from '../FooterDark';
 
+// 使用泛型工廠，讓 MotionDiv 同時支援 HTMLDivElement 的所有屬性與 MotionProps
+const MotionDiv = motion<HTMLDivElement>('div');
+
 const images = [
   '/images/graphic1.jpg',
   '/images/graphic2.jpg',
@@ -28,7 +31,7 @@ export default function GraphicPage() {
             {/* 桌面版：環狀旋轉 */}
             <div className="hidden md:flex relative items-center justify-center w-full h-[600px]">
               {images.map((img, idx) => (
-                <motion.div
+                <MotionDiv
                   key={idx}
                   className="absolute cursor-pointer"
                   style={{ transformOrigin: 'center' }}
@@ -39,13 +42,13 @@ export default function GraphicPage() {
                   onClick={() => setSelectedImage(img)}
                 >
                   <GraphicItem src={img} />
-                </motion.div>
+                </MotionDiv>
               ))}
             </div>
 
             {/* 手機版：左右滑動 */}
             <div className="md:hidden flex overflow-hidden justify-center">
-              <motion.div
+              <MotionDiv
                 drag="x"
                 dragConstraints={{ left: -150, right: 150 }}
                 className="flex space-x-4"
@@ -55,22 +58,27 @@ export default function GraphicPage() {
                     <GraphicItem src={img} />
                   </div>
                 ))}
-              </motion.div>
+              </MotionDiv>
             </div>
 
+            {/* Modal 詳細介紹 */}
             <Modal
               isOpen={!!selectedImage}
               onClose={() => setSelectedImage(null)}
               title="作品介紹"
             >
               {selectedImage && (
-                <img
-                  src={selectedImage}
-                  alt="Selected Work"
-                  className="rounded-lg object-cover mx-auto"
-                />
+                <>
+                  <img
+                    src={selectedImage}
+                    alt="Selected Work"
+                    className="rounded-lg object-cover mx-auto"
+                  />
+                  <p className="mt-4 text-left">
+                    這裡放你對該作品的詳細說明，例如：設計理念、使用工具、發想過程等等。
+                  </p>
+                </>
               )}
-              <p className="mt-4">這裡是作品的詳細說明與介紹。</p>
             </Modal>
 
           </div>
