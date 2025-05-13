@@ -6,11 +6,6 @@ import GraphicItem from '@/components/GraphicItem';
 import Modal from '@/components/Modal';
 import FooterDark from '../FooterDark';
 
-export const metadata = {
-  title: '平面設計',
-  description: 'Chu｜平面設計作品集',
-};
-
 const images = [
   '/images/graphic1.jpg',
   '/images/graphic2.jpg',
