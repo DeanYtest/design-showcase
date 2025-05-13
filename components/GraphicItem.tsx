@@ -1,9 +1,14 @@
+// components/GraphicItem.tsx
 'use client';
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
-export default function GraphicItem({ src }) {
+interface GraphicItemProps {
+  src: string;
+}
+
+export default function GraphicItem({ src }: GraphicItemProps) {
   return (
     <motion.div
       className="relative w-40 h-56 overflow-hidden rounded-xl shadow-xl"
