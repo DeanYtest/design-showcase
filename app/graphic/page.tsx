@@ -6,6 +6,9 @@ import GraphicItem from '@/components/GraphicItem';
 import Modal from '@/components/ui/Modal';
 import FooterDark from '../FooterDark';
 
+// Use motion('div') to get a component that accepts className, style, etc.
+const MotionDiv = motion('div');
+
 const rawImages = [
   '/images/graphic1.jpg',
   '/images/graphic2.jpg',
@@ -19,10 +22,10 @@ export default function GraphicPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white text-black">
-      {/* 桌面版：可緩慢旋轉的圓環 + 中央標題 */}
+      {/* Desktop: rotating circle */}
       <div className="hidden md:flex flex-1 items-center justify-center">
-        <motion.div<HTMLDivElement>
-          className="relative w-[400px] h-[400px] origin-center"
+        <MotionDiv
+          className="relative w-96 h-96 origin-center"
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 60, ease: 'linear' }}
         >
@@ -51,15 +54,15 @@ export default function GraphicPage() {
               </div>
             );
           })}
-          <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl font-bold">
+          <h1 className="absolute inset-0 flex items-center justify-center text-3xl font-bold">
             平面設計
           </h1>
-        </motion.div>
+        </MotionDiv>
       </div>
 
-      {/* 手機版：半圓排列 + 下方標題 */}
+      {/* Mobile: half‐circle */}
       <div className="md:hidden flex flex-1 items-center justify-center relative">
-        <div className="relative w-[300px] h-[200px]">
+        <div className="relative w-72 h-44">
           {slots.map((i) => {
             const angle = -90 + (180 / (SLOT_COUNT - 1)) * i;
             const radius = 100;
@@ -103,14 +106,14 @@ export default function GraphicPage() {
               className="rounded-lg object-cover mx-auto max-h-80"
             />
             <p className="mt-4 text-left">
-              這裡可以放作品的詳細說明，例如設計理念、使用工具與發想過程等。
+              這裡放作品的詳細說明，例如設計理念、使用工具、發想過程等。
             </p>
           </>
         )}
       </Modal>
 
-      {/* Footer 固定於頁尾 */}
+      {/* Footer at bottom */}
       <FooterDark />
     </div>
-  );
+);
 }
