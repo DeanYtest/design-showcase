@@ -8,7 +8,7 @@ interface GraphicItemProps {
   src: string;
 }
 
-// 使用泛型工廠建立支援原生 <div> 屬性與 MotionProps 的 MotionDiv
+// 1. 泛型工廠：motion<HTMLDivElement>('div')
 const MotionDiv = motion<HTMLDivElement>('div');
 
 export default function GraphicItem({ src }: GraphicItemProps) {
