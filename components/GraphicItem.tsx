@@ -8,9 +8,12 @@ interface GraphicItemProps {
   src: string;
 }
 
+// 使用泛型工廠建立支援原生 <div> 屬性與 MotionProps 的 MotionDiv
+const MotionDiv = motion<HTMLDivElement>('div');
+
 export default function GraphicItem({ src }: GraphicItemProps) {
   return (
-    <motion.div
+    <MotionDiv
       className="relative w-40 h-56 overflow-hidden rounded-xl shadow-xl"
       whileHover={{ rotateY: 180 }}
       transition={{ duration: 0.6 }}
@@ -21,6 +24,6 @@ export default function GraphicItem({ src }: GraphicItemProps) {
         fill
         className="object-cover"
       />
-    </motion.div>
+    </MotionDiv>
   );
 }
