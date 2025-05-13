@@ -1,0 +1,19 @@
+/* styles/variables.css */
+
+:root {
+  /* 色彩變數 */
+  --color-primary: #1E3A8A;
+  --color-secondary: #9333EA;
+  --color-accent: #F59E0B;
+  --color-text: #FFFFFF;
+  --color-bg: #000000;
+
+  /* 字型 */
+  --font-base: 'Poppins', sans-serif;
+
+  /* 動畫持續時間 */
+  --duration-gradient: 30s;
+  --duration-wave: 20s;
+  --duration-float: 3s;
+  --duration-fade: 0.6s;
+}

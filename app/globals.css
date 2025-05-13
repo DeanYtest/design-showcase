@@ -3,35 +3,45 @@
 /* 1. 引入 Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-/* 2. Tailwind 指令 */
+/* 2. 引入 CSS 變數 */
+@import '../styles/variables.css';
+
+/* 3. Tailwind 指令 */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 3. 全域基礎樣式 */
+/* 4. 全域基礎樣式 */
 @layer base {
   html {
     scroll-behavior: smooth;
-    font-family: 'Poppins', sans-serif;
-    /* 響應式字級基準 */
+    font-family: var(--font-base);
     font-size: 100%;
   }
+
   body {
-    @apply bg-black text-white antialiased m-0 p-0;
+    @apply antialiased m-0 p-0;
+    background: var(--color-bg);
+    color: var(--color-text);
     line-height: 1.6;
     min-height: 100vh;
   }
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold m-0;
   }
+
   a {
-    @apply text-primary hover:underline no-underline;
+    @apply hover:underline no-underline;
+    color: var(--color-primary);
   }
+
   img, video {
     max-width: 100%;
     height: auto;
     display: block;
   }
+
   input, textarea, button, select {
     @apply font-sans text-base outline-none;
   }
@@ -39,53 +49,60 @@
 
 /* 選取文字時的底色與字色 */
 ::selection {
-  background-color: #9333EA;
-  color: white;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
 }
 
-/* 4. 波浪無縫滑動動畫 */
+/* 5. 波浪無縫滑動動畫 */
 .wave-bg {
   width: 100%;
-  height: 10vh;                    /* 響應式高度，手機更合宜 */
+  height: 10vh;
   background: url('/wave.svg') repeat-x bottom;
-  animation: wave-scroll 20s linear infinite;
-}
-@keyframes wave-scroll {
-  from { background-position-x: 0; }
-  to   { background-position-x: 1000px; }
+  animation: wave-scroll var(--duration-wave) linear infinite;
 }
 
-/* —— 首頁漸層動畫背景 —— */
+@keyframes wave-scroll {
+  from { background-position-x: 0; }
+  to { background-position-x: 1000px; }
+}
+
+/* 6. 首頁漸層動畫背景 */
 .animated-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(-45deg,
-    rgba(255,154,158,0.5),
-    rgba(250,208,196,0.5),
-    rgba(161,140,209,0.5),
-    rgba(252,194,235,0.5),
-    rgba(143,211,244,0.5),
-    rgba(132,250,176,0.5),
-    rgba(166,192,254,0.5),
-    rgba(255,209,255,0.5)
-  );
+  background: linear-gradient(-45deg, rgba(255,154,158,0.5), rgba(161,140,209,0.5), rgba(166,192,254,0.5));
   background-size: 400% 400%;
-  animation: gradientBG 30s ease infinite;
+  animation: gradientBG var(--duration-gradient) ease infinite;
   pointer-events: none;
   z-index: 0;
 }
+
 @keyframes gradientBG {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
-/* 向上淡入 */
+/* 7. 浮動動畫（頭像等元素） */
+.avatar-float {
+  animation: float var(--duration-float) ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* 8. 向上淡入動畫 */
+.fade-up {
+  opacity: 0;
+  animation: fadeUp var(--duration-fade) ease-out both;
+}
+
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  to { opacity: 1; transform: translateY(0); }
 }
-.fade-up { opacity: 0; animation: fadeUp 0.6s ease-out both; }
+
 .delay-0 { animation-delay:   0ms; }
 .delay-1 { animation-delay: 150ms; }
 .delay-2 { animation-delay: 300ms; }
@@ -93,70 +110,13 @@
 .delay-4 { animation-delay: 600ms; }
 .delay-5 { animation-delay: 750ms; }
 
-/* 隱藏滾動條 */
-.scrollbar-hide::-webkit-scrollbar { display: none; }
-.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-
-/* —— 頭像浮動 —— */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-15px); }
-}
-.avatar-float { animation: float 3s ease-in-out infinite; }
-
-/* —— 七彩尾翼流星雨 —— */
-.meteorRain {
-  position: absolute;
-  width: 20vw;                     /* 響應式寬度 */
-  height: 2px;
-  filter: blur(2px);
-  opacity: 0;
-  transform: skewX(-20deg) rotate(-45deg);
-  animation-name: meteorFall;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-
-.meteorRain::before {
-  content: '';
-  position: absolute;
-  top: -3px;
-  left: 0;
-  width: 1.6vw;                    /* 響應式大小 */
-  height: 1.6vw;
-  border-radius: 50%;
-  background: inherit;
-  box-shadow: 0 0 0.8vw 0.2vw inherit;
-}
-
-@keyframes meteorFall {
-  0% {
-    opacity: 0;
-    transform: translate(-20vw, -20vh) skewX(-20deg) rotate(-45deg);
-  }
-  10% {
-    opacity: 1;
-  }
-  70% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translate(50vw, 50vh) skewX(-20deg) rotate(-45deg);
-  }
-}
-
-/* —— 響應式調整 —— */
+/* 9. 響應式調整 */
 @media (max-width: 640px) {
   .wave-bg { height: 8vh; }
-  .animated-gradient { animation-duration: 40s; }
-  .meteorRain { width: 30vw; }
-  .meteorRain::before { width: 2vw; height: 2vw; box-shadow: 0 0 1vw 0.3vw inherit; }
+  .animated-gradient { --duration-gradient: 40s; }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
   .wave-bg { height: 9vh; }
-  .animated-gradient { animation-duration: 35s; }
-  .meteorRain { width: 25vw; }
-  .meteorRain::before { width: 1.8vw; height: 1.8vw; box-shadow: 0 0 0.9vw 0.25vw inherit; }
+  .animated-gradient { --duration-gradient: 35s; }
 }
