@@ -1,3 +1,4 @@
+// app/graphic/page.tsx
 'use client';
 
 import { useState } from 'react';
@@ -5,9 +6,6 @@ import { motion } from 'framer-motion';
 import GraphicItem from '@/components/GraphicItem';
 import Modal from '@/components/ui/Modal';
 import FooterDark from '../FooterDark';
-
-// Use motion('div') to get a component that accepts className, style, etc.
-const MotionDiv = motion('div');
 
 const rawImages = [
   '/images/graphic1.jpg',
@@ -22,19 +20,22 @@ export default function GraphicPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white text-black">
-      {/* Desktop: rotating circle */}
+      {/* 桌面版：纯 CSS 旋转 */}
       <div className="hidden md:flex flex-1 items-center justify-center">
-        <MotionDiv
-          className="relative w-96 h-96 origin-center"
-          animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 60, ease: 'linear' }}
+        <div
+          className="
+            relative 
+            w-96 h-96 
+            origin-center 
+            animate-[spin_60s_linear_infinite]
+          "
         >
           {slots.map((i) => {
             const angle = (360 / SLOT_COUNT) * i;
-            const radius = 150;
+            const r = 150;
             const rad = (angle * Math.PI) / 180;
-            const x = Math.cos(rad) * radius;
-            const y = Math.sin(rad) * radius;
+            const x = Math.cos(rad) * r;
+            const y = Math.sin(rad) * r;
             const src = rawImages[i % rawImages.length];
             return (
               <div
@@ -43,6 +44,7 @@ export default function GraphicPage() {
                 style={{ transform: `translate(${x}px, ${y}px)` }}
                 onClick={() => setSelectedImage(src)}
               >
+                {/* 内层 motion.div 只做 hover 效果 */}
                 <motion.div
                   initial={{ opacity: 0.7 }}
                   animate={{ opacity: 1 }}
@@ -54,21 +56,22 @@ export default function GraphicPage() {
               </div>
             );
           })}
+          {/* 圆心文字 */}
           <h1 className="absolute inset-0 flex items-center justify-center text-3xl font-bold">
             平面設計
           </h1>
-        </MotionDiv>
+        </div>
       </div>
 
-      {/* Mobile: half‐circle */}
+      {/* 手机版：半圆排列 + 下方文字 */}
       <div className="md:hidden flex flex-1 items-center justify-center relative">
         <div className="relative w-72 h-44">
           {slots.map((i) => {
             const angle = -90 + (180 / (SLOT_COUNT - 1)) * i;
-            const radius = 100;
+            const r = 100;
             const rad = (angle * Math.PI) / 180;
-            const x = Math.cos(rad) * radius;
-            const y = -Math.sin(rad) * radius;
+            const x = Math.cos(rad) * r;
+            const y = -Math.sin(rad) * r;
             const src = rawImages[i % rawImages.length];
             return (
               <div
@@ -106,13 +109,13 @@ export default function GraphicPage() {
               className="rounded-lg object-cover mx-auto max-h-80"
             />
             <p className="mt-4 text-left">
-              這裡放作品的詳細說明，例如設計理念、使用工具、發想過程等。
+              這裡可以放作品的詳細說明，例如設計理念、使用工具與發想過程等。
             </p>
           </>
         )}
       </Modal>
 
-      {/* Footer at bottom */}
+      {/* Footer 固定在最下方 */}
       <FooterDark />
     </div>
 );
