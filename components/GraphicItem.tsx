@@ -8,22 +8,20 @@ interface GraphicItemProps {
   src: string;
 }
 
-// 1. 泛型工廠：motion<HTMLDivElement>('div')
-const MotionDiv = motion<HTMLDivElement>('div');
-
 export default function GraphicItem({ src }: GraphicItemProps) {
   return (
-    <MotionDiv
-      className="relative w-40 h-56 overflow-hidden rounded-xl shadow-xl"
+    <motion.div
       whileHover={{ rotateY: 180 }}
       transition={{ duration: 0.6 }}
     >
-      <Image
-        src={src}
-        alt="Graphic Work"
-        fill
-        className="object-cover"
-      />
-    </MotionDiv>
+      <div className="relative w-40 h-56 overflow-hidden rounded-xl shadow-xl">
+        <Image
+          src={src}
+          alt="Graphic Work"
+          fill
+          className="object-cover"
+        />
+      </div>
+    </motion.div>
   );
 }
