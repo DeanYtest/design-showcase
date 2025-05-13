@@ -11,17 +11,16 @@ interface GraphicItemProps {
 export default function GraphicItem({ src }: GraphicItemProps) {
   return (
     <motion.div
-      whileHover={{ rotateY: 180 }}
-      transition={{ duration: 0.6 }}
+      className="relative w-full h-full overflow-hidden rounded-xl shadow-lg"
+      whileHover={{ scale: 1.1 }}
+      transition={{ duration: 0.3 }}
     >
-      <div className="relative w-40 h-56 overflow-hidden rounded-xl shadow-xl">
-        <Image
-          src={src}
-          alt="Graphic Work"
-          fill
-          className="object-cover"
-        />
-      </div>
+      <Image
+        src={src}
+        alt="Graphic Work"
+        fill
+        className="object-cover"
+      />
     </motion.div>
   );
 }

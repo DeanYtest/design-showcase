@@ -2,7 +2,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import GraphicItem from '@/components/GraphicItem';
 import Modal from '@/components/ui/Modal';
 import FooterDark from '../FooterDark';
@@ -20,22 +19,22 @@ export default function GraphicPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white text-black">
-      {/* 桌面版：纯 CSS 旋转 */}
+      {/* 桌面版：純 CSS 緩慢旋轉的圓環 */}
       <div className="hidden md:flex flex-1 items-center justify-center">
         <div
           className="
             relative 
-            w-96 h-96 
+            w-80 h-80 
             origin-center 
             animate-[spin_60s_linear_infinite]
           "
         >
           {slots.map((i) => {
             const angle = (360 / SLOT_COUNT) * i;
-            const r = 150;
+            const radius = 120;
             const rad = (angle * Math.PI) / 180;
-            const x = Math.cos(rad) * r;
-            const y = Math.sin(rad) * r;
+            const x = Math.cos(rad) * radius;
+            const y = Math.sin(rad) * radius;
             const src = rawImages[i % rawImages.length];
             return (
               <div
@@ -44,34 +43,25 @@ export default function GraphicPage() {
                 style={{ transform: `translate(${x}px, ${y}px)` }}
                 onClick={() => setSelectedImage(src)}
               >
-                {/* 内层 motion.div 只做 hover 效果 */}
-                <motion.div
-                  initial={{ opacity: 0.7 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1 }}
-                  whileHover={{ scale: 1.2 }}
-                >
-                  <GraphicItem src={src} />
-                </motion.div>
+                <GraphicItem src={src} />
               </div>
             );
           })}
-          {/* 圆心文字 */}
           <h1 className="absolute inset-0 flex items-center justify-center text-3xl font-bold">
             平面設計
           </h1>
         </div>
       </div>
 
-      {/* 手机版：半圆排列 + 下方文字 */}
+      {/* 手機版：半圓排列 + 下方標題 */}
       <div className="md:hidden flex flex-1 items-center justify-center relative">
-        <div className="relative w-72 h-44">
+        <div className="relative w-60 h-36">
           {slots.map((i) => {
             const angle = -90 + (180 / (SLOT_COUNT - 1)) * i;
-            const r = 100;
+            const radius = 80;
             const rad = (angle * Math.PI) / 180;
-            const x = Math.cos(rad) * r;
-            const y = -Math.sin(rad) * r;
+            const x = Math.cos(rad) * radius;
+            const y = -Math.sin(rad) * radius;
             const src = rawImages[i % rawImages.length];
             return (
               <div
@@ -80,14 +70,7 @@ export default function GraphicPage() {
                 style={{ transform: `translate(${x}px, ${y}px)` }}
                 onClick={() => setSelectedImage(src)}
               >
-                <motion.div
-                  initial={{ opacity: 0.7 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <GraphicItem src={src} />
-                </motion.div>
+                <GraphicItem src={src} />
               </div>
             );
           })}
@@ -115,8 +98,8 @@ export default function GraphicPage() {
         )}
       </Modal>
 
-      {/* Footer 固定在最下方 */}
+      {/* Footer 固定頁尾 */}
       <FooterDark />
     </div>
-);
+  );
 }
