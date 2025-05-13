@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import GraphicItem from '@/components/GraphicItem';
-import Modal from '@/components/Modal';
+import Modal from '@/components/ui/Modal';
 import FooterDark from '../FooterDark';
 
 const images = [
