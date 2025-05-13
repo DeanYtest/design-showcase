@@ -1,29 +1,29 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, HTMLMotionProps } from 'framer-motion';
+import { motion } from 'framer-motion';
 import GraphicItem from '@/components/GraphicItem';
 import Modal from '@/components/ui/Modal';
 import FooterDark from '../FooterDark';
 
-// 讓 MotionDiv 同時支援 className/style/onClick…和 MotionProps
-type MotionDivProps = HTMLMotionProps<'div'>;
-const MotionDiv = motion.div as React.FC<MotionDivProps>;
-
+// 測試用圖，重複使用也可
 const rawImages = [
   '/images/graphic1.jpg',
   '/images/graphic2.jpg',
   '/images/graphic3.jpg',
 ];
 const SLOT_COUNT = 12;
+const slots = Array.from({ length: SLOT_COUNT }, (_, i) => i);
+
+// 用泛型工廠建立支援 HTMLDivElement 屬性的 MotionDiv
+const MotionDiv = motion<HTMLDivElement>('div');
 
 export default function GraphicPage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const slots = Array.from({ length: SLOT_COUNT }, (_, i) => i);
 
   return (
     <div className="flex flex-col min-h-screen bg-white text-black">
-      {/* 桌面版：可緩慢旋轉的圓環 + 中央標題 */}
+      {/* ── 桌面版：緩慢旋轉的圓環 + 中央標題 ── */}
       <div className="hidden md:flex flex-1 items-center justify-center">
         <MotionDiv
           className="relative w-[400px] h-[400px]"
@@ -42,10 +42,20 @@ export default function GraphicPage() {
               <div
                 key={i}
                 className="absolute top-1/2 left-1/2 w-12 h-16 cursor-pointer"
-                style={{ transform: `translate(${x}px, ${y}px)`, transformOrigin: 'center' }}
+                style={{
+                  transform: `translate(${x}px, ${y}px)`,
+                  transformOrigin: 'center',
+                }}
                 onClick={() => setSelectedImage(src)}
               >
-                <GraphicItem src={src} />
+                <motion.div
+                  initial={{ opacity: 0.7 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1 }}
+                  whileHover={{ scale: 1.2 }}
+                >
+                  <GraphicItem src={src} />
+                </motion.div>
               </div>
             );
           })}
@@ -55,7 +65,7 @@ export default function GraphicPage() {
         </MotionDiv>
       </div>
 
-      {/* 手機版：半圓排列 + 下方標題 */}
+      {/* ── 手機版：半圓排列 + 下方標題 ── */}
       <div className="md:hidden flex flex-1 items-center justify-center relative">
         <div className="relative w-[300px] h-[200px]">
           {slots.map((i) => {
@@ -69,10 +79,20 @@ export default function GraphicPage() {
               <div
                 key={i}
                 className="absolute top-1/2 left-1/2 w-10 h-14 cursor-pointer"
-                style={{ transform: `translate(${x}px, ${y}px)`, transformOrigin: 'center' }}
+                style={{
+                  transform: `translate(${x}px, ${y}px)`,
+                  transformOrigin: 'center',
+                }}
                 onClick={() => setSelectedImage(src)}
               >
-                <GraphicItem src={src} />
+                <motion.div
+                  initial={{ opacity: 0.7 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                  whileHover={{ scale: 1.1 }}
+                >
+                  <GraphicItem src={src} />
+                </motion.div>
               </div>
             );
           })}
@@ -80,7 +100,7 @@ export default function GraphicPage() {
         <h1 className="absolute bottom-4 text-2xl font-bold">平面設計</h1>
       </div>
 
-      {/* Modal */}
+      {/* ── Modal ── */}
       <Modal
         isOpen={!!selectedImage}
         onClose={() => setSelectedImage(null)}
@@ -100,8 +120,8 @@ export default function GraphicPage() {
         )}
       </Modal>
 
-      {/* Footer 在最底端 */}
+      {/* ── Footer 固定頁尾 ── */}
       <FooterDark />
     </div>
-);
+  );
 }
