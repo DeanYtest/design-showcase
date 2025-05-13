@@ -4,43 +4,34 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import GraphicItem from '@/components/GraphicItem';
 import Modal from '@/components/ui/Modal';
-import FooterDark from '@/app/FooterDark';
+import FooterDark from '../FooterDark';
 
 const rawImages = [
   '/images/graphic1.jpg',
   '/images/graphic2.jpg',
   '/images/graphic3.jpg',
 ];
-
-const SLOT_COUNT = 12; // 圓環／半圓上的總格數
+const SLOT_COUNT = 12;
 
 export default function GraphicPage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-  // 生成 0..SLOT_COUNT-1 的索引陣列
   const slots = Array.from({ length: SLOT_COUNT }, (_, i) => i);
 
   return (
     <div className="relative min-h-screen bg-white text-black overflow-hidden">
-      {/* 左上角標題 */}
-      <h1 className="absolute top-4 left-4 text-3xl font-bold">平面設計</h1>
-
-      {/* 圖片環 */}
-      <div className="hidden md:block relative w-full h-screen">
+      {/* 桌面圓環 + 標題 */}
+      <div className="hidden md:block absolute inset-0 flex items-center justify-center">
         {slots.map((i) => {
           const angle = (360 / SLOT_COUNT) * i;
-          // 半徑：可依容器調整
           const radius = 200;
-          // 將角度轉為弧度
           const rad = (angle * Math.PI) / 180;
           const x = Math.cos(rad) * radius;
           const y = Math.sin(rad) * radius;
-          // 圖片索引：重複使用 rawImages
           const src = rawImages[i % rawImages.length];
           return (
             <div
               key={i}
-              className="absolute top-1/2 left-1/2 w-32 h-40 cursor-pointer"
+              className="absolute top-1/2 left-1/2 w-20 h-28 cursor-pointer"
               style={{
                 transform: `translate(${x}px, ${y}px)`,
                 transformOrigin: 'center',
@@ -58,22 +49,24 @@ export default function GraphicPage() {
             </div>
           );
         })}
+
+        {/* 圓心標題 */}
+        <h1 className="absolute text-4xl font-bold">平面設計</h1>
       </div>
 
-      {/* 手機版半圓 */}
-      <div className="md:hidden relative w-full h-96">
+      {/* 手機半圓 + 標題 */}
+      <div className="md:hidden relative w-full h-96 flex items-end justify-center pt-8">
         {slots.map((i) => {
-          // 半圓：-90° 到 +90°
           const angle = -90 + (180 / (SLOT_COUNT - 1)) * i;
           const radius = 120;
           const rad = (angle * Math.PI) / 180;
           const x = Math.cos(rad) * radius;
-          const y = -Math.sin(rad) * radius; // 向上為負
+          const y = -Math.sin(rad) * radius;
           const src = rawImages[i % rawImages.length];
           return (
             <div
               key={i}
-              className="absolute top-1/2 left-1/2 w-20 h-28 cursor-pointer"
+              className="absolute top-1/2 left-1/2 w-16 h-20 cursor-pointer"
               style={{
                 transform: `translate(${x}px, ${y}px)`,
                 transformOrigin: 'center',
@@ -91,6 +84,9 @@ export default function GraphicPage() {
             </div>
           );
         })}
+
+        {/* 手機版圓心標題 */}
+        <h1 className="absolute text-2xl font-bold">平面設計</h1>
       </div>
 
       {/* Modal */}
@@ -107,7 +103,7 @@ export default function GraphicPage() {
               className="rounded-lg object-cover mx-auto max-h-80"
             />
             <p className="mt-4 text-left">
-              這裡可以放作品的詳細說明，比如設計概念、使用工具、發想過程等。
+              這裡可以放作品的詳細說明，例如設計理念、使用工具與發想過程等。
             </p>
           </>
         )}
