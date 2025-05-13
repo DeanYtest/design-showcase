@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import GraphicItem from '@/components/GraphicItem';
 import Modal from '@/components/ui/Modal';
-import FooterDark from '@/components/ui/FooterDark'; // 請確認正確路徑
+import FooterDark from '@/app/FooterDark'; // 請確認正確路徑
 
 const images: string[] = [
   '/images/graphic1.jpg',
