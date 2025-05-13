@@ -1,6 +1,8 @@
+// components/ui/Modal.tsx
 'use client';
+
 import { ReactNode } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface ModalProps {
   isOpen: boolean;
@@ -13,29 +15,39 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        // ── 最外層普通 div：放置所有 className、onClick
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          onClick={onClose}
         >
+          {/*
+            motion.div 只用來做動畫，**不帶** className
+            動畫關閉時遮罩透明度同時變回 0
+          */}
           <motion.div
-            className="bg-white rounded-xl p-6 max-w-lg w-full"
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0.8 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
           >
-            {title && <h2 className="text-2xl font-semibold mb-4">{title}</h2>}
-            <div className="mb-4">{children}</div>
-            <button
-              onClick={onClose}
-              className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+            {/*
+              內容容器也是普通 div：放置 className、onClick stopPropagation
+            */}
+            <div
+              className="bg-white rounded-xl p-6 max-w-lg w-full"
+              onClick={e => e.stopPropagation()}
             >
-              關閉
-            </button>
+              {title && <h2 className="text-2xl font-semibold mb-4">{title}</h2>}
+              <div className="mb-4">{children}</div>
+              <button
+                onClick={onClose}
+                className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+              >
+                關閉
+              </button>
+            </div>
           </motion.div>
-        </motion.div>
+        </div>
       )}
     </AnimatePresence>
   );
