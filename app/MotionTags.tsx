@@ -1,33 +1,13 @@
 'use client';
 
-import { motion, MotionProps } from 'framer-motion';
+import { motion, AnimatePresence, HTMLMotionProps } from 'framer-motion';
 import React from 'react';
 
-// 自訂 MotionDiv 組件，包裝 framer-motion 的 motion.div
-// 接收 className, initial, animate, variants, whileHover, onClick, style 等屬性
-export const MotionDiv: React.FC<MotionProps & React.HTMLAttributes<HTMLDivElement>> = ({
-  children,
-  initial,
-  animate,
-  variants,
-  whileHover,
-  onClick,
-  className,
-  style,
-  ...rest
-}) => {
-  return (
-    <motion.div
-      initial={initial}
-      animate={animate}
-      variants={variants}
-      whileHover={whileHover}
-      onClick={onClick}
-      className={className}
-      style={style}
-      {...rest}
-    >
-      {children}
-    </motion.div>
-  );
-};
+// 使用 framer-motion 提供的 HTMLMotionProps 自動正確類型
+export type MotionDivProps = HTMLMotionProps<'div'>;
+
+// 直接導出 motion.div 作為 MotionDiv，無需手動 wrapper
+export const MotionDiv = motion.div as React.FC<MotionDivProps>;
+
+// 重新導出 AnimatePresence 與 motion 以供其他組件使用
+export { AnimatePresence, motion };
