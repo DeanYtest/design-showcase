@@ -1,78 +1,45 @@
-// app/graphic/page.tsx
+// components/GraphicCarousel.tsx
 'use client';
 
-import { useState } from 'react';
-import GraphicCarousel from '@/components/GraphicCarousel';
-import GraphicItem from '@/components/GraphicItem';
-import Modal from '@/components/ui/Modal';
-import FooterDark from '@/app/FooterDark';
+import { motion } from '@/app/MotionTags';
+import GraphicItem from './GraphicItem';
 
-// 手機半圓示例資料與槽位
-const rawImages = [
-  '/images/graphic1.jpg',
-  '/images/graphic2.jpg',
-  '/images/graphic3.jpg',
-];
-const SLOT_COUNT = 12;
-const slots = Array.from({ length: SLOT_COUNT }, (_, i) => i);
+interface GraphicCarouselProps {
+  onSelect: (img: string) => void;
+}
 
-export default function GraphicPage() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+const images: string[] = Array.from({ length: 20 }, (_, i) => `/images/graphic/image${(i % 5) + 1}.jpg`);
 
+export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
   return (
-    <div className="flex flex-col min-h-screen bg-white text-black">
-      {/* 桌機及平板：完整圓環 */}
-      <div className="hidden md:flex flex-1 items-center justify-center">
-        <GraphicCarousel onSelect={setSelectedImage} />
-      </div>
-
-      {/* 手機：半圓排列 + 標題 */}
-      <div className="md:hidden flex flex-1 items-center justify-center relative">
-        <div className="relative w-60 h-36">
-          {slots.map((i) => {
-            const angle = -90 + (180 / (SLOT_COUNT - 1)) * i;
-            const radius = 80;
-            const rad = (angle * Math.PI) / 180;
-            const x = Math.cos(rad) * radius;
-            const y = -Math.sin(rad) * radius;
-            const src = rawImages[i % rawImages.length];
-            return (
-              <div
-                key={i}
-                className="absolute top-1/2 left-1/2 w-10 h-14 origin-center cursor-pointer"
-                style={{ transform: `translate(${x}px, ${y}px)` }}
-                onClick={() => setSelectedImage(src)}
-              >
-                <GraphicItem src={src} />
-              </div>
-            );
-          })}
-        </div>
-        <h1 className="absolute bottom-4 text-2xl font-bold">平面設計</h1>
-      </div>
-
-      {/* Modal 彈窗 */}
-      <Modal
-        isOpen={!!selectedImage}
-        onClose={() => setSelectedImage(null)}
-        title="作品介紹"
+    <div className="relative w-full h-[600px] md:h-screen flex items-center justify-center overflow-hidden">
+      {/* 旋轉容器：以文字為旋轉中心 */}
+      <motion.div
+        className="absolute left-1/2 top-1/2 w-[80vmin] h-[80vmin] -translate-x-1/2 -translate-y-1/2"
+        animate={{ rotate: 360 }}
+        transition={{ repeat: Infinity, duration: 48, ease: 'linear' }}
+        style={{ transformOrigin: 'center center' }}
       >
-        {selectedImage && (
-          <>
-            <img
-              src={selectedImage}
-              alt="Selected Work"
-              className="rounded-lg object-cover mx-auto max-h-80"
-            />
-            <p className="mt-4 text-left">
-              這裡可以放作品的詳細說明，例如設計理念、使用工具與發想過程等。
-            </p>
-          </>
-        )}
-      </Modal>
+        {images.map((img, i) => {
+          const angle = (360 / images.length) * i;
+          return (
+            <div
+              key={i}
+              className="absolute left-1/2 top-1/2 origin-center cursor-pointer"
+              style={{ transform: `rotate(${angle}deg) translate(40vmin) rotate(${-angle}deg)` }}
+              onClick={() => onSelect(img)}
+            >
+              <GraphicItem src={img} hoverEffect="flip" />
+            </div>
+          );
+        })}
+      </motion.div>
 
-      {/* 固定頁尾 */}
-      <FooterDark />
+      {/* 靜態中心文字 + 提示 */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+        <h2 className="text-3xl font-semibold">平面設計</h2>
+        <p className="mt-2 text-sm text-gray-500">click to explore</p>
+      </div>
     </div>
   );
 }
