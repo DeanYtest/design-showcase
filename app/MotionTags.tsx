@@ -1,9 +1,72 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { Dispatch, SetStateAction } from 'react';
+// 使用專案內已存在的 MotionDiv 組件
+import MotionDiv from '../components/ui/MotionDiv';
 
-// 直接導出 framer-motion 的 motion.div，保留所有原生及動畫屬性
-export const MotionDiv = motion.div;
+// Prop 型別，接收選取 callback
+interface GraphicCarouselProps {
+  onSelect: Dispatch<SetStateAction<string | null>>;
+}
 
-// 重新導出 AnimatePresence 以供其他組件使用
-export { AnimatePresence, motion };
+// 圖像陣列，可依需求調整
+const images = [
+  '/images/graphic1.jpg',
+  '/images/graphic2.jpg',
+  '/images/graphic3.jpg',
+  // 在此新增更多圖檔路徑
+];
+
+export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
+  return (
+    <div className="relative w-full min-h-screen overflow-hidden bg-[var(--color-bg)]">
+      {/* 固定在視口中心的環形動畫 */}
+      <div
+        className="fixed left-1/2 top-1/2 w-[80vmin] h-[80vmin] -translate-x-1/2 -translate-y-1/2 origin-center animate-spin-custom pointer-events-none"
+      >
+        <svg
+          className="w-full h-full"
+          viewBox="0 0 200 200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="100"
+            cy="100"
+            r="95"
+            stroke="currentColor"
+            strokeWidth="10"
+            fill="none"
+          />
+        </svg>
+      </div>
+
+      {/* Carousel 內容 */}
+      <MotionDiv
+        className="relative z-10 flex items-center justify-center h-full"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+        }}
+      >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-8">
+          {images.map((src, idx) => (
+            <MotionDiv
+              key={idx}
+              className="overflow-hidden rounded-lg shadow-lg cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              onClick={() => onSelect(src)}
+            >
+              <img
+                src={src}
+                alt={`Graphic ${idx + 1}`}
+                className="w-full h-auto object-cover"
+              />
+            </MotionDiv>
+          ))}
+        </div>
+      </MotionDiv>
+    </div>
+  );
+}
