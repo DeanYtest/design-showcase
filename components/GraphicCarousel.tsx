@@ -1,7 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { motion } from 'framer-motion';
+
+// Prop 型別，接收選取 callback
+interface GraphicCarouselProps {
+  onSelect: Dispatch<SetStateAction<string | null>>;
+}
 
 // 圖像陣列，可依需求調整
 const images = [
@@ -11,7 +16,7 @@ const images = [
   // 在此新增更多圖檔路徑
 ];
 
-export default function GraphicCarousel() {
+export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
   return (
     <div className="relative w-full min-h-screen overflow-hidden bg-[var(--color-bg)]">
       {/* 固定在視口中心的環形動畫 */}
@@ -21,7 +26,7 @@ export default function GraphicCarousel() {
         <svg
           className="w-full h-full"
           viewBox="0 0 200 200"
-          xmlns="http://www.w3.org/2000/svg"
+          xmlns="https://www.w3.org/2000/svg"
         >
           <circle
             cx="100"
@@ -48,8 +53,9 @@ export default function GraphicCarousel() {
           {images.map((src, idx) => (
             <motion.div
               key={idx}
-              className="overflow-hidden rounded-lg shadow-lg"
+              className="overflow-hidden rounded-lg shadow-lg cursor-pointer"
               whileHover={{ scale: 1.05 }}
+              onClick={() => onSelect(src)}
             >
               <img
                 src={src}
