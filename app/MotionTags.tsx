@@ -1,16 +1,15 @@
 'use client';
 
 import React, { Dispatch, SetStateAction } from 'react';
-// 使用專案內已存在的 MotionDiv 組件
-import MotionDiv from '../components/ui/MotionDiv';
+import { motion } from 'framer-motion';
 
-// Prop 型別，接收選取 callback
+// 接收選取圖片回調
 interface GraphicCarouselProps {
   onSelect: Dispatch<SetStateAction<string | null>>;
 }
 
 // 圖像陣列，可依需求調整
-const images = [
+const images: string[] = [
   '/images/graphic1.jpg',
   '/images/graphic2.jpg',
   '/images/graphic3.jpg',
@@ -20,7 +19,7 @@ const images = [
 export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
   return (
     <div className="relative w-full min-h-screen overflow-hidden bg-[var(--color-bg)]">
-      {/* 固定在視口中心的環形動畫 */}
+      {/* 環形動畫 - 固定於視口中央 */}
       <div
         className="fixed left-1/2 top-1/2 w-[80vmin] h-[80vmin] -translate-x-1/2 -translate-y-1/2 origin-center animate-spin-custom pointer-events-none"
       >
@@ -34,14 +33,14 @@ export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
             cy="100"
             r="95"
             stroke="currentColor"
-            strokeWidth="10"
+            strokeWidth={10}
             fill="none"
           />
         </svg>
       </div>
 
-      {/* Carousel 內容 */}
-      <MotionDiv
+      {/* 圖片 Carousel 內容 */}
+      <motion.div
         className="relative z-10 flex items-center justify-center h-full"
         initial="hidden"
         animate="visible"
@@ -52,7 +51,7 @@ export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-8">
           {images.map((src, idx) => (
-            <MotionDiv
+            <motion.div
               key={idx}
               className="overflow-hidden rounded-lg shadow-lg cursor-pointer"
               whileHover={{ scale: 1.05 }}
@@ -63,10 +62,10 @@ export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
                 alt={`Graphic ${idx + 1}`}
                 className="w-full h-auto object-cover"
               />
-            </MotionDiv>
+            </motion.div>
           ))}
         </div>
-      </MotionDiv>
+      </motion.div>
     </div>
   );
 }
