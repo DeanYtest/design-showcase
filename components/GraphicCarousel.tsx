@@ -1,7 +1,7 @@
 'use client';
 
 import React, { Dispatch, SetStateAction } from 'react';
-import { motion } from 'framer-motion';
+import { MotionDiv } from '../app/MotionTags';
 
 // Prop 型別，接收選取 callback
 interface GraphicCarouselProps {
@@ -26,7 +26,7 @@ export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
         <svg
           className="w-full h-full"
           viewBox="0 0 200 200"
-          xmlns="https://www.w3.org/2000/svg"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <circle
             cx="100"
@@ -40,7 +40,7 @@ export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
       </div>
 
       {/* Carousel 內容 */}
-      <motion.div
+      <MotionDiv
         className="relative z-10 flex items-center justify-center h-full"
         initial="hidden"
         animate="visible"
@@ -51,7 +51,7 @@ export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-8">
           {images.map((src, idx) => (
-            <motion.div
+            <MotionDiv
               key={idx}
               className="overflow-hidden rounded-lg shadow-lg cursor-pointer"
               whileHover={{ scale: 1.05 }}
@@ -62,10 +62,10 @@ export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
                 alt={`Graphic ${idx + 1}`}
                 className="w-full h-auto object-cover"
               />
-            </motion.div>
+            </MotionDiv>
           ))}
         </div>
-      </motion.div>
+      </MotionDiv>
     </div>
   );
 }
