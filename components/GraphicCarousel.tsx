@@ -1,9 +1,10 @@
+// components/GraphicCarousel.tsx
 'use client';
 
 import React, { Dispatch, SetStateAction } from 'react';
 import { motion, HTMLMotionProps } from 'framer-motion';
 
-// 透過 HTMLMotionProps<'div'> 正確取得 motion.div 的型別，支援 className、onClick 等原生屬性
+// 使用 HTMLMotionProps<'div'> 正確獲取 motion.div 的型別
 type MotionDivProps = HTMLMotionProps<'div'>;
 const MotionDiv: React.FC<MotionDivProps> = motion.div;
 
@@ -15,7 +16,7 @@ const images: string[] = [
   '/images/graphic1.jpg',
   '/images/graphic2.jpg',
   '/images/graphic3.jpg',
-  // 如需更多圖檔，可在此新增
+  // 如需更多圖檔，可新增
 ];
 
 export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
