@@ -2,11 +2,10 @@
 'use client';
 
 import React, { Dispatch, SetStateAction } from 'react';
-import { motion, HTMLMotionProps } from 'framer-motion';
+import { motion } from 'framer-motion';
 
-// 使用 HTMLMotionProps<'div'> 正確獲取 motion.div 的型別
-type MotionDivProps = HTMLMotionProps<'div'>;
-const MotionDiv: React.FC<MotionDivProps> = motion.div;
+// 使用 motion() 泛型工廠，為 div 元素建立正確的 Motion 組件
+const MotionDiv = motion<HTMLDivElement>('div');
 
 interface GraphicCarouselProps {
   onSelect: Dispatch<SetStateAction<string | null>>;
@@ -36,7 +35,10 @@ export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
         className="relative z-10 flex items-center justify-center h-full"
         initial="hidden"
         animate="visible"
-        variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
+        }}
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-8">
           {images.map((src, idx) => (
@@ -46,7 +48,11 @@ export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
               whileHover={{ scale: 1.05 }}
               onClick={() => onSelect(src)}
             >
-              <img src={src} alt={`Graphic ${idx + 1}`} className="w-full h-auto object-cover" />
+              <img
+                src={src}
+                alt={`Graphic ${idx + 1}`}
+                className="w-full h-auto object-cover"
+              />
             </MotionDiv>
           ))}
         </div>
