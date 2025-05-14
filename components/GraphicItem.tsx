@@ -2,17 +2,16 @@
 'use client';
 
 import Image from 'next/image';
-import { motion } from '@/app/MotionTags';
+import { motion } from 'framer-motion';
 
 interface GraphicItemProps {
   src: string;
+  className?: string;
 }
 
-export default function GraphicItem({ src }: GraphicItemProps) {
+export default function GraphicItem({ src, className = '' }: GraphicItemProps) {
   return (
-    // ← 普通 div 放所有样式
-    <div className="relative w-full h-full overflow-hidden rounded-xl shadow-lg">
-      {/* ← motion.div 只负责动画，不带任何 className/style */}
+    <div className={`relative w-full h-full overflow-hidden rounded-xl shadow-lg ${className}`}>  
       <motion.div
         whileHover={{ scale: 1.1 }}
         transition={{ duration: 0.3 }}
