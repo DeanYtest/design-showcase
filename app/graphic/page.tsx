@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import GraphicCarousel from '@/components/GraphicCarousel';
 import Modal from '@/components/ui/Modal';
-import FooterDark from '@/app/FooterDark';
+import FooterDark from '@/components/ui/FooterDark';
 
 export default function GraphicPage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -16,12 +16,10 @@ export default function GraphicPage() {
         <GraphicCarousel onSelect={setSelectedImage} />
       </div>
 
-      {/* 手機：半圓排列 + 標題 */}
+      {/* 手機：半圓排列 + 標題（若要可自行改用 Carousel props） */}
       <div className="md:hidden flex flex-1 items-center justify-center relative">
-        {/* 半圓架構示例，亦可用 GraphicCarousel 調整為半圓 */}
         <div className="relative w-60 h-36">
-          {/* 改為自己控制半圓排列 */}
-          {/* 這裡若需要改則插入 GraphicCarousel props */}
+          {/* 舊版手機排列邏輯或呼叫不同 props */}
         </div>
         <h1 className="absolute bottom-4 text-2xl font-bold">平面設計</h1>
       </div>
