@@ -11,15 +11,16 @@ export default function GraphicPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white text-black">
-      {/* 桌機 & 平板：完整圓環 */}
+      {/* 桌機 & 平板：完整圓環，不使用 CSS spin 類 */}
       <div className="hidden md:flex flex-1 items-center justify-center">
         <GraphicCarousel onSelect={setSelectedImage} />
       </div>
 
-      {/* 手機：半圓排列 + 標題（若要可自行改用 Carousel props） */}
+      {/* 手機：半圓排列 + 標題 */}
       <div className="md:hidden flex flex-1 items-center justify-center relative">
+        {/* 半圓示例，如果需，亦可改為 GraphicCarousel props pattern */}
         <div className="relative w-60 h-36">
-          {/* 舊版手機排列邏輯或呼叫不同 props */}
+          {/* ...手機版半圓排列程式碼... */}
         </div>
         <h1 className="absolute bottom-4 text-2xl font-bold">平面設計</h1>
       </div>
