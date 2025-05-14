@@ -1,7 +1,6 @@
 // components/GraphicCarousel.tsx
 'use client';
 
-import { MotionDiv } from '@/app/MotionTags';
 import GraphicItem from './GraphicItem';
 
 interface GraphicCarouselProps {
@@ -16,12 +15,13 @@ const images: string[] = Array.from(
 export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
   return (
     <div className="relative w-full h-[600px] md:h-screen flex items-center justify-center overflow-hidden">
-      {/* 直接使用 MotionDiv 作為旋轉容器，透過 flex 置中 */}
-      <MotionDiv
-        className="relative w-[80vmin] h-[80vmin]"
-        animate={{ rotate: 360 }}
-        transition={{ repeat: Infinity, duration: 48, ease: 'linear' }}
-        style={{ transformOrigin: 'center center' }}
+      {/* 圓環容器：使用 CSS 動畫, 置中固定 */}
+      <div
+        className="absolute left-1/2 top-1/2 w-[80vmin] h-[80vmin] -translate-x-1/2 -translate-y-1/2"
+        style={{
+          animation: 'spin 48s linear infinite',
+          transformOrigin: 'center center',
+        }}
       >
         {images.map((img, i) => {
           const angle = (360 / images.length) * i;
@@ -36,13 +36,20 @@ export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
             </div>
           );
         })}
-      </MotionDiv>
+      </div>
 
-      {/* 靜止中心文本與提示 */}
+      {/* 靜止中心文字及提示 */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
         <h2 className="text-3xl font-semibold">平面設計</h2>
         <p className="mt-2 text-sm text-gray-500">click to explore</p>
       </div>
+
+      <style jsx>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 }
