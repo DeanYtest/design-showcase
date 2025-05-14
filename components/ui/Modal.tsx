@@ -1,8 +1,8 @@
 // components/ui/Modal.tsx
 'use client';
 
-import { ReactNode } from 'react';
-import { AnimatePresence, motion } from '@/app/MotionTags';
+import React, { ReactNode } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface ModalProps {
   isOpen: boolean;
@@ -11,33 +11,34 @@ interface ModalProps {
   children: ReactNode;
 }
 
-export default function Modal({ isOpen, onClose, title, children }: ModalProps) {
+export default function Modal({
+  isOpen,
+  onClose,
+  title,
+  children,
+}: ModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        // ── 最外層普通 div：放置所有 className、onClick
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
           onClick={onClose}
         >
-          {/*
-            motion.div 只用來做動畫，**不帶** className
-            動畫關閉時遮罩透明度同時變回 0
-          */}
+          {/* 背景淡入淡出 */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            {/*
-              內容容器也是普通 div：放置 className、onClick stopPropagation
-            */}
+            {/* 內容容器 */}
             <div
               className="bg-white rounded-xl p-6 max-w-lg w-full"
-              onClick={e => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
             >
-              {title && <h2 className="text-2xl font-semibold mb-4">{title}</h2>}
+              {title && (
+                <h2 className="text-2xl font-semibold mb-4">{title}</h2>
+              )}
               <div className="mb-4">{children}</div>
               <button
                 onClick={onClose}
