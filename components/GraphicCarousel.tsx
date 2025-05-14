@@ -26,28 +26,31 @@ export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
 
   return (
     <div className="relative w-full h-[600px] flex items-center justify-center">
+      {/* 使用 motion.div 只處理旋轉動畫，不直接帶 className */}
       <motion.div
-        className="absolute w-full h-full"
         animate={{ rotate: rotation }}
         style={{ transformOrigin: 'center center' }}
       >
-        {images.map((img, index) => {
-          const angle = (360 / images.length) * index;
-          const rad = (angle * Math.PI) / 180;
-          const x = centerX + radius * Math.cos(rad) - 50;
-          const y = centerY + radius * Math.sin(rad) - 50;
+        {/* 將位置與樣式移到內部 div */}
+        <div className="absolute w-full h-full">
+          {images.map((img, index) => {
+            const angle = (360 / images.length) * index;
+            const rad = (angle * Math.PI) / 180;
+            const x = centerX + radius * Math.cos(rad) - 50;
+            const y = centerY + radius * Math.sin(rad) - 50;
 
-          return (
-            <div
-              key={index}
-              className="absolute cursor-pointer"
-              style={{ left: `${x}px`, top: `${y}px` }}
-              onClick={() => onSelect(img)}
-            >
-              <GraphicItem src={img} />
-            </div>
-          );
-        })}
+            return (
+              <div
+                key={index}
+                className="absolute cursor-pointer"
+                style={{ left: `${x}px`, top: `${y}px` }}
+                onClick={() => onSelect(img)}
+              >
+                <GraphicItem src={img} />
+              </div>
+            );
+          })}
+        </div>
       </motion.div>
 
       <div className="absolute text-center text-black text-xl font-bold">
