@@ -2,7 +2,7 @@
 'use client';
 
 import { useEffect, useState, useRef, useLayoutEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from '@/app/MotionTags';
 import GraphicItem from './GraphicItem';
 
 interface GraphicCarouselProps {
