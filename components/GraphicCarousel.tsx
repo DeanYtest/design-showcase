@@ -1,3 +1,4 @@
+// components/GraphicCarousel.tsx
 'use client';
 
 import { motion } from '@/app/MotionTags';
@@ -7,7 +8,7 @@ interface GraphicCarouselProps {
   onSelect: (img: string) => void;
 }
 
-// 20 張示例圖
+// 使用示例圖，總計 20 張
 const images: string[] = Array.from(
   { length: 20 },
   (_, i) => `/images/graphic/image${(i % 5) + 1}.jpg`
@@ -16,9 +17,9 @@ const images: string[] = Array.from(
 export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
   return (
     <div className="relative w-full h-[600px] md:h-screen flex items-center justify-center overflow-hidden">
-      {/* 圓環容器：大小為視窗 vmin，置中 */}
+      {/* 圓環容器：寬高均取 80vmin，絕對置中 */}
       <div className="absolute left-1/2 top-1/2 w-[80vmin] h-[80vmin] -translate-x-1/2 -translate-y-1/2">
-        {/* 緩線性旋轉 */}
+        {/* 緩線性、無限循環旋轉 */}
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 40, ease: 'linear' }}
