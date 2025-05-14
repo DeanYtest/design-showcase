@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import GraphicCarousel from '@/components/GraphicCarousel';
 import Modal from '@/components/ui/Modal';
-import FooterDark from '@/components/ui/FooterDark';
+import FooterDark from '@/app/FooterDark';
 
 export default function GraphicPage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
