@@ -5,7 +5,7 @@ import { useState } from 'react';
 import GraphicCarousel from '@/components/GraphicCarousel';
 import GraphicItem from '@/components/GraphicItem';
 import Modal from '@/components/ui/Modal';
-import FooterDark from '@/components/ui/FooterDark';
+import FooterDark from '@/app/FooterDark';
 
 // 手機半圓示例資料與槽位
 const rawImages = [
