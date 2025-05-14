@@ -1,55 +1,65 @@
-// components/GraphicCarousel.tsx
 'use client';
 
-import GraphicItem from './GraphicItem';
+import React from 'react';
+import { motion } from 'framer-motion';
 
-interface GraphicCarouselProps {
-  onSelect: (img: string) => void;
-}
+// 圖像陣列，可依需求調整
+const images = [
+  '/images/graphic1.jpg',
+  '/images/graphic2.jpg',
+  '/images/graphic3.jpg',
+  // 在此新增更多圖檔路徑
+];
 
-const images: string[] = Array.from(
-  { length: 20 },
-  (_, i) => `/images/graphic/image${(i % 5) + 1}.jpg`
-);
-
-export default function GraphicCarousel({ onSelect }: GraphicCarouselProps) {
+export default function GraphicCarousel() {
   return (
-    <div className="relative w-full h-[600px] md:h-screen flex items-center justify-center overflow-hidden">
-      {/* 圓環容器：使用 CSS 動畫, 置中固定 */}
+    <div className="relative w-full min-h-screen overflow-hidden bg-[var(--color-bg)]">
+      {/* 固定在視口中心的環形動畫 */}
       <div
-        className="absolute left-1/2 top-1/2 w-[80vmin] h-[80vmin] -translate-x-1/2 -translate-y-1/2"
-        style={{
-          animation: 'spin 48s linear infinite',
-          transformOrigin: 'center center',
+        className="fixed left-1/2 top-1/2 w-[80vmin] h-[80vmin] -translate-x-1/2 -translate-y-1/2 origin-center animate-spin-custom pointer-events-none"
+      >
+        <svg
+          className="w-full h-full"
+          viewBox="0 0 200 200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="100"
+            cy="100"
+            r="95"
+            stroke="currentColor"
+            strokeWidth="10"
+            fill="none"
+          />
+        </svg>
+      </div>
+
+      {/* Carousel 內容 */}
+      <motion.div
+        className="relative z-10 flex items-center justify-center h-full"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
         }}
       >
-        {images.map((img, i) => {
-          const angle = (360 / images.length) * i;
-          return (
-            <div
-              key={i}
-              className="absolute left-1/2 top-1/2 transform-gpu cursor-pointer"
-              style={{ transform: `rotate(${angle}deg) translate(40vmin) rotate(${-angle}deg)` }}
-              onClick={() => onSelect(img)}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-8">
+          {images.map((src, idx) => (
+            <motion.div
+              key={idx}
+              className="overflow-hidden rounded-lg shadow-lg"
+              whileHover={{ scale: 1.05 }}
             >
-              <GraphicItem src={img} hoverEffect="flip" />
-            </div>
-          );
-        })}
-      </div>
-
-      {/* 靜止中心文字及提示 */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-        <h2 className="text-3xl font-semibold">平面設計</h2>
-        <p className="mt-2 text-sm text-gray-500">click to explore</p>
-      </div>
-
-      <style jsx>{`
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
+              <img
+                src={src}
+                alt={`Graphic ${idx + 1}`}
+                className="w-full h-auto object-cover"
+              />
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
     </div>
   );
 }

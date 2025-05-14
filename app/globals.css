@@ -120,3 +120,14 @@
   .wave-bg { height: 9vh; }
   .animated-gradient { --duration-gradient: 35s; }
 }
+
+/* 10. 自訂旋轉動畫（spin 48s） */
+@layer utilities {
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .animate-spin-custom {
+    animation: spin 48s linear infinite;
+  }
+}
